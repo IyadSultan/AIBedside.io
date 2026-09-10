@@ -95,6 +95,10 @@
       if (nextBtn) {
         nextBtn.textContent = step === LAST ? "Back to paper" : "Next";
       }
+      var video = $("fn-video");
+      if (video && step !== 4) {
+        video.pause();
+      }
       if (step === LAST) {
         window.setTimeout(renderMermaid, 50);
       }

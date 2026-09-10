@@ -46,7 +46,10 @@ permalink: /block-02-literature/
 
   <div class="demo-stage" id="stage-4" hidden>
     <p class="demo-stage-kicker">Studio &mdash; Video overview</p>
-    <img class="demo-shot" src="{{ site.baseurl }}/assets/block-02/notebooklm-loaded.png" alt="NotebookLM studio with Video overview generating" />
+    <video class="demo-video" id="fn-video" controls playsinline preload="metadata">
+      <source src="{{ site.baseurl }}/assets/videos/2023_Pediatric_FN_Update.mp4" type="video/mp4" />
+      Your browser cannot play this video.
+    </video>
   </div>
 
   <div class="demo-stage" id="stage-5" hidden>
