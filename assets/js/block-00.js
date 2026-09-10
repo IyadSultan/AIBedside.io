@@ -13,7 +13,7 @@
     briefing:
       "You are a pediatric oncologist briefing a registrar on a childhood-cancer unit.\n\n" +
       "Synthetic case (not a real patient):\n" +
-      "- Lina K., 6 years, B-ALL, day 10 after intensification\n" +
+      "- 6-year-old, B-ALL, day 10 after intensification\n" +
       "- Tunneled central line\n" +
       "- Fever 38.8°C at home for 2 hours\n" +
       "- ANC this morning 80 /µL\n" +

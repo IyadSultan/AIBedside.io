@@ -16,7 +16,7 @@ permalink: /block-00-open/
       <span class="demo-pill">Synthetic case</span>
       <span class="demo-pill demo-pill-warn">Not a real patient</span>
     </div>
-    <h2>Lina K., 6 years &mdash; fever on day 10</h2>
+    <h2>6-year-old &mdash; fever on day 10</h2>
     <ul>
       <li>B-ALL, day 10 after intensification. Tunneled central line.</li>
       <li>Temperature 38.8°C at home for 2 hours. ANC this morning: 80 /µL.</li>
