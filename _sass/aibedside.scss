@@ -401,12 +401,6 @@
     max-width: 760px;
 }
 
-.demo-lead {
-    color: #607D8B;
-    margin: -0.75rem 0 1.5rem;
-    line-height: 1.55;
-}
-
 .demo-case {
     border: 1px solid #B2DFDB;
     border-left: 4px solid #00897B;
@@ -553,12 +547,6 @@
     margin-bottom: 0.4rem;
 }
 
-.demo-response-label {
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: #00695C;
-}
-
 .demo-response {
     border-radius: 0.65rem;
     padding: 1rem 1.15rem;
@@ -587,74 +575,3 @@
     margin: 0.4rem 0 0.6rem 1.15rem;
 }
 
-.demo-seen {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin: 0.75rem 0 1.25rem;
-}
-
-.demo-seen-chip {
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: #90A4AE;
-    border: 1px dashed #CFD8DC;
-    border-radius: 999px;
-    padding: 0.2rem 0.6rem;
-}
-
-.demo-seen-chip.is-on {
-    color: #00695C;
-    border-style: solid;
-    border-color: #B2DFDB;
-    background: #E0F2F1;
-}
-
-.demo-compare {
-    margin: 1.25rem 0 1.5rem;
-}
-
-.demo-compare h2 {
-    font-size: 0.95rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: #455A64;
-    margin: 0 0 0.75rem;
-}
-
-.demo-compare-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
-    margin-bottom: 0.85rem;
-}
-
-.demo-compare-grid div {
-    border: 1px solid #E0E0E0;
-    border-radius: 0.65rem;
-    padding: 0.85rem 1rem;
-    background: #fff;
-}
-
-.demo-compare-grid .k {
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: #90A4AE;
-    margin: 0 0 0.35rem;
-}
-
-.demo-compare-grid p {
-    margin: 0;
-    font-size: 0.88rem;
-    line-height: 1.45;
-    color: #37474F;
-}
-
-@media screen and (max-width: 600px) {
-    .demo-compare-grid {
-        grid-template-columns: 1fr;
-    }
-}

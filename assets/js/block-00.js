@@ -32,21 +32,18 @@
 
   var ANSWERS = {
     lazy: {
-      label: "Answer to a search-style prompt",
       tone: "lazy",
       html:
         "<p>Fever after chemotherapy is common. Give paracetamol, encourage fluids, and review in the morning clinic if she is otherwise well. A 2019 Smith review found most of these episodes settle at home.</p>" +
         "<p>If she looks unwell, consider antibiotics.</p>"
     },
     middle: {
-      label: "Answer to a half-briefed prompt",
       tone: "middle",
       html:
         "<p>Fever in a child on chemotherapy can be serious. She should be assessed the same day, and the team will usually check a blood count and consider antibiotics.</p>" +
         "<p>I do not have enough detail here (counts, lines, allergies, timing) to be more specific.</p>"
     },
     briefing: {
-      label: "Answer to a briefing",
       tone: "briefing",
       html:
         "<p><strong>This is a teaching case, not an order.</strong></p>" +
@@ -100,31 +97,13 @@
   function renderAnswer(key) {
     var answer = ANSWERS[key];
     var box = $("demo-response");
-    var label = $("demo-response-label");
-    if (!box || !label || !answer) {
+    if (!box || !answer) {
       return;
     }
-    label.textContent = answer.label;
     box.setAttribute("data-tone", answer.tone);
     box.innerHTML = answer.html;
     box.hidden = false;
     $("demo-response-wrap").hidden = false;
-  }
-
-  function markSeen(key) {
-    var chip = $("seen-" + key);
-    if (chip) {
-      chip.classList.add("is-on");
-    }
-  }
-
-  function maybeShowCompare() {
-    var lazyOn = $("seen-lazy") && $("seen-lazy").classList.contains("is-on");
-    var briefOn = $("seen-briefing") && $("seen-briefing").classList.contains("is-on");
-    var compare = $("demo-compare");
-    if (compare && lazyOn && briefOn) {
-      compare.hidden = false;
-    }
   }
 
   function ask() {
@@ -147,9 +126,7 @@
       window.setTimeout(function () {
         var key = classify(prompt);
         renderAnswer(key);
-        markSeen(key);
-        maybeShowCompare();
-        showStatus("Change the prompt and ask again — the answer should change with it.");
+        showStatus("");
         if (askBtn) {
           askBtn.disabled = false;
           askBtn.focus();
@@ -167,7 +144,7 @@
     }
     promptBox.value = PRESETS[name];
     promptBox.focus();
-    showStatus("Prompt loaded. Click “Ask the model”.");
+    showStatus("");
   }
 
   function ready() {
@@ -191,7 +168,6 @@
 
     // Start with the lazy prompt so the first click is one step.
     loadPreset("lazy");
-    showStatus("Click “Ask the model”. Then load the briefing and ask again.");
   }
 
   if (document.readyState === "loading") {

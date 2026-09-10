@@ -10,7 +10,6 @@ permalink: /block-00-open/
     <span class="block-kicker">Open</span>
   </div>
   <h1>The same question, asked twice</h1>
-  <p class="demo-lead">One synthetic case. Ask once with a lazy prompt. Change the prompt. Ask again. Watch the answer change.</p>
 
   <div class="demo-case">
     <div class="demo-case-top">
@@ -41,34 +40,12 @@ permalink: /block-00-open/
   <div id="demo-response-wrap" class="demo-response-wrap" hidden>
     <div class="demo-response-head">
       <span class="demo-label">Model reply</span>
-      <span class="demo-response-label" id="demo-response-label"></span>
     </div>
     <div id="demo-response" class="demo-response" data-tone=""></div>
   </div>
 
-  <div class="demo-seen">
-    <span class="demo-seen-chip" id="seen-lazy">Lazy answer seen</span>
-    <span class="demo-seen-chip" id="seen-middle">Half-briefed seen</span>
-    <span class="demo-seen-chip" id="seen-briefing">Briefing answer seen</span>
-  </div>
-
-  <div id="demo-compare" class="demo-compare" hidden>
-    <h2>What changed</h2>
-    <div class="demo-compare-grid">
-      <div>
-        <p class="k">Search-style prompt</p>
-        <p>Sounds sure. Invents a paper. Says wait until morning. Misses the line, the ANC, and the allergy.</p>
-      </div>
-      <div>
-        <p class="k">Briefing</p>
-        <p>Come in now. Uses the facts you gave. Names the allergy. Refuses to invent a citation. Says it is teaching, not an order.</p>
-      </div>
-    </div>
-    <div class="callout callout-takehome">A prompt is a briefing, not a search query.</div>
-  </div>
-
   <div class="phi-line">
-    This demo never calls a live model, and it never leaves this page. Do not paste a real patient into a consumer AI tool.
+    Never paste a real patient into a consumer AI tool.
   </div>
 
   <div class="block-nav">
