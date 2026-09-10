@@ -1,0 +1,24 @@
+title: AI at the Bedside
+description: >-
+  SIOP 2026 Global Health Session companion site — a practical introduction
+  to AI for the whole childhood-cancer team. King Hussein Cancer Center.
+theme: minima
+header_pages: []
+show_excerpts: false
+
+baseurl: "/AIBedside.io"
+url: "https://iyadsultan.github.io"
+
+markdown: kramdown
+kramdown:
+  input: GFM
+
+plugins:
+  - jekyll-relative-links
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - _sources/
+  - node_modules/
