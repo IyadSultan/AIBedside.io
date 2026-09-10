@@ -7,53 +7,65 @@ permalink: /
 <style>
   .site-nav { display: none !important; }
   .site-header {
-    border-top: 5px solid #034EA2 !important;
-    border-bottom: 3px solid #EC008C !important;
-    min-height: 52px !important;
+    background: #21409A !important;
+    border-top: 0 !important;
+    border-bottom: 4px solid #EC008C !important;
+    min-height: 72px !important;
   }
   .site-title, .site-title:visited {
     display: inline-flex !important;
     align-items: center;
-    gap: 0.65rem;
-    color: #034EA2 !important;
+    gap: 0.75rem;
+    color: #ffffff !important;
     font-weight: 800 !important;
   }
-  .siop-bar-logo { width: 40px; height: 40px; object-fit: contain; vertical-align: middle; }
+  .siop-bar-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    background: #ffffff;
+    border-radius: 10px;
+  }
+  .siop-bar-copy { display: flex; flex-direction: column; line-height: 1.15; }
+  .siop-bar-name { font-size: 1.05rem; }
+  .siop-bar-meta { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; color: #FFC20E; }
   .cci-logo:visited { color: inherit; }
   .cci-logo-text { text-align: center; }
   .page-content { padding-top: 0 !important; }
 
   .cci-hero {
     text-align: center;
-    padding: 2.5rem 1rem 2rem;
-    border-bottom: 1px solid #E0E0E0;
-    margin-bottom: 2rem;
+    padding: 2.25rem 1rem 2.25rem;
+    margin: 0 0 2rem;
+    background: linear-gradient(180deg, #E8F1FB 0%, #ffffff 78%);
+    border-bottom: 1px solid #D6E4F5;
   }
 
   .cci-logo {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.45rem;
-    margin-bottom: 1.5rem;
+    gap: 0.55rem;
+    margin-bottom: 1.35rem;
     text-decoration: none;
   }
 
   .cci-logo .siop-wordmark {
     display: block;
-    width: min(280px, 86vw);
+    width: min(340px, 88vw);
     height: auto;
   }
 
   .cci-logo-text .subtitle {
     font-size: 0.78rem;
-    color: #5C95CE;
-    font-weight: 600;
-    letter-spacing: 0.03em;
+    color: #EC008C;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
   .cci-hero h1 {
-    color: #1B2A4A;
+    color: #21409A;
     font-size: 1.85rem;
     font-weight: 800;
     margin: 0 0 0.5rem;

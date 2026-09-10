@@ -6,31 +6,51 @@
 }
 
 .site-header {
-    border-top: 5px solid #034EA2;
-    border-bottom: 3px solid #EC008C;
-    min-height: 52px;
+    background: #21409A !important;
+    border-top: 0 !important;
+    border-bottom: 4px solid #EC008C !important;
+    min-height: 72px;
 }
 
 .siop-bar {
     display: flex;
     align-items: center;
-    min-height: 52px;
+    min-height: 72px;
 }
 
 .site-title,
 .site-title:visited {
-    display: inline-flex;
+    display: inline-flex !important;
     align-items: center;
-    gap: 0.65rem;
-    color: #034EA2 !important;
+    gap: 0.75rem;
+    color: #ffffff !important;
     font-weight: 800 !important;
 }
 
 .siop-bar-logo {
     display: block;
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
     object-fit: contain;
+    background: #ffffff;
+    border-radius: 10px;
+}
+
+.siop-bar-copy {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+}
+
+.siop-bar-name {
+    font-size: 1.05rem;
+}
+
+.siop-bar-meta {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #FFC20E;
 }
 
 .page-content {
