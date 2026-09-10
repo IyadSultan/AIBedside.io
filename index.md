@@ -254,7 +254,7 @@ permalink: /
     <div class="cci-num" style="background:#00897B;">2</div>
     <div class="cci-card-body">
       <p class="title">Reading the literature <span class="cci-active-badge">00:12</span></p>
-      <p class="desc">Cited answers, evidence spread, your own guideline folder.</p>
+      <p class="desc">One guideline: NotebookLM, infographic, video, artifact, mermaid.</p>
     </div>
     <span class="arrow">&#8250;</span>
   </a>
