@@ -774,3 +774,136 @@
     }
 }
 
+.demo-skill-file {
+    margin: 0.75rem 0;
+    padding: 0.9rem 1rem;
+    border: 1px solid #E0E0E0;
+    border-left: 4px solid #7B1FA2;
+    border-radius: 0.65rem;
+    background: #FAFAFA;
+    color: #263238;
+    font: 400 0.82rem/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    white-space: pre-wrap;
+    overflow-x: auto;
+}
+
+.demo-skill-result {
+    margin: 0.85rem 0 0.5rem;
+    padding: 0.9rem 1.1rem;
+    border: 1px solid #E0E0E0;
+    border-left: 4px solid #7B1FA2;
+    border-radius: 0.65rem;
+    background: #fff;
+    color: #37474F;
+    line-height: 1.5;
+}
+
+.demo-skill-result p {
+    margin: 0 0 0.55rem;
+}
+
+.demo-skill-result p:last-child {
+    margin-bottom: 0;
+}
+
+.demo-skill-list {
+    margin: 0.5rem 0 0.85rem 1.15rem;
+    color: #37474F;
+    line-height: 1.55;
+}
+
+.demo-share-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+    margin: 0.75rem 0 1.1rem;
+}
+
+.demo-share {
+    border: 1px solid #E0E0E0;
+    border-radius: 0.65rem;
+    padding: 0.85rem 1rem;
+    background: #fff;
+}
+
+.demo-share .k {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #7B1FA2;
+    margin: 0 0 0.35rem;
+}
+
+.demo-share p {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.45;
+    color: #37474F;
+}
+
+.demo-share-avoid {
+    border-color: #FFCDD2;
+    background: #FFF8F8;
+}
+
+.demo-share-avoid .k {
+    color: #C62828;
+}
+
+@media screen and (max-width: 600px) {
+    .demo-share-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.demo-skill-pack {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+    margin: 0.85rem 0 1.5rem;
+}
+
+.demo-skill-card {
+    display: block;
+    border: 1px solid #E0E0E0;
+    border-left: 4px solid #7B1FA2;
+    border-radius: 0.65rem;
+    padding: 0.9rem 1rem;
+    background: #fff;
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+.demo-skill-card:hover {
+    box-shadow: 0 4px 14px rgba(123, 31, 162, 0.12);
+}
+
+.demo-skill-card .name {
+    margin: 0 0 0.3rem;
+    font-weight: 800;
+    font-size: 0.92rem;
+    color: #4A148C;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.demo-skill-card .brief {
+    margin: 0 0 0.55rem;
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: #37474F;
+}
+
+.demo-skill-card .get {
+    margin: 0;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #7B1FA2;
+}
+
+@media screen and (max-width: 600px) {
+    .demo-skill-pack {
+        grid-template-columns: 1fr;
+    }
+}
+

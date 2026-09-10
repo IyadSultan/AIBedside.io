@@ -12,7 +12,7 @@ permalink: /preparation/
 <h2 class="block-kicker" style="display:block;margin-bottom:0.75rem;">Pre-build</h2>
 
 <div class="callout callout-onscreen" style="margin-bottom:0.75rem;">
-  The synthetic febrile-neutropenia case, a NotebookLM folder of 4&ndash;6 public guidelines, a ~200-row synthetic unit dataset, the annual-report skill, and one QR handout slide.
+  The synthetic febrile-neutropenia case, a NotebookLM folder of 4&ndash;6 public guidelines, a ~200-row synthetic unit dataset, the ward-thread skill (plus the annual-report skill if you have time), and one QR handout slide.
 </div>
 <div class="callout callout-onscreen" style="margin-bottom:0.75rem;">
   Pre-download and cache the browser-hosted small model on the demo laptop — the first-run download is far too slow to do live.
