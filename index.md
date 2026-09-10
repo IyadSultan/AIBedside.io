@@ -245,7 +245,7 @@ permalink: /
     <div class="cci-num" style="background:#3F51B5;">1</div>
     <div class="cci-card-body">
       <p class="title">Prompting like a guru <span class="cci-active-badge">00:04</span></p>
-      <p class="desc">A prompt is a briefing, not a search query.</p>
+      <p class="desc">Build the prompt: role, context, constraints, format.</p>
     </div>
     <span class="arrow">&#8250;</span>
   </a>
