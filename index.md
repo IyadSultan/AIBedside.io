@@ -6,8 +6,21 @@ permalink: /
 
 <style>
   .site-nav { display: none !important; }
-  .site-header { border-top: 5px solid #00897B !important; min-height: 46px !important; }
-  .site-title, .site-title:visited { color: #00897B !important; font-weight: 800 !important; }
+  .site-header {
+    border-top: 5px solid #034EA2 !important;
+    border-bottom: 3px solid #EC008C !important;
+    min-height: 52px !important;
+  }
+  .site-title, .site-title:visited {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 0.65rem;
+    color: #034EA2 !important;
+    font-weight: 800 !important;
+  }
+  .siop-bar-logo { width: 40px; height: 40px; object-fit: contain; vertical-align: middle; }
+  .cci-logo:visited { color: inherit; }
+  .cci-logo-text { text-align: center; }
   .page-content { padding-top: 0 !important; }
 
   .cci-hero {
@@ -18,25 +31,25 @@ permalink: /
   }
 
   .cci-logo {
-    display: inline-flex;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 0.85rem;
+    gap: 0.45rem;
     margin-bottom: 1.5rem;
     text-decoration: none;
   }
 
-  .cci-logo-text .name {
-    font-size: 1.05rem;
-    font-weight: 800;
-    color: #00695C;
-    letter-spacing: 0.02em;
-    line-height: 1.2;
+  .cci-logo .siop-wordmark {
+    display: block;
+    width: min(280px, 86vw);
+    height: auto;
   }
 
   .cci-logo-text .subtitle {
     font-size: 0.78rem;
-    color: #78909C;
-    font-weight: 500;
+    color: #5C95CE;
+    font-weight: 600;
+    letter-spacing: 0.03em;
   }
 
   .cci-hero h1 {
@@ -59,8 +72,8 @@ permalink: /
     display: inline-flex;
     align-items: center;
     gap: 1rem;
-    background: linear-gradient(135deg, #E0F2F1, #E8EAF6);
-    border: 1px solid #B2DFDB;
+    background: linear-gradient(135deg, #E8F1FB, #FDE8F4);
+    border: 1px solid #B8D0EC;
     border-radius: 0.85rem;
     padding: 0.85rem 1.25rem;
     margin: 1.75rem auto 0;
@@ -78,7 +91,7 @@ permalink: /
 
   .cci-qr-info .label {
     font-weight: 700;
-    color: #00695C;
+    color: #034EA2;
     font-size: 0.82rem;
     margin: 0;
   }
@@ -96,7 +109,7 @@ permalink: /
     color: #1B2A4A;
     margin: 0 0 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid #00897B;
+    border-bottom: 2px solid #034EA2;
     display: inline-block;
   }
 
@@ -120,13 +133,13 @@ permalink: /
   }
 
   .cci-card:hover {
-    border-color: #00897B;
-    box-shadow: 0 4px 14px rgba(0,137,123,0.12);
+    border-color: #034EA2;
+    box-shadow: 0 4px 14px rgba(3,78,162,0.12);
     transform: translateY(-1px);
   }
 
   .cci-card-active {
-    border-left: 4px solid #00897B;
+    border-left: 4px solid #034EA2;
     padding-left: calc(1.1rem - 3px);
   }
 
@@ -170,7 +183,7 @@ permalink: /
   }
 
   .cci-card:hover .arrow {
-    color: #00897B;
+    color: #034EA2;
     transform: translateX(3px);
   }
 
@@ -178,7 +191,7 @@ permalink: /
     font-size: 0.6rem;
     font-weight: 700;
     color: #fff;
-    background: #00897B;
+    background: #034EA2;
     padding: 0.15rem 0.45rem;
     border-radius: 0.3rem;
     text-transform: uppercase;
@@ -197,27 +210,25 @@ permalink: /
   }
 
   .cci-footer-note a {
-    color: #00897B;
+    color: #034EA2;
     text-decoration: none;
   }
 </style>
 
 <div class="cci-hero">
-  <div class="cci-logo">
-    <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <rect width="50" height="50" rx="12" fill="#00897B"/>
-      <path d="M12 17C16 17 21 24 25 17C29 10 34 17 38 17" stroke="#FFC107" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      <path d="M12 24C16 24 21 31 25 24C29 17 34 24 38 24" stroke="#FFC107" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.45"/>
-      <text x="25" y="41" text-anchor="middle" fill="white" font-size="9.5" font-weight="800" font-family="system-ui, -apple-system, sans-serif" letter-spacing="0.8">KHCC</text>
-    </svg>
+  <a class="cci-logo" href="https://siop-congress.org/" target="_blank" rel="noopener">
+    <img
+      class="siop-wordmark"
+      src="{{ site.baseurl }}/assets/img/logo-siop-2026.svg"
+      alt="SIOP 2026 — San Antonio, Texas, 15–18 September"
+    />
     <div class="cci-logo-text">
-      <div class="name">King Hussein Cancer Center</div>
-      <div class="subtitle">Cancer Care Informatics &middot; SIOP 2026</div>
+      <div class="subtitle">Global Health Session</div>
     </div>
-  </div>
+  </a>
 
   <h1>AI at the Bedside</h1>
-  <p class="tagline">A practical introduction for the whole childhood-cancer team. Same KHCC house style as <a href="https://iyadsultan.github.io/CCI.io/" style="color:#00897B;font-weight:600;">CCI.io</a>.</p>
+  <p class="tagline">A practical introduction for the whole childhood-cancer team. Companion site for the SIOP 2026 Global Health Session.</p>
 
   <div class="cci-qr-box">
     <img src="{{ site.baseurl }}/qr-code.png" alt="QR code to open this page" />
@@ -334,8 +345,8 @@ permalink: /
 </div>
 
 <div class="cci-footer-note">
-  KHCC Cancer Care Informatics &middot; AI at the Bedside &middot; SIOP 2026 San Antonio<br/>
-  <a href="https://www.khcc.jo" target="_blank" rel="noopener">www.khcc.jo</a>
+  SIOP 2026 San Antonio &middot; AI at the Bedside &middot; Global Health Session<br/>
+  <a href="https://siop-congress.org/" target="_blank" rel="noopener">siop-congress.org</a>
   &nbsp;&middot;&nbsp;
-  <a href="https://iyadsultan.github.io/CCI.io/">CCI.io</a>
+  <a href="https://www.khcc.jo" target="_blank" rel="noopener">King Hussein Cancer Center</a>
 </div>

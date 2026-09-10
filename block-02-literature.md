@@ -46,10 +46,10 @@ permalink: /block-02-literature/
 
   <div class="demo-stage" id="stage-4" hidden>
     <p class="demo-stage-kicker">Studio &mdash; Video overview</p>
-    <video class="demo-video" id="fn-video" controls playsinline preload="metadata">
-      <source src="{{ site.baseurl }}/assets/videos/2023_Pediatric_FN_Update.mp4" type="video/mp4" />
-      Your browser cannot play this video.
-    </video>
+    <p class="demo-stage-copy">NotebookLM turned the same guideline into a short explainer. It opens on Google&rsquo;s site &mdash; we do not host the file here.</p>
+    <p class="demo-open-row">
+      <a class="demo-ask" href="https://notebook.google.com/notebook/bf7046f4-ddc6-4d81-83ce-bab61af7d704/artifact/65fb915b-4854-4a16-ae96-d5eb6b99e9c8" target="_blank" rel="noopener">Watch the video overview</a>
+    </p>
   </div>
 
   <div class="demo-stage" id="stage-5" hidden>

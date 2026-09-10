@@ -1,5 +1,14 @@
 <header class="site-header" role="banner">
-  <div class="wrapper">
-    <a class="site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
+  <div class="wrapper siop-bar">
+    <a class="site-title" rel="author" href="{{ "/" | relative_url }}">
+      <img
+        class="siop-bar-logo"
+        src="{{ site.baseurl }}/assets/img/siop-2026-icon.png"
+        width="40"
+        height="40"
+        alt=""
+      />
+      <span>{{ site.title | escape }}</span>
+    </a>
   </div>
 </header>
