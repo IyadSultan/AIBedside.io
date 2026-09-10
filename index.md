@@ -236,7 +236,7 @@ permalink: /
     <div class="cci-num" style="background:#607D8B;">0</div>
     <div class="cci-card-body">
       <p class="title">Open &mdash; the same question, asked twice <span class="cci-active-badge">00:00</span></p>
-      <p class="desc">A lazy prompt, then a proper briefing. One febrile neutropenia case for the hour.</p>
+      <p class="desc">Click through a lazy prompt, then a briefing. Same synthetic case.</p>
     </div>
     <span class="arrow">&#8250;</span>
   </a>
