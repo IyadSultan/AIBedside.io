@@ -6,14 +6,31 @@
 }
 
 .site-header {
-    border-top: 5px solid #00897B;
-    min-height: 46px;
+    border-top: 5px solid #034EA2;
+    border-bottom: 3px solid #EC008C;
+    min-height: 52px;
+}
+
+.siop-bar {
+    display: flex;
+    align-items: center;
+    min-height: 52px;
 }
 
 .site-title,
 .site-title:visited {
-    color: #00897B !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: #034EA2 !important;
     font-weight: 800 !important;
+}
+
+.siop-bar-logo {
+    display: block;
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
 }
 
 .page-content {
@@ -638,8 +655,37 @@
     background: #fff;
 }
 
+.demo-open-row {
+    margin: 0.85rem 0;
+}
+
+.demo-open-row .demo-ask {
+    margin-top: 0;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.demo-frame {
+    display: block;
+    width: 100%;
+    height: 640px;
+    border: 1px solid #E0E0E0;
+    border-radius: 0.65rem;
+    background: #faf8f4;
+}
+
 .demo-mermaid {
     margin-top: 1rem;
+    border: 1px solid #E0E0E0;
+    border-radius: 0.65rem;
+    padding: 1rem;
+    background: #fff;
+    overflow-x: auto;
+}
+
+.demo-mermaid svg {
+    max-width: 100%;
+    height: auto;
 }
 
 .demo-flow {

@@ -6,6 +6,52 @@
 
   var LAST = 6;
   var step = 0;
+  var mermaidDone = false;
+
+  var FN_GRAPH =
+    "flowchart TD\n" +
+    "  FN[Fever and neutropenia] --> Cul[Blood cultures from every CVC lumen]\n" +
+    "  Cul --> Unst{Clinically unstable?}\n" +
+    "  Unst -->|Yes| Now[Antibiotics now — do not wait]\n" +
+    "  Unst -->|No| Emp[Empiric antibiotics after cultures]\n" +
+    "  Now --> Risk[Validated risk rule]\n" +
+    "  Emp --> Risk\n" +
+    "  Risk --> HR{High-risk?}\n" +
+    "  HR -->|Yes| Mono[Antipseudomonal monotherapy]\n" +
+    "  HR -->|No| Low[Consider outpatient or oral]\n" +
+    "  Mono --> H48{48 hours}\n" +
+    "  Low --> H48\n" +
+    "  H48 --> Stop{Well, afebrile 24h, cultures negative?}\n" +
+    "  Stop -->|Marrow recovery| Off[Stop antibacterials]\n" +
+    "  Stop -->|Low-risk, no recovery| Consider[Consider stop]\n" +
+    "  Stop -->|High-risk, no recovery| Gap[No recommendation]\n" +
+    "  Stop -->|Fever persists to 96h| IFD[IFD pathway]";
+
+  function renderMermaid() {
+    var el = $("fn-mermaid");
+    if (!el || mermaidDone || !window.mermaid) {
+      return;
+    }
+    try {
+      window.mermaid.initialize({
+        startOnLoad: false,
+        theme: "neutral",
+        securityLevel: "loose",
+        flowchart: { curve: "basis", padding: 12 }
+      });
+      window.mermaid
+        .render("fn-mermaid-svg", FN_GRAPH)
+        .then(function (out) {
+          el.innerHTML = out.svg;
+          mermaidDone = true;
+        })
+        .catch(function (err) {
+          el.textContent = "The mermaid diagram failed to draw: " + err.message;
+        });
+    } catch (err) {
+      el.textContent = "The mermaid diagram failed to start: " + err.message;
+    }
+  }
 
   function $(id) {
     return document.getElementById(id);
@@ -48,6 +94,9 @@
       var nextBtn = $("demo-next");
       if (nextBtn) {
         nextBtn.textContent = step === LAST ? "Back to paper" : "Next";
+      }
+      if (step === LAST) {
+        window.setTimeout(renderMermaid, 50);
       }
       showStatus("");
     } catch (err) {

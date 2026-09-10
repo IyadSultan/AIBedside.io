@@ -52,27 +52,16 @@ permalink: /block-02-literature/
   <div class="demo-stage" id="stage-5" hidden>
     <p class="demo-stage-kicker">Paper to artifact</p>
     <img class="demo-shot" src="{{ site.baseurl }}/assets/block-02/artifact.png" alt="Claude prompt: convert this paper to an artifact using the paper-to-artifact skill" />
+    <p class="demo-open-row">
+      <a class="demo-ask" href="{{ site.baseurl }}/assets/artifact/fn-guideline.html" target="_blank" rel="noopener">Open the artifact</a>
+    </p>
+    <iframe class="demo-frame" title="Interactive 2023 fever and neutropenia guideline explainer" src="{{ site.baseurl }}/assets/artifact/fn-guideline.html"></iframe>
   </div>
 
   <div class="demo-stage" id="stage-6" hidden>
     <p class="demo-stage-kicker">Mermaid connector</p>
     <img class="demo-shot" src="{{ site.baseurl }}/assets/block-02/mermaid-prompt.png" alt="Claude prompt: convert to a mermaid diagram using mermaid connector" />
-    <div class="demo-mermaid">
-      <div class="demo-flow">
-        <div class="demo-flow-node">Fever and neutropenia</div>
-        <div class="demo-flow-arrow">Culture every lumen</div>
-        <div class="demo-flow-row">
-          <div class="demo-flow-node demo-flow-warn">Unstable &rarr; antibiotics now</div>
-          <div class="demo-flow-node">Stable &rarr; empiric after cultures</div>
-        </div>
-        <div class="demo-flow-arrow">Risk</div>
-        <div class="demo-flow-row">
-          <div class="demo-flow-node">High-risk &rarr; antipseudomonal monotherapy</div>
-          <div class="demo-flow-node">Low-risk &rarr; consider outpatient or oral</div>
-        </div>
-        <div class="demo-flow-node demo-flow-new">48 h: low-risk, afebrile, cultures negative &rarr; stop antibiotics. Marrow recovery not required.</div>
-      </div>
-    </div>
+    <div class="demo-mermaid" id="fn-mermaid"></div>
   </div>
 
   <div class="demo-controls">
@@ -90,4 +79,5 @@ permalink: /block-02-literature/
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
 <script src="{{ site.baseurl }}/assets/js/block-02.js"></script>
