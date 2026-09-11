@@ -7,8 +7,12 @@
 <style>
   html, body { margin: 0; height: 100%; background: #21409A; }
 </style>
+<link rel="stylesheet" href="{{ "/assets/css/lesson-qr.css" | relative_url }}">
 </head>
 <body>
+{%- if page.url contains '/block-' -%}
+  {% include lesson-qr.html float=true %}
+{%- endif -%}
 {{ content }}
 </body>
 </html>

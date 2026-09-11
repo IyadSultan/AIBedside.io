@@ -152,9 +152,9 @@ body.overview .slide .reveal{opacity:1;transform:none}
 /* ===== Block 0 extras ===== */
 .cover-logo{width:min(280px,36vw);height:auto;display:block}
 .format-cover .cover-logo{margin-bottom:6px}
-.coi{font-size:29px;color:var(--fg-2);max-width:46ch;line-height:1.45}
+.coi{font-size:32px;color:var(--fg-2);max-width:36ch;line-height:1.45}
 .models{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin-top:6px}
-.model{background:var(--bg-2);border:1px solid var(--rule);border-radius:var(--radius);padding:18px 18px 20px;min-height:100px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;border-top:5px solid var(--brand)}
+.model{background:var(--bg-2);border:1px solid var(--rule);border-radius:var(--radius);padding:28px 24px 32px;min-height:200px;display:flex;flex-direction:column;justify-content:flex-end;gap:8px;border-top:6px solid var(--brand)}
 .model[data-m="claude"]{border-top-color:#d97757}
 .model[data-m="chatgpt"]{border-top-color:#10a37f}
 .model[data-m="gemini"]{border-top-color:#4285f4}
@@ -197,37 +197,42 @@ a.quiet{color:inherit}
   <aside class="notes">Click the deck, then F for fullscreen. Arrows or space to advance. N shows these notes.</aside>
 </section>
 
-<section class="slide tight">
+<section class="slide format-statement">
   <p class="kicker reveal">Disclosure</p>
-  <h2 class="reveal" data-delay="1">No conflicts. Only KHCC.</h2>
+  <h1 class="reveal" data-delay="1">No conflicts.<br>Only KHCC.</h1>
   <p class="coi reveal" data-delay="2">I have no conflict of interest. I am not affiliated with Anthropic, OpenAI, Google, Perplexity, or any other AI company. My only institutional affiliation is King Hussein Cancer Center.</p>
+  <aside class="notes">Read this once, slowly. You are not selling a brand. The four model names come next — you are in none of those camps.</aside>
+</section>
+
+<section class="slide">
+  <p class="kicker reveal">Language models</p>
+  <h2 class="reveal" data-delay="1">Four names. Same work.</h2>
   <div class="models">
-    <div class="model reveal scale" data-m="claude" data-delay="3">
+    <div class="model reveal scale" data-m="claude" data-delay="2">
       <span class="maker">Anthropic</span>
       <h3>Claude</h3>
     </div>
-    <div class="model reveal scale" data-m="chatgpt" data-delay="4">
+    <div class="model reveal scale" data-m="chatgpt" data-delay="3">
       <span class="maker">OpenAI</span>
       <h3>ChatGPT</h3>
     </div>
-    <div class="model reveal scale" data-m="gemini" data-delay="5">
+    <div class="model reveal scale" data-m="gemini" data-delay="4">
       <span class="maker">Google</span>
       <h3>Gemini</h3>
     </div>
-    <div class="model reveal scale" data-m="perplexity" data-delay="6">
+    <div class="model reveal scale" data-m="perplexity" data-delay="5">
       <span class="maker">Perplexity</span>
       <h3>Perplexity</h3>
     </div>
   </div>
-  <p class="reveal" data-delay="3" style="font-size:18px;color:var(--fg-2);margin-top:8px">Today they look different. They do the same work.</p>
-  <div class="caps reveal" data-delay="4">
+  <div class="caps reveal" data-delay="6">
     <span class="cap">Skills</span>
     <span class="cap">Tools (MCP)</span>
     <span class="cap">Internet</span>
     <span class="cap">Deep research</span>
     <span class="cap">Large context window</span>
   </div>
-  <aside class="notes">The four names are here so nobody wonders which camp you are in. You are in none of them. MCP is a USB-like way for a model to talk to Drive, mail, or a database. One breath, then the next slide.</aside>
+  <aside class="notes">The four names so nobody wonders which camp you are in. MCP is a USB-like way for a model to talk to Drive, mail, or a database. One breath, then the next slide — they all hallucinate.</aside>
 </section>
 
 <section class="slide format-statement">

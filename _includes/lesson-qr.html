@@ -1,0 +1,14 @@
+{%- comment -%}
+  Desktop-only QR for latecomers. Encodes this lesson's public URL.
+  Hidden on phones (they are already on the page) and when printing.
+{%- endcomment -%}
+{%- assign qr_slug = page.url | replace: "/", " " | strip | replace: " ", "-" -%}
+<aside class="lesson-qr{% if include.float %} lesson-qr--float{% endif %}" aria-label="QR code for this lesson">
+  <img
+    src="{{ site.baseurl }}/assets/img/qr/{{ qr_slug }}.svg"
+    alt="QR code — scan to open {{ page.title | default: 'this lesson' }}"
+    width="108"
+    height="108"
+  />
+  <p class="lesson-qr-caption">This lesson</p>
+</aside>

@@ -15,3 +15,6 @@
     </a>
   </div>
 </header>
+{%- if page.url contains '/block-' -%}
+  {% include lesson-qr.html %}
+{%- endif -%}

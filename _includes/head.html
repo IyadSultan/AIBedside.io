@@ -9,5 +9,8 @@
   <link rel="shortcut icon" href="{{ "/assets/img/favicon.ico" | relative_url }}">
   <link rel="apple-touch-icon" sizes="180x180" href="{{ "/assets/img/apple-touch-icon.png" | relative_url }}">
   <link rel="stylesheet" href="{{ "/assets/main.css" | relative_url }}">
+  {%- if page.url contains '/block-' -%}
+  <link rel="stylesheet" href="{{ "/assets/css/lesson-qr.css" | relative_url }}">
+  {%- endif -%}
   {%- feed_meta -%}
 </head>
