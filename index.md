@@ -286,7 +286,7 @@ permalink: /
     <div class="cci-num" style="background:#7B1FA2;">3</div>
     <div class="cci-card-body">
       <p class="title">Skills &mdash; your house style <span class="cci-active-badge">00:22</span></p>
-      <p class="desc">Build one skill. Run it in Chat, Cowork, and Code.</p>
+      <p class="desc">Build one skill. Find a stats library. Open the sample-size calculator.</p>
     </div>
     <span class="arrow">&#8250;</span>
   </a>

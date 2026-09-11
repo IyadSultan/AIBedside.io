@@ -4,7 +4,7 @@
 (function () {
   "use strict";
 
-  var LAST = 6;
+  var LAST = 7;
   var step = 0;
 
   function $(id) {

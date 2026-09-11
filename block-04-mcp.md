@@ -19,8 +19,9 @@ permalink: /block-04-mcp/
     <button type="button" class="demo-chip" data-step="2">With</button>
     <button type="button" class="demo-chip" data-step="3">How</button>
     <button type="button" class="demo-chip" data-step="4">Pieces</button>
-    <button type="button" class="demo-chip" data-step="5">Chain</button>
-    <button type="button" class="demo-chip" data-step="6">Risk</button>
+    <button type="button" class="demo-chip" data-step="5">PubMed</button>
+    <button type="button" class="demo-chip" data-step="6">Chain</button>
+    <button type="button" class="demo-chip" data-step="7">Risk</button>
   </div>
 
   <!-- Step 0: one-sentence definition, USB metaphor -->
@@ -212,8 +213,70 @@ permalink: /block-04-mcp/
     <p class="demo-stage-copy">If the Calendar connector cannot delete events, the model cannot cancel clinic. The list of tools is the list of verbs.</p>
   </div>
 
-  <!-- Step 5: the live Drive → Gmail → Calendar chain from the run of show -->
+  <!-- Step 5: same PubMed engine — API vs MCP -->
   <div class="demo-stage" id="stage-5" hidden>
+    <p class="demo-stage-kicker">Same question, two plugs</p>
+    <p class="demo-stage-copy">PubMed already has an API. MCP does not replace it. A PubMed MCP connector <strong>is</strong> that API, wrapped so a person can ask in English and a model can call a named tool instead of inventing a URL.</p>
+
+    <div class="mcp-bubble mcp-ask">
+      <span class="who">Same job</span>
+      Find the 2023 JCO fever and neutropenia guideline.
+    </div>
+
+    <div class="mcp-vs">
+      <div class="mcp-vs-col is-api">
+        <p class="k">PubMed API</p>
+        <h3>Built for a program</h3>
+        <p class="who-line">Friendly to a script. A clinician uses <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="noopener">pubmed.gov</a> instead. A model can only use this if someone taught it the URL, the parameters, and how to parse the reply.</p>
+        <pre class="mcp-code" tabindex="0">GET eutils.ncbi.nlm.nih.gov
+  /entrez/eutils/esearch.fcgi
+    ?db=pubmed
+    &amp;term=fever+neutropenia
+         +pediatric+2023
+         +Lehrnbecher
+    &amp;retmode=json
+
+then efetch with the PMIDs
+  → XML / JSON</pre>
+        <ul>
+          <li>You write code, or click the website.</li>
+          <li>The machine speaks HTTP.</li>
+          <li>Errors are status codes.</li>
+        </ul>
+      </div>
+      <div class="mcp-vs-col is-mcp">
+        <p class="k">PubMed MCP</p>
+        <h3>Built for you and the model</h3>
+        <p class="who-line">Friendly to a person in the chat, and to the LLM. The connector still calls Entrez. It just advertises tools with names and descriptions the model can read, and a Continue button you can refuse.</p>
+        <pre class="mcp-code" tabindex="0">You: Find the 2023 JCO
+     fever and neutropenia
+     guideline.
+
+Tool: search_pubmed
+  query: fever neutropenia
+         pediatric JCO 2023
+         Lehrnbecher
+
+Continue → PMID 36626595
+  Lehrnbecher et al.
+  J Clin Oncol. 2023
+  (same paper as pubmed.gov)</pre>
+        <ul>
+          <li>You speak. You approve.</li>
+          <li>The model fills in the tool.</li>
+          <li>Errors come back as a sentence.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mcp-vs-core">
+      <span class="k">Same core</span>
+      NCBI Entrez &mdash; the plumbing under pubmed.gov, under every script, and under <a href="https://github.com/andybrandt/mcp-simple-pubmed" target="_blank" rel="noopener">mcp-simple-pubmed</a>. MCP is not a new PubMed. It is a plug that both a human and an LLM can hold.
+    </div>
+  </div>
+
+  <!-- Step 6: the live Drive → Gmail → Calendar chain from the run of show -->
+  <div class="demo-stage" id="stage-6" hidden>
     <p class="demo-stage-kicker">On screen in this room</p>
     <p class="demo-stage-copy">The video ends by creating software on a cluster from a sentence. We end by running one sentence across three connectors you already have.</p>
 
@@ -260,8 +323,8 @@ permalink: /block-04-mcp/
     <p class="demo-stage-copy"><strong>Continue</strong> is the same habit as signing the order. The model proposes. You release it.</p>
   </div>
 
-  <!-- Step 6: inherits your access -->
-  <div class="demo-stage" id="stage-6" hidden>
+  <!-- Step 7: inherits your access -->
+  <div class="demo-stage" id="stage-7" hidden>
     <p class="demo-stage-kicker">The point, and the risk</p>
     <p class="demo-stage-copy">A connector works because it uses <em>your</em> login. If you can open the shared Drive, so can the model once the plug is in. If you can send mail as the unit, so can a Gmail connector &mdash; if you click Continue on send.</p>
 
@@ -292,6 +355,7 @@ permalink: /block-04-mcp/
 
     <div class="mcp-cat-group">
       <h3>Literature and evidence</h3>
+      <p class="demo-stage-copy" style="margin-bottom:0.55rem;">Each of these still talks to NCBI. The MCP layer is what makes the same API usable in a sentence, not only in a script. See the PubMed step above.</p>
       <ul class="mcp-cat-list">
         <li>
           <a href="https://github.com/andybrandt/mcp-simple-pubmed" target="_blank" rel="noopener">andybrandt/mcp-simple-pubmed</a>
