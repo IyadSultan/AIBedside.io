@@ -15,7 +15,7 @@ permalink: /preparation/
   The synthetic febrile-neutropenia case, a NotebookLM folder of 4&ndash;6 public guidelines, a ~200-row synthetic unit dataset, the ward-thread skill (plus the annual-report skill if you have time), and one QR handout slide.
 </div>
 <div class="callout callout-onscreen" style="margin-bottom:0.75rem;">
-  Pre-download and cache the browser-hosted small model on the demo laptop — the first-run download is far too slow to do live.
+  Open Block 5, click <strong>Load Bonsai 1.7B</strong>, and wait until it says ready. The first download is ~290 MB and far too slow to do live. After that it is cached in the browser, so you can switch the wi-fi off on stage.
 </div>
 <div class="callout callout-onscreen" style="margin-bottom:0.75rem;">
   Stage every tab in demo order, pre-authorize all connectors, clean browser profile with no patient data and no personal email, notifications off.
@@ -36,10 +36,13 @@ permalink: /preparation/
   At 00:48 — drop the second analysis in Block 7; keep the survival curve.
 </div>
 <div class="callout callout-note" style="margin-bottom:0.75rem;">
+  At 00:54 — skip the spoken walk of Block 8 (What we learned at KHCC). Point at the QR code. The page is the handout.
+</div>
+<div class="callout callout-note" style="margin-bottom:0.75rem;">
   Never sacrifice the closing three minutes. The Monday tasks are what make the hour actionable.
 </div>
 <div class="callout callout-note">
-  Honest option: cut Block 6 outright. Seven blocks in sixty minutes is very tight, and app-building is the least useful to most of this room.
+  Honest option: cut Block 6 outright. Eight teaching blocks in sixty minutes is very tight, and app-building is the least useful to most of this room.
 </div>
 
 <div class="block-nav" style="margin-top:2.5rem;">

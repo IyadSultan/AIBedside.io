@@ -16,6 +16,7 @@ the QR-code handout attendees land on after the session.
 
 - `index.md` — hero, objectives, and the run-of-show grid (links to every block)
 - `block-XX-*.md` — one page per block: on-screen content + take-home
+- `block-08-learned.md` — what KHCC learned: people, PRD, one data store, governance, cybersecurity first
 - `closing-tasks.md` — the three-minute close, one task per role (the actual handout content)
 - `companion-sessions.md` — the Precision Medicine and AI-avatar Q&A blocks that follow
 - `preparation.md` — speaker pre-build checklist and the run-long fallback plan
@@ -26,3 +27,11 @@ the QR-code handout attendees land on after the session.
 bundle install
 bundle exec jekyll serve
 ```
+
+For the live Claude chat on Block 4, in a second terminal:
+
+```
+./mcp-chat/start.sh
+```
+
+Then open the **Live** chip on the MCP page, or go straight to [http://127.0.0.1:8765](http://127.0.0.1:8765).

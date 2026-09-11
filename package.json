@@ -1,0 +1,8 @@
+{
+  "name": "aibedside-mcp-demo",
+  "private": true,
+  "description": "Local helpers for the SIOP Block 4 MCP demo.",
+  "dependencies": {
+    "medical-terminologies-mcp": "^1.10.0"
+  }
+}

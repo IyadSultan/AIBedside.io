@@ -1401,6 +1401,10 @@
     margin: 0 0 0.45rem;
 }
 
+.mcp-cat-group .demo-shot {
+    margin: 0.55rem 0 0.85rem;
+}
+
 .mcp-cat-list {
     list-style: none;
     margin: 0;
@@ -1555,5 +1559,961 @@
     .mcp-vs {
         grid-template-columns: 1fr;
     }
+}
+
+// ---- Block 4 live Claude desk --------------------------------------------
+// Nested facsimile of claude.ai so the room sees the same chat they already know.
+// Warm paper, clay sparkle, round composer — not the SIOP teal chrome.
+
+.claude-desk {
+    --claude-paper: #f4f1ea;
+    --claude-ink: #1a1915;
+    --claude-muted: #6f6a62;
+    --claude-line: #e4ddd0;
+    --claude-user: #ebe6db;
+    --claude-clay: #c45c38;
+    --claude-send: #1f1e1a;
+    --claude-tool: #f7f1e6;
+    margin: 0.85rem 0 0.35rem;
+    background: var(--claude-paper);
+    border: 1px solid #ddd6c8;
+    border-radius: 1.35rem;
+    box-shadow: 0 22px 48px rgba(48, 36, 18, 0.14);
+    overflow: hidden;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: var(--claude-ink);
+}
+
+.claude-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.85rem;
+    padding: 0.95rem 1.15rem 0.8rem;
+    border-bottom: 1px solid var(--claude-line);
+}
+
+.claude-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.claude-mark {
+    width: 1.85rem;
+    height: 1.85rem;
+    color: var(--claude-clay);
+    flex-shrink: 0;
+}
+
+.claude-brand strong {
+    display: block;
+    font-size: 1.02rem;
+    font-weight: 650;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+}
+
+.claude-brand span {
+    display: block;
+    font-size: 0.72rem;
+    color: var(--claude-muted);
+    font-weight: 500;
+}
+
+.claude-health {
+    margin: 0;
+    font-size: 0.78rem;
+    color: var(--claude-muted);
+    text-align: right;
+    max-width: 22rem;
+    line-height: 1.35;
+}
+
+.claude-health.is-up {
+    color: #3d6b4f;
+}
+
+.claude-health.is-down {
+    color: #9a3412;
+}
+
+.claude-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 22rem;
+    border-bottom: 1px solid var(--claude-line);
+}
+
+.claude-pane {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: var(--claude-paper);
+}
+
+.claude-pane + .claude-pane {
+    border-left: 1px solid var(--claude-line);
+}
+
+.claude-pane > header {
+    padding: 0.7rem 1rem 0.55rem;
+    border-bottom: 1px solid var(--claude-line);
+}
+
+.claude-mode {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.claude-mode-sub {
+    display: block;
+    margin-top: 0.12rem;
+    font-size: 0.7rem;
+    color: var(--claude-muted);
+}
+
+.claude-pane.is-mcp > header {
+    background: #f8efe6;
+}
+
+.claude-pane.is-mcp .claude-mode {
+    color: var(--claude-clay);
+}
+
+.claude-thread {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.9rem 1rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-height: 16rem;
+    max-height: 26rem;
+}
+
+.claude-empty {
+    margin: auto;
+    text-align: center;
+    color: var(--claude-muted);
+    font-size: 0.92rem;
+    line-height: 1.45;
+    max-width: 16rem;
+}
+
+.claude-row {
+    display: flex;
+    gap: 0.55rem;
+    align-items: flex-start;
+}
+
+.claude-row.is-user {
+    justify-content: flex-end;
+}
+
+.claude-avatar {
+    width: 1.35rem;
+    height: 1.35rem;
+    color: var(--claude-clay);
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+}
+
+.claude-bubble {
+    max-width: 92%;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.claude-row.is-user .claude-bubble {
+    background: var(--claude-user);
+    border-radius: 1.1rem 1.1rem 0.35rem 1.1rem;
+    padding: 0.65rem 0.85rem;
+}
+
+.claude-row.is-bot .claude-bubble {
+    padding: 0.1rem 0 0;
+}
+
+.claude-bubble p {
+    margin: 0 0 0.55rem;
+}
+
+.claude-bubble p:last-child {
+    margin-bottom: 0;
+}
+
+.claude-bubble code {
+    font: 500 0.82em/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    background: #efe8dc;
+    padding: 0.05em 0.3em;
+    border-radius: 0.28rem;
+}
+
+.claude-tool {
+    margin: 0 0 0.55rem;
+    padding: 0.55rem 0.7rem;
+    border: 1px dashed #d7b39a;
+    background: var(--claude-tool);
+    border-radius: 0.7rem;
+    font-size: 0.78rem;
+    line-height: 1.4;
+    color: #7a3b22;
+}
+
+.claude-tool .k {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 0.15rem;
+    color: var(--claude-clay);
+}
+
+.claude-wait {
+    display: inline-flex;
+    gap: 0.28rem;
+    padding: 0.35rem 0;
+}
+
+.claude-wait i {
+    width: 0.38rem;
+    height: 0.38rem;
+    border-radius: 50%;
+    background: var(--claude-clay);
+    animation: claude-dot 1.05s ease-in-out infinite;
+}
+
+.claude-wait i:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.claude-wait i:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+@keyframes claude-dot {
+    0%, 80%, 100% { opacity: 0.25; transform: translateY(0); }
+    40% { opacity: 1; transform: translateY(-2px); }
+}
+
+.claude-error {
+    color: #9a3412;
+    font-size: 0.85rem;
+    line-height: 1.45;
+}
+
+.claude-hints {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    padding: 0.75rem 1rem 0.15rem;
+}
+
+.claude-hints button {
+    border: 1px solid var(--claude-line);
+    background: #fffdf8;
+    color: var(--claude-ink);
+    font-size: 0.78rem;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 0.38rem 0.75rem;
+    cursor: pointer;
+}
+
+.claude-hints button:hover {
+    border-color: var(--claude-clay);
+    color: var(--claude-clay);
+}
+
+.claude-hints button:focus-visible,
+.claude-send:focus-visible {
+    outline: 2px solid var(--claude-clay);
+    outline-offset: 2px;
+}
+
+.claude-composer {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.55rem;
+    margin: 0.55rem 1rem 0.35rem;
+    padding: 0.7rem 0.75rem 0.7rem 1rem;
+    background: #fffdf8;
+    border: 1px solid var(--claude-line);
+    border-radius: 1.35rem;
+    box-shadow: 0 8px 22px rgba(48, 36, 18, 0.06);
+}
+
+.claude-composer textarea {
+    flex: 1;
+    border: 0;
+    resize: none;
+    background: transparent;
+    font: 400 0.95rem/1.45 inherit;
+    color: var(--claude-ink);
+    max-height: 7.5rem;
+    min-height: 1.45rem;
+}
+
+.claude-composer textarea:focus {
+    outline: none;
+}
+
+.claude-composer textarea::placeholder {
+    color: #9a948a;
+}
+
+.claude-send {
+    width: 2.15rem;
+    height: 2.15rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--claude-send);
+    color: #f4f1ea;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.claude-send:hover {
+    background: #000;
+}
+
+.claude-send:disabled {
+    opacity: 0.35;
+    cursor: wait;
+}
+
+.claude-foot {
+    margin: 0 1.15rem 0.9rem;
+    font-size: 0.72rem;
+    color: var(--claude-muted);
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@media screen and (max-width: 760px) {
+    .claude-split {
+        grid-template-columns: 1fr;
+    }
+
+    .claude-pane + .claude-pane {
+        border-left: 0;
+        border-top: 1px solid var(--claude-line);
+    }
+
+    .claude-top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .claude-health {
+        text-align: left;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .claude-wait i {
+        animation: none;
+        opacity: 0.7;
+    }
+}
+
+// ---- Block 5: four places a model can live -------------------------------
+// Red matches the run-of-show chip for this block (#C62828).
+// Each card is a square on a ward map: far (public cloud) → near (this laptop).
+
+.where-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem;
+    margin: 0 0 1.25rem;
+    align-items: stretch;
+}
+
+.where-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #E0E0E0;
+    border-radius: 0.75rem;
+    background: #fff;
+    padding: 0.95rem 1rem 1.05rem;
+    min-width: 0;
+}
+
+.where-cloud {
+    border-top: 4px solid #034EA2;
+}
+
+.where-baa {
+    border-top: 4px solid #00695C;
+}
+
+.where-onprem {
+    border-top: 4px solid #C62828;
+}
+
+.where-edge {
+    border-top: 4px solid #E65100;
+}
+
+.where-kicker {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin: 0 0 0.55rem;
+}
+
+.where-cloud .where-kicker {
+    color: #034EA2;
+}
+
+.where-baa .where-kicker {
+    color: #00695C;
+}
+
+.where-onprem .where-kicker {
+    color: #C62828;
+}
+
+.where-edge .where-kicker {
+    color: #E65100;
+}
+
+.where-diagram {
+    margin: 0 0 0.7rem;
+    border-radius: 0.55rem;
+    overflow: hidden;
+}
+
+.where-cloud .where-diagram {
+    background: #F4F8FD;
+}
+
+.where-baa .where-diagram {
+    background: #F3FBFA;
+}
+
+.where-onprem .where-diagram {
+    background: #FFF8F8;
+}
+
+.where-edge .where-diagram {
+    background: #FFF8F5;
+}
+
+.where-diagram svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.where-card h2 {
+    font-size: 1.02rem;
+    font-weight: 800;
+    color: #1B2A4A;
+    text-transform: none;
+    letter-spacing: 0;
+    line-height: 1.3;
+    margin: 0 0 0.45rem;
+}
+
+.where-one {
+    margin: 0 0 0.85rem;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: #37474F;
+}
+
+.where-pn {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.55rem;
+    margin-top: auto;
+}
+
+.where-pro,
+.where-con {
+    border-radius: 0.5rem;
+    padding: 0.55rem 0.65rem 0.6rem;
+}
+
+.where-pro {
+    background: #F7FFFE;
+    border: 1px solid #B2DFDB;
+}
+
+.where-con {
+    background: #FFF8F8;
+    border: 1px solid #FFCDD2;
+}
+
+.where-pn .k {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin: 0 0 0.3rem;
+}
+
+.where-pro .k {
+    color: #00695C;
+}
+
+.where-con .k {
+    color: #C62828;
+}
+
+.where-pn ul {
+    margin: 0;
+    padding: 0 0 0 1rem;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: #37474F;
+}
+
+.where-pn li {
+    margin: 0 0 0.25rem;
+}
+
+.where-pn li:last-child {
+    margin-bottom: 0;
+}
+
+.where-footnote {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: #607D8B;
+    margin: 0 0 1.5rem;
+}
+
+@media screen and (max-width: 760px) {
+    .where-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .where-pn {
+        grid-template-columns: 1fr;
+    }
+}
+
+// ---- Block 5 live Bonsai chat --------------------------------------------
+// Orange matches the "on this device" square (#E65100).
+
+.bonsai-desk {
+    margin: 0 0 1.75rem;
+    border: 1px solid #FFCCBC;
+    border-top: 4px solid #E65100;
+    border-radius: 0.85rem;
+    background: #fff;
+    overflow: hidden;
+}
+
+.bonsai-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.1rem 0.85rem;
+    border-bottom: 1px solid #FBE9E7;
+}
+
+.bonsai-top h2 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #1B2A4A;
+    text-transform: none;
+    letter-spacing: 0;
+    margin: 0 0 0.35rem;
+}
+
+.bonsai-top p {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: #37474F;
+    max-width: 38rem;
+}
+
+.bonsai-health {
+    margin: 0;
+    font-size: 0.78rem;
+    line-height: 1.4;
+    color: #78909C;
+    text-align: right;
+    max-width: 16rem;
+    flex-shrink: 0;
+}
+
+.bonsai-health.is-up {
+    color: #00695C;
+    font-weight: 600;
+}
+
+.bonsai-health.is-down {
+    color: #C62828;
+    font-weight: 600;
+}
+
+.bonsai-load {
+    padding: 0.85rem 1.1rem 0.35rem;
+}
+
+.bonsai-load .demo-ask {
+    margin-top: 0;
+    background: #E65100;
+    border-color: #E65100;
+}
+
+.bonsai-load .demo-ask:disabled {
+    opacity: 0.7;
+}
+
+.bonsai-meter {
+    margin: 0.65rem 0 0;
+    height: 8px;
+    border-radius: 999px;
+    background: #FBE9E7;
+    overflow: hidden;
+}
+
+.bonsai-meter-fill {
+    height: 100%;
+    width: 0;
+    background: #E65100;
+    transition: width 160ms ease-out;
+}
+
+.bonsai-thread {
+    min-height: 12rem;
+    max-height: 22rem;
+    overflow-y: auto;
+    padding: 0.9rem 1.1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    background: #FFFCFB;
+    border-top: 1px solid #FBE9E7;
+    border-bottom: 1px solid #FBE9E7;
+}
+
+.bonsai-empty {
+    margin: auto;
+    text-align: center;
+    color: #90A4AE;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    max-width: 22rem;
+}
+
+.bonsai-row {
+    display: flex;
+}
+
+.bonsai-row.is-user {
+    justify-content: flex-end;
+}
+
+.bonsai-bubble {
+    max-width: 92%;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: #37474F;
+}
+
+.bonsai-row.is-user .bonsai-bubble {
+    background: #FFF3E0;
+    border: 1px solid #FFE0B2;
+    border-radius: 1rem 1rem 0.3rem 1rem;
+    padding: 0.65rem 0.85rem;
+}
+
+.bonsai-row.is-bot .bonsai-bubble {
+    background: #fff;
+    border: 1px solid #FFCCBC;
+    border-left: 4px solid #E65100;
+    border-radius: 0.3rem 1rem 1rem 1rem;
+    padding: 0.65rem 0.85rem;
+}
+
+.bonsai-bubble p {
+    margin: 0;
+}
+
+.bonsai-error {
+    color: #C62828;
+}
+
+.bonsai-wait {
+    display: inline-flex;
+    gap: 0.28rem;
+    padding: 0.2rem 0;
+}
+
+.bonsai-wait i {
+    width: 0.38rem;
+    height: 0.38rem;
+    border-radius: 50%;
+    background: #E65100;
+    animation: bonsai-dot 1.05s ease-in-out infinite;
+}
+
+.bonsai-wait i:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.bonsai-wait i:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+@keyframes bonsai-dot {
+    0%, 80%, 100% { opacity: 0.25; transform: translateY(0); }
+    40% { opacity: 1; transform: translateY(-2px); }
+}
+
+.bonsai-hints {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    padding: 0.75rem 1.1rem 0.15rem;
+}
+
+.bonsai-hints button {
+    border: 1px solid #FFCCBC;
+    background: #FFF8F5;
+    color: #BF360C;
+    font-size: 0.78rem;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 0.38rem 0.75rem;
+    cursor: pointer;
+}
+
+.bonsai-hints button:hover,
+.bonsai-hints button:focus-visible {
+    border-color: #E65100;
+    outline: 2px solid #E65100;
+    outline-offset: 1px;
+}
+
+.bonsai-composer {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.55rem;
+    margin: 0.55rem 1.1rem 0.35rem;
+    padding: 0.65rem 0.7rem 0.65rem 0.9rem;
+    background: #fff;
+    border: 1px solid #FFCCBC;
+    border-radius: 1.1rem;
+}
+
+.bonsai-composer textarea {
+    flex: 1;
+    border: 0;
+    resize: none;
+    background: transparent;
+    font: 400 0.95rem/1.45 inherit;
+    color: #1B2A4A;
+    min-height: 2.6rem;
+    max-height: 7.5rem;
+}
+
+.bonsai-composer textarea:focus {
+    outline: none;
+}
+
+.bonsai-composer textarea:disabled {
+    color: #90A4AE;
+}
+
+.bonsai-send {
+    border: 0;
+    border-radius: 999px;
+    background: #E65100;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.55rem 0.9rem;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.bonsai-send:hover:not(:disabled) {
+    background: #BF360C;
+}
+
+.bonsai-send:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.bonsai-foot {
+    margin: 0 1.15rem 0.95rem;
+    font-size: 0.75rem;
+    color: #90A4AE;
+    line-height: 1.45;
+}
+
+.bonsai-foot a {
+    color: #E65100;
+    font-weight: 700;
+}
+
+@media screen and (max-width: 700px) {
+    .bonsai-top {
+        flex-direction: column;
+    }
+
+    .bonsai-health {
+        text-align: left;
+        max-width: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bonsai-wait i {
+        animation: none;
+        opacity: 0.7;
+    }
+
+    .bonsai-meter-fill {
+        transition: none;
+    }
+}
+
+// ---- Block 8: What we learned at KHCC ------------------------------------
+// Navy matches the run-of-show chip (#21409A). Lessons stack on a red floor:
+// cybersecurity is not item 7 in a list — it is the slab everything sits on.
+
+.learned-stack {
+    list-style: none;
+    margin: 0 0 0.85rem;
+    padding: 0;
+}
+
+.learned-item {
+    display: grid;
+    grid-template-columns: 2.4rem 1fr;
+    gap: 0.85rem;
+    align-items: start;
+    margin: 0 0 0.7rem;
+    padding: 0.95rem 1.05rem;
+    border: 1px solid #E0E0E0;
+    border-left: 4px solid #21409A;
+    border-radius: 0.65rem;
+    background: #fff;
+}
+
+.learned-n {
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 0.55rem;
+    background: #21409A;
+    color: #fff;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.learned-item h2 {
+    font-size: 1.02rem;
+    font-weight: 800;
+    color: #1B2A4A;
+    text-transform: none;
+    letter-spacing: 0;
+    line-height: 1.3;
+    margin: 0.15rem 0 0.4rem;
+}
+
+.learned-item p {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: #37474F;
+}
+
+.learned-who {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0.75rem 0 0 !important;
+}
+
+.learned-who span {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #21409A;
+    background: #E8F1FB;
+    border: 1px solid #B8D0EC;
+    border-radius: 999px;
+    padding: 0.22rem 0.6rem;
+}
+
+.learned-skill {
+    margin-top: 0.65rem !important;
+    font-size: 0.85rem !important;
+    color: #546E7A !important;
+}
+
+.learned-skill a {
+    color: #21409A;
+    font-weight: 700;
+}
+
+.learned-floor {
+    margin: 0.35rem 0 0;
+    padding: 1.15rem 1.2rem 1.2rem;
+    border-radius: 0.65rem;
+    background: #B71C1C;
+    color: #fff;
+    border: 1px solid #8E0000;
+}
+
+.learned-floor-kicker {
+    margin: 0 0 0.35rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #FFCDD2;
+}
+
+.learned-floor h2 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #fff;
+    text-transform: none;
+    letter-spacing: 0;
+    line-height: 1.3;
+    margin: 0 0 0.45rem;
+}
+
+.learned-floor p:last-child {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: #FFEBEE;
+    font-weight: 400;
 }
 

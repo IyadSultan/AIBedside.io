@@ -34,6 +34,6 @@ permalink: /closing-tasks/
 </div>
 
 <div class="block-nav" style="margin-top:2.5rem;">
-  <a href="{{ site.baseurl }}/block-07-research/">&larr; 7 &middot; AI for research</a>
+  <a href="{{ site.baseurl }}/block-08-learned/">&larr; 8 &middot; What we learned at KHCC</a>
   <a href="{{ site.baseurl }}/companion-sessions/">Companion sessions &rarr;</a>
 </div>

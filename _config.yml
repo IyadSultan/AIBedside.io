@@ -22,3 +22,8 @@ exclude:
   - README.md
   - _sources/
   - node_modules/
+  - mcp-chat/
+  - package.json
+  - package-lock.json
+  - .env
+  - .env.example

@@ -4,6 +4,8 @@ title: "Block 4 — MCP — connect your own work"
 permalink: /block-04-mcp/
 ---
 
+<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/claude-desk.css">
+
 <div class="block-page block-page-demo block-page-wide">
   <div class="block-eyebrow">
     <span class="block-time" style="background:#E65100;">00:29</span>
@@ -11,7 +13,7 @@ permalink: /block-04-mcp/
   </div>
   <h1>MCP — connect your own work</h1>
 
-  <p class="demo-lead">MCP is a USB port for AI. We follow the same path as this <a href="https://www.youtube.com/watch?v=Xs9AwE2lyHg" target="_blank" rel="noopener">plain-language MCP explainer</a> &mdash; show it first, then name the parts &mdash; on a childhood-cancer unit, not a sales database.</p>
+  <p class="demo-lead">MCP is a USB port for AI. We follow the same path as this <a href="https://www.youtube.com/watch?v=Xs9AwE2lyHg" target="_blank" rel="noopener">plain-language MCP explainer</a> &mdash; show it first, then name the parts &mdash; on a childhood-cancer unit, not a sales database. The <strong>Live</strong> chip is the same idea in your hands: Claude Haiku 4.5 with and without a medical-terms plug.</p>
 
   <div class="demo-preset-row" id="demo-steps">
     <button type="button" class="demo-chip is-on" data-step="0">What</button>
@@ -22,6 +24,7 @@ permalink: /block-04-mcp/
     <button type="button" class="demo-chip" data-step="5">PubMed</button>
     <button type="button" class="demo-chip" data-step="6">Chain</button>
     <button type="button" class="demo-chip" data-step="7">Risk</button>
+    <button type="button" class="demo-chip" data-step="8">Live</button>
   </div>
 
   <!-- Step 0: one-sentence definition, USB metaphor -->
@@ -344,6 +347,14 @@ Continue → PMID 36626595
     </div>
   </div>
 
+  <!-- Step 8: live Haiku, with and without the terminology MCP -->
+  <div class="demo-stage" id="stage-8" hidden>
+    <p class="demo-stage-kicker">Same question, two Claudes</p>
+    <p class="demo-stage-copy">Both panes are <strong>Claude Haiku 4.5</strong>. The left pane has no plug &mdash; it can only recall. The right pane is connected to the <a href="https://github.com/SidneyBissoli/medical-terminologies-mcp" target="_blank" rel="noopener">medical-terminologies MCP</a> (ICD-11, RxNorm, LOINC, MeSH, ATC). One question goes to both. Watch which side looks a code up.</p>
+
+    {% include claude-desk.html %}
+  </div>
+
   <div class="demo-controls">
     <button type="button" class="demo-ask" id="demo-next">Next</button>
     <p class="demo-status" id="demo-status" role="status"></p>
@@ -383,6 +394,10 @@ Continue → PMID 36626595
     <div class="mcp-cat-group">
       <h3>Guidelines and decision support</h3>
       <ul class="mcp-cat-list">
+        <li>
+          <a href="https://github.com/SidneyBissoli/medical-terminologies-mcp" target="_blank" rel="noopener">SidneyBissoli/medical-terminologies-mcp</a>
+          <span class="why">The plug in the live chat above: ICD-11, SNOMED (opt-in), LOINC, RxNorm, MeSH, ATC, CID-10. Hosted at <a href="https://medical.sidneybissoli.com/mcp" target="_blank" rel="noopener">medical.sidneybissoli.com/mcp</a>.</span>
+        </li>
         <li>
           <a href="https://github.com/chris-lovejoy/medical-mcp" target="_blank" rel="noopener">chris-lovejoy/medical-mcp</a>
           <span class="why">NICE guidance, so the model can quote a UK recommendation instead of inventing one.</span>
@@ -440,6 +455,10 @@ Continue → PMID 36626595
 
     <div class="mcp-cat-group">
       <h3>Biomedical databases, trials, terms</h3>
+      <p class="demo-stage-copy" style="margin-bottom:0.55rem;">One connector, seven code systems. You ask in English. The model looks up ICD-11, LOINC, RxNorm, MeSH, ATC, CID-10, and (if you host it) SNOMED CT.</p>
+      <a href="https://github.com/SidneyBissoli/medical-terminologies-mcp" target="_blank" rel="noopener">
+        <img class="demo-shot" src="{{ site.baseurl }}/assets/block-04/medical-terminologies-mcp.png" alt="GitHub README for Medical Terminologies MCP Server: ICD-11, SNOMED CT, LOINC, RxNorm, MeSH, ATC, and CID-10" />
+      </a>
       <ul class="mcp-cat-list">
         <li>
           <a href="https://github.com/pascalwhoop/medical-mcps" target="_blank" rel="noopener">pascalwhoop/medical-mcps</a>
@@ -454,8 +473,12 @@ Continue → PMID 36626595
           <span class="why">Search ClinicalTrials.gov, read a study, and match eligibility &mdash; useful on a paediatric oncology ward for &ldquo;is there a trial?&rdquo;</span>
         </li>
         <li>
+          <a href="https://github.com/SidneyBissoli/medical-terminologies-mcp" target="_blank" rel="noopener">SidneyBissoli/medical-terminologies-mcp</a>
+          <span class="why">The example above. ICD-11, LOINC, RxNorm, MeSH, ATC, CID-10 in one plug. SNOMED CT is opt-in and needs your own Snowstorm.</span>
+        </li>
+        <li>
           <a href="https://github.com/pcmedsinge/fhir-mcp-suite" target="_blank" rel="noopener">pcmedsinge/fhir-mcp-suite</a>
-          <span class="why">Shared language for codes: SNOMED CT, ICD, LOINC, RxNorm in one terminology plug.</span>
+          <span class="why">Another codes plug: SNOMED CT, ICD, LOINC, RxNorm, plus a FHIR reader.</span>
         </li>
         <li>
           <a href="https://www.keragon.com/blog/best-mcp-servers" target="_blank" rel="noopener">Keragon Healthcare MCP</a>
@@ -476,3 +499,4 @@ Continue → PMID 36626595
 </div>
 
 <script src="{{ site.baseurl }}/assets/js/block-04.js"></script>
+<script src="{{ site.baseurl }}/assets/js/block-04-chat.js"></script>

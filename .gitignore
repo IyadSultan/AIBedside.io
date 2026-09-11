@@ -1,5 +1,6 @@
 .env
 node_modules
+mcp-chat/__pycache__/
 venv
 __pycache__
 .DS_Store

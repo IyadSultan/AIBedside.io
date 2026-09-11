@@ -295,7 +295,7 @@ permalink: /
     <div class="cci-num" style="background:#E65100;">4</div>
     <div class="cci-card-body">
       <p class="title">MCP &mdash; connect your own work <span class="cci-active-badge">00:29</span></p>
-      <p class="desc">USB for AI tools. Drive, Gmail, Calendar &mdash; and the access risk.</p>
+      <p class="desc">USB for AI. Live Haiku with and without a medical-terms plug.</p>
     </div>
     <span class="arrow">&#8250;</span>
   </a>
@@ -304,7 +304,7 @@ permalink: /
     <div class="cci-num" style="background:#C62828;">5</div>
     <div class="cci-card-body">
       <p class="title">Small models &amp; the edge <span class="cci-active-badge">00:37</span></p>
-      <p class="desc">Keep AI in the hospital. Switch the wi-fi off and keep talking.</p>
+      <p class="desc">Four places a model can live. Then switch the wi-fi off and keep talking.</p>
     </div>
     <span class="arrow">&#8250;</span>
   </a>
@@ -327,8 +327,17 @@ permalink: /
     <span class="arrow">&#8250;</span>
   </a>
 
+  <a class="cci-card cci-card-active" href="{{ site.baseurl }}/block-08-learned/">
+    <div class="cci-num" style="background:#21409A;">8</div>
+    <div class="cci-card-body">
+      <p class="title">What we learned at KHCC <span class="cci-active-badge">00:54</span></p>
+      <p class="desc">People first. A written PRD. One data store. Cybersecurity before everything else.</p>
+    </div>
+    <span class="arrow">&#8250;</span>
+  </a>
+
   <a class="cci-card cci-card-active" href="{{ site.baseurl }}/closing-tasks/">
-    <div class="cci-num" style="background:#00695C;">8</div>
+    <div class="cci-num" style="background:#00695C;">9</div>
     <div class="cci-card-body">
       <p class="title">Close &mdash; what to try on Monday <span class="cci-active-badge">00:57</span></p>
       <p class="desc">One task per role. This is the actual handout.</p>
@@ -337,7 +346,7 @@ permalink: /
   </a>
 
   <a class="cci-card" href="{{ site.baseurl }}/companion-sessions/">
-    <div class="cci-num" style="background:#F4511E;">9</div>
+    <div class="cci-num" style="background:#F4511E;">10</div>
     <div class="cci-card-body">
       <p class="title">Companion sessions</p>
       <p class="desc">Precision medicine tool, then Q&amp;A with an AI avatar.</p>
@@ -346,7 +355,7 @@ permalink: /
   </a>
 
   <a class="cci-card" href="{{ site.baseurl }}/preparation/">
-    <div class="cci-num" style="background:#1565C0;">10</div>
+    <div class="cci-num" style="background:#1565C0;">11</div>
     <div class="cci-card-body">
       <p class="title">Speaker preparation</p>
       <p class="desc">Pre-build checklist and the run-long fallback plan.</p>

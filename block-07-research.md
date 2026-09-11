@@ -34,6 +34,6 @@ permalink: /block-07-research/
 
   <div class="block-nav">
     <a href="{{ site.baseurl }}/block-06-small-app/">&larr; 6 &middot; A small app in five minutes</a>
-    <a href="{{ site.baseurl }}/closing-tasks/">Close &middot; What to try on Monday &rarr;</a>
+    <a href="{{ site.baseurl }}/block-08-learned/">8 &middot; What we learned at KHCC &rarr;</a>
   </div>
 </div>

@@ -1,10 +1,10 @@
 // Block 4 demo — click through the MCP explainer.
-// Nothing is sent to Claude or ChatGPT from this page.
+// The Live chip talks to a local Haiku server (mcp-chat/server.py).
 
 (function () {
   "use strict";
 
-  var LAST = 7;
+  var LAST = 8;
   var step = 0;
 
   function $(id) {
@@ -47,7 +47,8 @@
 
       var nextBtn = $("demo-next");
       if (nextBtn) {
-        nextBtn.textContent = step === LAST ? "Back to what MCP is" : "Next";
+        nextBtn.textContent =
+          step === LAST ? "Back to what MCP is" : step === 7 ? "Try it live" : "Next";
       }
       showStatus("");
     } catch (err) {

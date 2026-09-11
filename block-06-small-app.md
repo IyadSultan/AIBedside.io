@@ -28,7 +28,7 @@ permalink: /block-06-small-app/
   <div class="block-section">
     <h2>If you run long</h2>
     <div class="callout callout-note">
-      At 00:43, compress this block to a two-minute mention and protect Block 7 — or cut it outright. Seven blocks in sixty minutes is tight, and app-building is the least useful to most of the room.
+      At 00:43, compress this block to a two-minute mention and protect Block 7 — or cut it outright. Eight teaching blocks in sixty minutes is tight, and app-building is the least useful to most of the room.
     </div>
   </div>
 
