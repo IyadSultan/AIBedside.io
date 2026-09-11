@@ -41,3 +41,9 @@ __pycache__
 /venv/bin/activate.tcsh
 venv
 .claude/logs.md
+
+# local Jekyll build
+_site/
+vendor/
+.bundle/
+.playwright-mcp/

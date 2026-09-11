@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cedar Ward wiki — five policy notes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root { --navy:#21409A; --ink:#1B2A4A; --paper:#F3F5F8; --magenta:#EC008C; --mute:#5C6B7A; --rule:#D5DDE5; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Atkinson Hyperlegible", ui-sans-serif, sans-serif; line-height: 1.55; }
+    a { color: var(--navy); }
+    header.bar { background: var(--navy); color: #fff; padding: 0.85rem 1.25rem; border-bottom: 4px solid var(--magenta); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    header.bar span { opacity: 0.85; font-size: 0.85rem; }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 1.5rem 1.15rem 3.5rem; }
+    h1 { font-size: 1.7rem; margin: 0 0 0.4rem; }
+    .lede { color: var(--mute); margin: 0 0 1.25rem; }
+    nav.notes { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+    nav.notes a { text-decoration: none; font-size: 0.82rem; font-weight: 700; padding: 0.3rem 0.65rem; border-radius: 999px; background: #fff; border: 1px solid var(--rule); }
+    article { background: #fff; border: 1px solid var(--rule); padding: 1.15rem 1.2rem; margin-bottom: 1rem; }
+    article h2 { margin: 0 0 0.35rem; font-size: 1.2rem; }
+    .meta { font-size: 0.85rem; color: var(--mute); margin: 0 0 0.75rem; }
+    ul { margin: 0.3rem 0 0.8rem; padding-left: 1.15rem; }
+    h3 { font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mute); margin: 1rem 0 0.35rem; }
+    footer { font-size: 0.85rem; color: var(--mute); margin-top: 1.5rem; }
+  </style>
+</head>
+<body>
+  <header class="bar">
+    <strong>Cedar Ward wiki</strong>
+    <span>Second brain · teaching copy · not KHCC policy</span>
+  </header>
+  <div class="wrap">
+    <h1>Five notes from five files</h1>
+    <p class="lede">Each policy became one short wiki note: the rules, the links, the open questions. The quality briefing is <a href="./summary.html">summary.html</a>. Markdown sources live in <a href="./wiki/index.md">wiki/</a>.</p>
+    <nav class="notes">
+      <a href="#fn">FN</a>
+      <a href="#line">Lines</a>
+      <a href="#vis">Visitors</a>
+      <a href="#chemo">Chemo</a>
+      <a href="#leaf">Leaflet</a>
+    </nav>
+
+    <article id="fn">
+      <h2>Febrile neutropenia</h2>
+      <p class="meta"><a href="./wiki/febrile-neutropenia.md">febrile-neutropenia.md</a> · POL-CW-01 v3.1 · Infectious Diseases · 0–18 years</p>
+      <h3>Rules</h3>
+      <ul>
+        <li>Fever = 38.3°C once, or 38.0°C for one hour.</li>
+        <li>Neutropenia = ANC below 500. Come to ER the same evening. No paracetamol first.</li>
+        <li>Door-to-antibiotic 60 minutes. Peripheral culture first. Pip-tazo (cefepime if rash). Not ceftriaxone.</li>
+        <li>Two named caregivers only while neutropenic.</li>
+      </ul>
+      <h3>Open questions</h3>
+      <ul>
+        <li>Review due March 2026. The discharge leaflet was required to match this file and does not.</li>
+      </ul>
+    </article>
+
+    <article id="line">
+      <h2>Central venous access devices</h2>
+      <p class="meta"><a href="./wiki/central-line.md">central-line.md</a> · POL-CW-02 v2.0 · Vascular Access · under 16 years</p>
+      <h3>Rules</h3>
+      <ul>
+        <li>Neutropenia for line decisions = ANC below 1000.</li>
+        <li>Saline flush. No heparin on PICC/Broviac — except the same file sends every line home with a heparin lock.</li>
+        <li>Skin prep: chlorhexidine 4% aqueous, no alcohol.</li>
+        <li>Fever: notify attending within 2 hours. Line culture first. Vancomycin + cefepime.</li>
+      </ul>
+      <h3>Open questions</h3>
+      <ul>
+        <li>Ages 16–18 have no line protocol in this folder. 4% aqueous CHG may be the wrong product.</li>
+      </ul>
+    </article>
+
+    <article id="vis">
+      <h2>Visitor rules and protective isolation</h2>
+      <p class="meta"><a href="./wiki/visitor-isolation.md">visitor-isolation.md</a> · POL-CW-03 v1.8 · IPC · review overdue</p>
+      <h3>Rules</h3>
+      <ul>
+        <li>Visiting 10:00–20:00. Well adult visitors, no cap. No visitors under 12.</li>
+        <li>Protective isolation if ANC below 500. Spill kit in dirty utility cupboard B.</li>
+        <li>Influenza visitors: stay away until 3 days after the fever starts.</li>
+      </ul>
+      <h3>Open questions</h3>
+      <ul>
+        <li>Unlimited adults vs two named caregivers in POL-CW-01. Influenza window looks short.</li>
+      </ul>
+    </article>
+
+    <article id="chemo">
+      <h2>Hazardous drugs (chemotherapy) safety</h2>
+      <p class="meta"><a href="./wiki/chemo-safety.md">chemo-safety.md</a> · POL-CW-04 v4.0 · Pharmacy + Nursing · 0–21 years</p>
+      <h3>Rules</h3>
+      <ul>
+        <li>Closed system. Hold a cycle if ANC is 1000 or lower unless the protocol says otherwise.</li>
+        <li>Night fever after an infusion: day unit in the morning if the child looks well.</li>
+        <li>Doxorubicin extravasation: warm compress (flagged as an error).</li>
+        <li>Spill kit: Room 12 clean utility — not the dirty utility.</li>
+      </ul>
+    </article>
+
+    <article id="leaf">
+      <h2>Discharge and after-hours fever advice</h2>
+      <p class="meta"><a href="./wiki/discharge-fever.md">discharge-fever.md</a> · POL-CW-05 v1.4 · Nursing Education · ID has not signed</p>
+      <h3>Rules families are told</h3>
+      <ul>
+        <li>ANC = “white cells plus the bands” (flagged as an error).</li>
+        <li>38.0°C and well: paracetamol, clinic next working day. Fever alone can wait.</li>
+        <li>In ER: antibiotic within 90 minutes; usual drug ceftriaxone.</li>
+        <li>Every line goes home with a heparin lock.</li>
+      </ul>
+      <h3>Open questions</h3>
+      <ul>
+        <li>This is the highest-risk file: it is what parents take home, and it undoes POL-CW-01.</li>
+      </ul>
+    </article>
+
+    <footer>
+      Next: the quality committee briefing — <a href="./summary.html">summary.html</a>.
+      Standing orders: <a href="./CLAUDE.md">CLAUDE.md</a>.
+    </footer>
+  </div>
+</body>
+</html>

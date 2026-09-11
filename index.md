@@ -83,20 +83,21 @@ permalink: /
   .cci-qr-box {
     display: inline-flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.25rem;
     background: linear-gradient(135deg, #E8F1FB, #FDE8F4);
     border: 1px solid #B8D0EC;
     border-radius: 0.85rem;
-    padding: 0.85rem 1.25rem;
+    padding: 1rem 1.4rem;
     margin: 1.75rem auto 0;
   }
 
   .cci-qr-box img {
-    width: 72px;
-    height: 72px;
+    width: 108px;
+    height: 108px;
     border-radius: 0.5rem;
     border: 2px solid white;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    image-rendering: pixelated;
   }
 
   .cci-qr-info { text-align: left; }
@@ -296,6 +297,15 @@ permalink: /
     <div class="cci-card-body">
       <p class="title">MCP &mdash; connect your own work <span class="cci-active-badge">00:29</span></p>
       <p class="desc">USB for AI. Live Haiku with and without a medical-terms plug.</p>
+    </div>
+    <span class="arrow">&#8250;</span>
+  </a>
+
+  <a class="cci-card cci-card-active" href="{{ site.baseurl }}/block-05-5-claude-md/">
+    <div class="cci-num" style="background:#6D4C41;width:44px;font-size:0.72rem;">5.5</div>
+    <div class="cci-card-body">
+      <p class="title">CLAUDE.md &mdash; the kitchen contract <span class="cci-active-badge">00:34</span></p>
+      <p class="desc">Standing orders for a folder. Five policies in. A wiki and a quality review out.</p>
     </div>
     <span class="arrow">&#8250;</span>
   </a>

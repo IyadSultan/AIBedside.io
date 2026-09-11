@@ -16,6 +16,7 @@ the QR-code handout attendees land on after the session.
 
 - `index.md` — hero, objectives, and the run-of-show grid (links to every block)
 - `block-XX-*.md` — one page per block: on-screen content + take-home
+- `block-05-5-claude-md.md` — after MCP: `CLAUDE.md` as standing orders; demo folder at `assets/block-05.5/` (policies, wiki, `summary.html`)
 - `block-08-learned.md` — last slides: KHCC habits, then hospital agents as a governed workforce (deck at `assets/slides/block-08.html`)
 - `closing-tasks.md` — the three-minute close, one task per role (the actual handout content)
 - `companion-sessions.md` — the Precision Medicine and AI-avatar Q&A blocks that follow

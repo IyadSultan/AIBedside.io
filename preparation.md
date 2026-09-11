@@ -15,7 +15,7 @@ permalink: /preparation/
   The synthetic febrile-neutropenia case, a NotebookLM folder of 4&ndash;6 public guidelines, a ~200-row synthetic unit dataset, the ward-thread skill (plus the annual-report skill if you have time), and one QR handout slide.
 </div>
 <div class="callout callout-onscreen" style="margin-bottom:0.75rem;">
-  Open Block 5, click <strong>Load Bonsai 1.7B</strong>, and wait until it says ready. The first download is ~290 MB and far too slow to do live. After that it is cached in the browser, so you can switch the wi-fi off on stage.
+  Open Block 5.5 and confirm <a href="{{ site.baseurl }}/assets/block-05.5/summary.html">summary.html</a> loads (fever disagreement on the first screen). Then open Block 5, click <strong>Load Bonsai 1.7B</strong>, and wait until it says ready. The first download is ~290 MB and far too slow to do live. After that it is cached in the browser, so you can switch the wi-fi off on stage.
 </div>
 <div class="callout callout-onscreen" style="margin-bottom:0.75rem;">
   Before Block 6, open <a href="https://roster-builder-iyadsultan.replit.app/" target="_blank" rel="noopener">Roster Builder</a> in its own tab, plus the <a href="{{ site.baseurl }}/block-06-small-app/prd/">PRD page</a>. Confirm Generate still returns ten candidates. Do not walk on with a cold Replit boot.

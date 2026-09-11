@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cedar Ward policy review — five documents</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    /* THESIS: The leaflet undoes the pathway. Not a KPI dashboard — a flagged binder.
+       OWN-WORLD: Cool fluorescent paper, SIOP navy spine, magenta contradiction flags,
+       gold suggested fixes. Policy quotes set in STIX Two (the face of a printed protocol).
+       STORY: Read the fever disagreement first, then the ledger, then who should fix what.
+       FIRST VIEWPORT: Two facing quotations. Come tonight vs wait until morning.
+       FORM: Chart-review facing pages. */
+    :root {
+      --navy: #21409A;
+      --ink: #1B2A4A;
+      --paper: #F3F5F8;
+      --card: #ffffff;
+      --magenta: #EC008C;
+      --gold: #C9A227;
+      --gold-bg: #FFF8DC;
+      --error: #C62828;
+      --error-bg: #FDECEA;
+      --dup: #00695C;
+      --dup-bg: #E8F5F3;
+      --rule: #D5DDE5;
+      --mute: #5C6B7A;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Atkinson Hyperlegible", ui-sans-serif, sans-serif;
+      font-size: 1.05rem;
+      line-height: 1.55;
+    }
+    a { color: var(--navy); }
+    a:hover { color: var(--magenta); }
+    .spine {
+      background: var(--navy);
+      color: #fff;
+      padding: 0.85rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: baseline;
+      flex-wrap: wrap;
+      border-bottom: 4px solid var(--magenta);
+    }
+    .spine strong { letter-spacing: 0.04em; }
+    .spine span { font-size: 0.85rem; opacity: 0.85; }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 1.5rem 1.15rem 4rem; }
+    .warn {
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-left: 4px solid var(--gold);
+      padding: 0.7rem 1rem;
+      font-size: 0.92rem;
+      color: var(--mute);
+      margin-bottom: 1.5rem;
+    }
+    h1 {
+      font-size: clamp(1.7rem, 3vw, 2.25rem);
+      line-height: 1.2;
+      margin: 0 0 0.5rem;
+    }
+    .lede { font-size: 1.15rem; color: var(--mute); margin: 0 0 1.5rem; max-width: 40rem; }
+    nav.jump {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0 0 2rem;
+    }
+    nav.jump a {
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 0.3rem 0.65rem;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid var(--rule);
+    }
+    .face {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 0.75rem;
+      align-items: stretch;
+      margin: 0 0 2.25rem;
+    }
+    .quote {
+      background: var(--card);
+      border: 1px solid var(--rule);
+      padding: 1.1rem 1.15rem;
+      border-radius: 0.2rem;
+    }
+    .quote.now { border-top: 4px solid var(--navy); }
+    .quote.wait { border-top: 4px solid var(--magenta); }
+    .quote .pol {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--mute);
+      margin: 0 0 0.45rem;
+    }
+    .quote blockquote {
+      margin: 0;
+      font-family: "STIX Two Text", Georgia, serif;
+      font-size: 1.12rem;
+      font-style: italic;
+      line-height: 1.45;
+    }
+    .vs {
+      display: flex;
+      align-items: center;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--magenta);
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+    }
+    .counts {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.6rem;
+      margin: 0 0 2.5rem;
+    }
+    .counts div {
+      background: #fff;
+      border: 1px solid var(--rule);
+      padding: 0.75rem 0.85rem;
+    }
+    .counts b { display: block; font-size: 1.6rem; line-height: 1; }
+    .counts span { font-size: 0.78rem; color: var(--mute); }
+    h2 {
+      font-size: 1.05rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin: 2.25rem 0 0.85rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 2px solid var(--ink);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      font-size: 0.92rem;
+    }
+    th, td { text-align: left; padding: 0.55rem 0.7rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+    th { font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mute); }
+    .tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.12rem 0.4rem;
+      border-radius: 0.2rem;
+    }
+    .tag-con { background: #FDE8F4; color: var(--magenta); }
+    .tag-err { background: var(--error-bg); color: var(--error); }
+    .tag-dup { background: var(--dup-bg); color: var(--dup); }
+    .tag-ok { background: #E8F1FB; color: var(--navy); }
+    .ledger { display: grid; gap: 0.85rem; }
+    article.row {
+      background: #fff;
+      border: 1px solid var(--rule);
+      padding: 1rem 1.1rem;
+    }
+    article.row header {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      align-items: baseline;
+      flex-wrap: wrap;
+      margin-bottom: 0.55rem;
+    }
+    article.row h3 { margin: 0; font-size: 1.05rem; }
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .pair p {
+      margin: 0;
+      font-family: "STIX Two Text", Georgia, serif;
+      font-size: 0.98rem;
+      background: var(--paper);
+      padding: 0.7rem 0.8rem;
+      border-left: 3px solid var(--navy);
+    }
+    .pair p.wait { border-left-color: var(--magenta); }
+    .why { margin: 0.65rem 0 0; color: var(--mute); font-size: 0.95rem; }
+    .fix {
+      margin: 0.55rem 0 0;
+      background: var(--gold-bg);
+      padding: 0.55rem 0.75rem;
+      font-size: 0.92rem;
+    }
+    .err-box { border-left: 4px solid var(--error); }
+    .dup-box { border-left: 4px solid var(--dup); }
+    ol.sugg { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.65rem; }
+    ol.sugg li {
+      background: #fff;
+      border: 1px solid var(--rule);
+      padding: 0.85rem 1rem 0.85rem 3rem;
+      position: relative;
+    }
+    ol.sugg li::before {
+      content: attr(data-n);
+      position: absolute;
+      left: 0.85rem;
+      top: 0.85rem;
+      font-weight: 800;
+      color: var(--navy);
+    }
+    .owner { font-size: 0.8rem; font-weight: 700; color: var(--navy); letter-spacing: 0.04em; text-transform: uppercase; }
+    footer.note {
+      margin-top: 2.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--rule);
+      font-size: 0.85rem;
+      color: var(--mute);
+    }
+    @media (max-width: 720px) {
+      .face, .pair, .counts { grid-template-columns: 1fr; }
+      .vs { writing-mode: horizontal-tb; transform: none; justify-content: center; padding: 0.2rem 0; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    @media print {
+      body { background: #fff; }
+      .spine, nav.jump { display: none; }
+      article.row, .quote { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="spine">
+    <strong>Cedar Ward · policy review</strong>
+    <span>Teaching copy · not KHCC policy · not for real patients</span>
+  </div>
+
+  <div class="wrap">
+    <p class="warn">Produced from the five files in <a href="./policies/POL-CW-01-febrile-neutropenia.md">policies/</a> by the standing orders in <a href="./CLAUDE.md">CLAUDE.md</a>. Wiki notes: <a href="./wiki/index.md">wiki/</a>.</p>
+
+    <h1>The leaflet undoes the pathway</h1>
+    <p class="lede">Five current documents on one childhood-cancer ward. They do not agree on fever, on antibiotics, on who may visit, or on how a line is locked. The disagreement families take home is the one that can delay care.</p>
+
+    <nav class="jump" aria-label="On this page">
+      <a href="#inventory">Inventory</a>
+      <a href="#contradictions">Contradictions</a>
+      <a href="#errors">Errors</a>
+      <a href="#duplications">Duplications</a>
+      <a href="#suggestions">Suggestions</a>
+    </nav>
+
+    <div class="face" role="group" aria-label="The dangerous disagreement">
+      <div class="quote now">
+        <p class="pol">POL-CW-01 · Infectious Diseases · Mar 2024</p>
+        <blockquote>Families must bring the child to the Emergency Department the same evening. Do not wait for clinic in the morning. Do not give paracetamol at home to “see if the fever settles” before the child is seen.</blockquote>
+      </div>
+      <div class="vs">Disagrees</div>
+      <div class="quote wait">
+        <p class="pol">POL-CW-05 · Nursing Education · Aug 2025</p>
+        <blockquote>A temperature of 38.0°C is a low-grade fever. If the child looks well, you may give paracetamol and call the clinic between 08:00 and 16:00 the next working day.</blockquote>
+      </div>
+    </div>
+
+    <div class="counts" aria-label="Counts from this folder">
+      <div><b>5</b><span>documents in the folder</span></div>
+      <div><b>8</b><span>contradictions</span></div>
+      <div><b>4</b><span>errors</span></div>
+      <div><b>3</b><span>duplicated passages</span></div>
+    </div>
+
+    <h2 id="inventory">Inventory</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>File</th>
+          <th>Owner</th>
+          <th>Date</th>
+          <th>Age band</th>
+          <th>Review</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><a href="./policies/POL-CW-01-febrile-neutropenia.md">POL-CW-01</a> FN</td>
+          <td>Infectious Diseases</td>
+          <td>12 Mar 2024</td>
+          <td>0–18</td>
+          <td>Due Mar 2026</td>
+        </tr>
+        <tr>
+          <td><a href="./policies/POL-CW-02-central-line.md">POL-CW-02</a> Lines</td>
+          <td>Vascular Access</td>
+          <td>8 Jan 2026</td>
+          <td>under 16</td>
+          <td>Due Jan 2028</td>
+        </tr>
+        <tr>
+          <td><a href="./policies/POL-CW-03-visitor-isolation.md">POL-CW-03</a> Visitors</td>
+          <td>IPC</td>
+          <td>3 Jun 2023</td>
+          <td>0–18</td>
+          <td>Overdue (Jun 2025)</td>
+        </tr>
+        <tr>
+          <td><a href="./policies/POL-CW-04-chemo-safety.md">POL-CW-04</a> Chemo</td>
+          <td>Pharmacy + Nursing</td>
+          <td>19 Nov 2025</td>
+          <td>0–21</td>
+          <td>Due Nov 2027</td>
+        </tr>
+        <tr>
+          <td><a href="./policies/POL-CW-05-discharge-fever.md">POL-CW-05</a> Leaflet</td>
+          <td>Nursing Education</td>
+          <td>2 Aug 2025</td>
+          <td>families</td>
+          <td>ID has not signed</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="why">Three different age bands (under 16 / 0–18 / 0–21) on one ward. A 17-year-old with a Broviac and fever sits in a gap.</p>
+
+    <h2 id="contradictions">Contradictions</h2>
+    <div class="ledger">
+
+      <article class="row">
+        <header>
+          <h3>Fever at home — come now, or wait until morning?</h3>
+          <span class="tag tag-con">Highest risk</span>
+        </header>
+        <div class="pair">
+          <p>POL-CW-01: come to ER the same evening. No paracetamol before assessment. Door-to-antibiotic 60 minutes. Not ceftriaxone.</p>
+          <p class="wait">POL-CW-05: 38.0°C and well → paracetamol and clinic next working day. Door-to-antibiotic 90 minutes. Usual drug ceftriaxone. POL-CW-04 also sends night fever after an infusion to the day unit in the morning.</p>
+        </div>
+        <p class="why">POL-CW-01 section 7 required the leaflet to match the FN pathway. It does not. Infectious Diseases has not countersigned POL-CW-05.</p>
+      </article>
+
+      <article class="row">
+        <header>
+          <h3>What counts as neutropenia?</h3>
+          <span class="tag tag-con">Contradiction</span>
+        </header>
+        <div class="pair">
+          <p>POL-CW-01 and POL-CW-03: ANC below 500/µL.</p>
+          <p class="wait">POL-CW-02: for line decisions, ANC below 1000/µL. POL-CW-04 holds a cycle if ANC is 1000 or lower.</p>
+        </div>
+        <p class="why">500 vs 1000 is a real clinical fork, not a wording quibble. The folder never says which number a night nurse should use.</p>
+      </article>
+
+      <article class="row">
+        <header>
+          <h3>Who is a child on Cedar Ward?</h3>
+          <span class="tag tag-con">Contradiction</span>
+        </header>
+        <div class="pair">
+          <p>POL-CW-01 and POL-CW-03: 0–18 years.</p>
+          <p class="wait">POL-CW-02: under 16 (16–18 sent to adult haematology, whose protocol is not in this folder). POL-CW-04: 0–21.</p>
+        </div>
+      </article>
+
+      <article class="row">
+        <header>
+          <h3>First-line antibiotic</h3>
+          <span class="tag tag-con">Contradiction</span>
+        </header>
+        <div class="pair">
+          <p>POL-CW-01: piperacillin-tazobactam. Penicillin rash → cefepime. “Do not use ceftriaxone as first-line.”</p>
+          <p class="wait">POL-CW-02 (line infection): vancomycin + cefepime. POL-CW-05 (what families are told): ceftriaxone.</p>
+        </div>
+      </article>
+
+      <article class="row">
+        <header>
+          <h3>Culture order, and whether to wait for the attending</h3>
+          <span class="tag tag-con">Contradiction</span>
+        </header>
+        <div class="pair">
+          <p>POL-CW-01: peripheral culture first, then every lumen. Antibiotics after cultures. May run through the line. Do not wait.</p>
+          <p class="wait">POL-CW-02: line first. Peripheral optional if stable. Notify attending within 2 hours. Do not start antibiotics through the line until the attending has reviewed.</p>
+        </div>
+      </article>
+
+      <article class="row">
+        <header>
+          <h3>Heparin locks</h3>
+          <span class="tag tag-con">Contradiction</span>
+        </header>
+        <div class="pair">
+          <p>POL-CW-02: no heparin on PICCs or Broviacs. Monthly heparin only on a sleeping port. POL-CW-01: no heparin as part of the FN pathway.</p>
+          <p class="wait">Same file POL-CW-02, discharge sentence: every central line goes home with a heparin lock. POL-CW-05: do not use saline alone — the line will clot.</p>
+        </div>
+        <p class="why">POL-CW-02 disagrees with itself. The leaflet picked the discharge sentence and ignored the “no heparin” rule.</p>
+      </article>
+
+      <article class="row">
+        <header>
+          <h3>How many visitors when ANC is below 500?</h3>
+          <span class="tag tag-con">Contradiction</span>
+        </header>
+        <div class="pair">
+          <p>POL-CW-01: two named caregivers. No children under 12.</p>
+          <p class="wait">POL-CW-03: well adult visitors, no cap on numbers. No children under 12. Overnight stay only with permission — while families are not told this at discharge.</p>
+        </div>
+      </article>
+
+      <article class="row">
+        <header>
+          <h3>Where is the spill kit?</h3>
+          <span class="tag tag-con">Contradiction</span>
+        </header>
+        <div class="pair">
+          <p>POL-CW-04: Room 12 clean utility, top shelf, yellow. “Do not store the spill kit in the dirty utility.” Isolation gowns must not share that cupboard.</p>
+          <p class="wait">POL-CW-03: spill kit and isolation gowns live in dirty utility cupboard B.</p>
+        </div>
+      </article>
+
+    </div>
+
+    <h2 id="errors">Errors</h2>
+    <div class="ledger">
+      <article class="row err-box">
+        <header>
+          <h3>ANC is not “white cells plus bands”</h3>
+          <span class="tag tag-err">Error</span>
+        </header>
+        <p class="why">POL-CW-05 tells families that the absolute neutrophil count is the white cells plus the bands. ANC is the neutrophils (and usually bands) as a subset of the white-cell count, not the white-cell count itself. A parent who hears “white cells 2.0” may think the child is not neutropenic.</p>
+        <p class="fix">Rewrite the leaflet in one sentence: “Neutrophils are the white cells that fight bacteria. Below 500, a fever is an emergency.” Owner: Nursing Education, countersigned by ID.</p>
+      </article>
+      <article class="row err-box">
+        <header>
+          <h3>Warm compress for doxorubicin</h3>
+          <span class="tag tag-err">Error</span>
+        </header>
+        <p class="why">POL-CW-04 sends vinca alkaloids to a warm compress (usual) and anthracyclines (doxorubicin, daunorubicin) to a warm compress as well. Standard extravasation teaching is cold for anthracyclines, warm for vincas. A warm pack on a doxorubicin extravasation is the wrong pack.</p>
+        <p class="fix">Pharmacy to replace the anthracycline line with cold compress and antidote (dexrazoxane) per the current house extravasation card — not this paragraph.</p>
+      </article>
+      <article class="row err-box">
+        <header>
+          <h3>Chlorhexidine 4% aqueous, no alcohol</h3>
+          <span class="tag tag-err">Error</span>
+        </header>
+        <p class="why">POL-CW-02 specifies 4% aqueous chlorhexidine and forbids alcohol. Line-insertion and dressing bundles usually use alcoholic 2% chlorhexidine and need a dry time. 4% aqueous is a surgical scrub concentration, not the usual CVAD skin prep.</p>
+        <p class="fix">Vascular Access to confirm against the product actually on the trolley and rewrite the sentence.</p>
+      </article>
+      <article class="row err-box">
+        <header>
+          <h3>Influenza exclusion “3 days after the fever starts”</h3>
+          <span class="tag tag-err">Possible error</span>
+        </header>
+        <p class="why">POL-CW-03 lets a visitor return three days after fever begins, even if they still feel hot. Usual staff/visitor rules wait until 24 hours without fever, often with a 5–7 day floor. Measles (21 days) and varicella (crusted) in the same file look right.</p>
+        <p class="fix">IPC to replace with the current occupational-health influenza rule and to review the whole file — it is overdue.</p>
+      </article>
+    </div>
+
+    <h2 id="duplications">Duplications</h2>
+    <div class="ledger">
+      <article class="row dup-box">
+        <header>
+          <h3>Five moments of hand hygiene</h3>
+          <span class="tag tag-dup">Duplication</span>
+        </header>
+        <p class="why">POL-CW-02 section 8 and POL-CW-03 section 6 are almost the same paragraph. When IPC updates the five moments, one file will be missed.</p>
+        <p class="fix">Keep the full text in POL-CW-03. In POL-CW-02, one line: “Hand hygiene as POL-CW-03.”</p>
+      </article>
+      <article class="row dup-box">
+        <header>
+          <h3>No live plants</h3>
+          <span class="tag tag-dup">Duplication</span>
+        </header>
+        <p class="why">POL-CW-03 bans plants in protective isolation. POL-CW-04 bans plants in rooms where chemotherapy is given. Same ward, two owners, two sentences.</p>
+        <p class="fix">One plant rule, owned by IPC, pointed to from chemo safety.</p>
+      </article>
+      <article class="row dup-box">
+        <header>
+          <h3>When to come to ER — two lists</h3>
+          <span class="tag tag-dup">Duplication</span>
+        </header>
+        <p class="why">POL-CW-01 and POL-CW-05 both list when a family should come in. The lists use different temperatures, different clocks, and different first drugs. This is duplication plus contradiction. The leaflet is the copy families actually read.</p>
+        <p class="fix">One ER list, owned by ID, pasted into the leaflet without rewriting the numbers.</p>
+      </article>
+    </div>
+
+    <h2 id="suggestions">Suggestions</h2>
+    <ol class="sugg">
+      <li data-n="1">
+        <p class="owner">Infectious Diseases + Nursing Education — this week</p>
+        <p>Withdraw POL-CW-05 from the discharge pack until it matches POL-CW-01 on fever, paracetamol, door-to-antibiotic time, and first-line drug. A leaflet that is unsigned by ID is not a leaflet.</p>
+      </li>
+      <li data-n="2">
+        <p class="owner">Medical director, Cedar Ward</p>
+        <p>Pick one age band and one ANC cut-off for the ward, and put both in a one-page cover sheet that every policy points to. Until then, a 17-year-old with a line and ANC 700 has no home in this folder.</p>
+      </li>
+      <li data-n="3">
+        <p class="owner">Vascular Access</p>
+        <p>Delete one of the two heparin rules in POL-CW-02. Align the discharge lock with POL-CW-01. Confirm chlorhexidine product and concentration against stock.</p>
+      </li>
+      <li data-n="4">
+        <p class="owner">Pharmacy</p>
+        <p>Correct the doxorubicin extravasation compress. Confirm first-line FN drugs with ID so the leaflet, the line protocol, and the FN protocol name the same molecule.</p>
+      </li>
+      <li data-n="5">
+        <p class="owner">IPC</p>
+        <p>Review POL-CW-03 (overdue). Reconcile visitor numbers with POL-CW-01. Move the spill-kit sentence to POL-CW-04’s location. Shorten the duplicated hand-hygiene and plant rules to pointers.</p>
+      </li>
+      <li data-n="6">
+        <p class="owner">Quality</p>
+        <p>Give every Cedar Ward policy a single owner who must countersign the family leaflet. Re-run this folder through the standing orders in CLAUDE.md after the next edit.</p>
+      </li>
+    </ol>
+
+    <footer class="note">
+      Wiki notes for each file: <a href="./wiki/febrile-neutropenia.md">FN</a> ·
+      <a href="./wiki/central-line.md">lines</a> ·
+      <a href="./wiki/visitor-isolation.md">visitors</a> ·
+      <a href="./wiki/chemo-safety.md">chemo</a> ·
+      <a href="./wiki/discharge-fever.md">leaflet</a>.
+      Standing orders: <a href="./CLAUDE.md">CLAUDE.md</a>.
+      Nothing in this briefing is KHCC policy.
+    </footer>
+  </div>
+</body>
+</html>

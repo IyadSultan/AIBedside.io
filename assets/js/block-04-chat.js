@@ -1,5 +1,7 @@
 // Block 4 live Claude — Haiku 4.5 with and without the terminology MCP.
-// Talks to the local server at mcp-chat/server.py. The API key never leaves that server.
+// Calls the Anthropic API straight from the browser with a key the presenter
+// pastes into the page. The key lives in sessionStorage for this tab only and
+// is never written to the repo or sent anywhere except api.anthropic.com.
 
 (function () {
   "use strict";
@@ -15,27 +17,57 @@
     mcp: []
   };
 
+  var API_URL = "https://api.anthropic.com/v1/messages";
+  var MODEL = "claude-haiku-4-5";
+  var MCP_URL = "https://medical.sidneybissoli.com/mcp";
+  var MCP_NAME = "medical-terms";
+  var KEY_STORE = "aibedside.anthropic_key";
+  var MAX_HISTORY = 8;
+
+  var SYSTEM_PLAIN =
+    "You are Claude, in a teaching demo for a childhood-cancer conference.\n\n" +
+    "You do NOT have a live terminology plug. You cannot look up ICD-11, RxNorm, LOINC, MeSH, or ATC from a database.\n\n" +
+    "If the question is a code, mapping, or official display name:\n" +
+    "- Answer from training memory if you can.\n" +
+    "- Say clearly that this is recalled, not a live lookup.\n" +
+    "- If you are unsure of the current code, say so. Do not invent a confident code.\n\n" +
+    "Keep the answer short enough to read on a projector (about 120 words).\n" +
+    "This is teaching, not clinical advice. Never ask for or use a real patient name, MRN, or date of birth.";
+
+  var SYSTEM_MCP =
+    "You are Claude, in a teaching demo for a childhood-cancer conference.\n\n" +
+    "You HAVE a medical-terminologies MCP plug: ICD-11, LOINC, RxNorm, MeSH, ATC, CID-10, and ICD-10 to ICD-11 mapping.\n\n" +
+    "When the question is a code, mapping, drug name, lab code, or official term, USE the tools. Do not guess a code if a tool can look it up.\n\n" +
+    "After a tool returns:\n" +
+    "- Lead with the official code and display name.\n" +
+    "- Name the source (WHO ICD-11, RxNorm, LOINC, MeSH, ATC).\n" +
+    "- Keep the answer short enough to read on a projector (about 120 words).\n\n" +
+    "This is teaching, not clinical advice. Never ask for or use a real patient name, MRN, or date of birth.";
+
   var busy = false;
-  var serverUp = false;
-  var healthTimer = null;
 
   function $(id) {
     return document.getElementById(id);
   }
 
-  function apiRoot() {
+  function getKey() {
     try {
-      var q = new URLSearchParams(window.location.search).get("chat");
-      if (q) {
-        return q.replace(/\/$/, "");
-      }
+      return (window.sessionStorage.getItem(KEY_STORE) || "").trim();
     } catch (err) {
-      // keep the laptop default
-    }
-    if (window.location.port === "8765") {
       return "";
     }
-    return "http://127.0.0.1:8765";
+  }
+
+  function setKey(value) {
+    try {
+      if (value) {
+        window.sessionStorage.setItem(KEY_STORE, value);
+      } else {
+        window.sessionStorage.removeItem(KEY_STORE);
+      }
+    } catch (err) {
+      // private mode without storage: the key simply lasts one page view
+    }
   }
 
   function formatText(text) {
@@ -129,53 +161,70 @@
     thread.scrollTop = thread.scrollHeight;
   }
 
-  function readSSE(response, onEvent) {
-    return new Promise(function (resolve, reject) {
-      if (!response.body || !response.body.getReader) {
-        reject(new Error("This browser cannot stream the reply."));
-        return;
-      }
-      var reader = response.body.getReader();
-      var decoder = new TextDecoder();
-      var buffer = "";
+  function trimSnippet(value, limit) {
+    var text = String(value || "").trim().replace(/\n/g, " ");
+    return text.length > limit ? text.slice(0, limit) + "…" : text;
+  }
 
-      function pump() {
-        reader
-          .read()
-          .then(function (result) {
-            if (result.done) {
-              resolve();
-              return;
-            }
-            buffer += decoder.decode(result.value, { stream: true });
-            var chunks = buffer.split("\n\n");
-            buffer = chunks.pop() || "";
-            var i;
-            var line;
-            var payload;
-            for (i = 0; i < chunks.length; i += 1) {
-              line = chunks[i].trim();
-              if (line.indexOf("data:") !== 0) {
-                continue;
-              }
-              try {
-                payload = JSON.parse(line.replace(/^data:\s*/, ""));
-              } catch (err) {
-                reject(
-                  new Error(
-                    "The chat failed while reading a server line: " + err.message
-                  )
-                );
-                return;
-              }
-              onEvent(payload);
-            }
-            pump();
-          })
-          .catch(reject);
+  function toolEvent(block) {
+    if (block.type === "mcp_tool_use") {
+      var shown = "";
+      try {
+        shown = JSON.stringify(block.input || {});
+      } catch (err) {
+        shown = String(block.input || "");
       }
+      return { type: "tool", name: block.name || "tool", detail: trimSnippet(shown, 400) };
+    }
+    if (block.type === "mcp_tool_result") {
+      var snippet = "";
+      if (Array.isArray(block.content) && block.content.length) {
+        snippet = block.content[0].text || "";
+      } else if (typeof block.content === "string") {
+        snippet = block.content;
+      }
+      return {
+        type: "tool_result",
+        ok: !block.is_error,
+        detail: trimSnippet(snippet, 280) || (block.is_error ? "Tool error" : "Tool finished")
+      };
+    }
+    return null;
+  }
 
-      pump();
+  function callClaude(useMcp, messages) {
+    var headers = {
+      "Content-Type": "application/json",
+      "x-api-key": getKey(),
+      "anthropic-version": "2023-06-01",
+      "anthropic-dangerous-direct-browser-access": "true"
+    };
+    var body = {
+      model: MODEL,
+      max_tokens: 900,
+      system: useMcp ? SYSTEM_MCP : SYSTEM_PLAIN,
+      messages: messages
+    };
+    if (useMcp) {
+      headers["anthropic-beta"] = "mcp-client-2025-11-20";
+      body.mcp_servers = [{ type: "url", url: MCP_URL, name: MCP_NAME }];
+      body.tools = [{ type: "mcp_toolset", mcp_server_name: MCP_NAME }];
+    }
+    return fetch(API_URL, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(body)
+    }).then(function (res) {
+      return res.json().then(function (data) {
+        if (!res.ok) {
+          var msg = (data && data.error && data.error.message) || ("HTTP " + res.status);
+          if (res.status === 401) {
+            msg = "The API key was rejected. Use “Forget key” and paste it again.";
+          }
+          throw new Error(msg);
+        }
+        return data;
+      });
     });
   }
 
@@ -184,76 +233,36 @@
     var useMcp = mode === "mcp";
     addUser(thread, prompt);
     var bubble = addBotShell(thread);
-    var collected = "";
+    var messages = history[mode].slice(-MAX_HISTORY).concat([{ role: "user", content: prompt }]);
 
-    return fetch(apiRoot() + "/api/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        prompt: prompt,
-        use_mcp: useMcp,
-        messages: history[mode]
-      })
-    })
-      .then(function (res) {
-        if (!res.ok) {
-          throw new Error(
-            "The chat server answered HTTP " + res.status + " in the " + mode + " pane."
-          );
-        }
-        return readSSE(res, function (ev) {
-          if (!ev || !ev.type) {
-            return;
-          }
-          if (ev.type === "tool" || ev.type === "tool_result") {
+    return callClaude(useMcp, messages)
+      .then(function (data) {
+        var parts = [];
+        (data.content || []).forEach(function (block) {
+          var ev = toolEvent(block);
+          if (ev) {
             addTool(bubble, ev);
-            return;
-          }
-          if (ev.type === "text") {
-            collected += ev.text || "";
-            return;
-          }
-          if (ev.type === "error") {
-            throw new Error(ev.message || "The model returned an error.");
+          } else if (block.type === "text" && block.text) {
+            parts.push(block.text);
           }
         });
-      })
-      .then(function () {
+        var collected = parts.join("\n\n").trim();
         if (!collected) {
-          collected = "No text came back. Try the question once more.";
+          collected = useMcp
+            ? "Haiku returned no text. The terms plug may have failed — try again."
+            : "No text came back. Try the question once more.";
         }
         finishBot(bubble, collected, false);
         history[mode].push({ role: "user", content: prompt });
         history[mode].push({ role: "assistant", content: collected });
       })
       .catch(function (err) {
-        finishBot(bubble, friendlyError(err, mode), true);
-        checkHealth();
+        var raw = (err && err.message) || "";
+        if (!raw || raw === "Failed to fetch" || raw === "Load failed") {
+          raw = "Could not reach api.anthropic.com. Check the network and try again.";
+        }
+        finishBot(bubble, raw, true);
       });
-  }
-
-  function mixedContentBlock() {
-    return (
-      window.location.protocol === "https:" &&
-      apiRoot().indexOf("http://") === 0
-    );
-  }
-
-  function friendlyError(err, mode) {
-    var raw = (err && err.message) || "";
-    if (mixedContentBlock()) {
-      return (
-        "This live chat cannot run on the public https site. Open http://127.0.0.1:8765 after ./mcp-chat/start.sh."
-      );
-    }
-    if (!raw || raw === "Failed to fetch" || raw === "Load failed" || raw === "NetworkError when attempting to fetch resource.") {
-      return (
-        "Cannot reach the chat server for the " +
-        mode +
-        " pane. In a project terminal run ./mcp-chat/start.sh, then try again."
-      );
-    }
-    return raw;
   }
 
   function setBusy(on) {
@@ -264,7 +273,7 @@
   function syncComposer() {
     var send = $("claude-send");
     var input = $("claude-input");
-    var locked = busy || !serverUp;
+    var locked = busy || !getKey();
     if (send) {
       send.disabled = locked;
     }
@@ -278,8 +287,8 @@
     if (!prompt || busy) {
       return;
     }
-    if (!serverUp) {
-      checkHealth();
+    if (!getKey()) {
+      syncKeyRow();
       return;
     }
     var input = $("claude-input");
@@ -298,48 +307,20 @@
     );
   }
 
-  function checkHealth() {
+  function syncKeyRow() {
+    var row = $("claude-key-form");
     var el = $("claude-health");
-    if (mixedContentBlock()) {
-      serverUp = false;
-      if (el) {
-        el.className = "claude-health is-down";
-        el.textContent =
-          "Open http://127.0.0.1:8765 for the live chat (https pages cannot reach the laptop server).";
-      }
-      syncComposer();
-      return;
+    var has = !!getKey();
+    if (row) {
+      row.className = "claude-keyrow" + (has ? " is-set" : "");
     }
-    fetch(apiRoot() + "/health")
-      .then(function (res) {
-        return res.json();
-      })
-      .then(function (info) {
-        if (info && info.ok) {
-          serverUp = true;
-          if (el) {
-            el.className = "claude-health is-up";
-            el.textContent = "Haiku 4.5 ready · terms plug on the right";
-          }
-        } else {
-          serverUp = false;
-          if (el) {
-            el.className = "claude-health is-down";
-            el.textContent =
-              "Chat server is up, but ANTHROPIC_API is missing from .env.";
-          }
-        }
-        syncComposer();
-      })
-      .catch(function () {
-        serverUp = false;
-        if (el) {
-          el.className = "claude-health is-down";
-          el.textContent =
-            "Chat server is off. Run ./mcp-chat/start.sh — this line turns green when it is back.";
-        }
-        syncComposer();
-      });
+    if (el) {
+      el.className = "claude-health " + (has ? "is-up" : "is-down");
+      el.textContent = has
+        ? "Haiku 4.5 ready · terms plug on the right"
+        : "Paste an Anthropic API key to start.";
+    }
+    syncComposer();
   }
 
   function ready() {
@@ -382,11 +363,37 @@
       });
     }
 
-    checkHealth();
-    if (healthTimer) {
-      window.clearInterval(healthTimer);
+    var keyForm = $("claude-key-form");
+    var keyInput = $("claude-key");
+    var keyClear = $("claude-key-clear");
+
+    if (keyForm) {
+      keyForm.addEventListener("submit", function (ev) {
+        ev.preventDefault();
+        var value = keyInput ? keyInput.value.trim() : "";
+        if (!value) {
+          return;
+        }
+        setKey(value);
+        keyInput.value = "";
+        syncKeyRow();
+        if (input) {
+          input.focus();
+        }
+      });
     }
-    healthTimer = window.setInterval(checkHealth, 4000);
+
+    if (keyClear) {
+      keyClear.addEventListener("click", function () {
+        setKey("");
+        syncKeyRow();
+        if (keyInput) {
+          keyInput.focus();
+        }
+      });
+    }
+
+    syncKeyRow();
   }
 
   if (document.readyState === "loading") {

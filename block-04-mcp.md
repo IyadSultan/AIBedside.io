@@ -494,7 +494,7 @@ Continue → PMID 36626595
 
   <div class="block-nav">
     <a href="{{ site.baseurl }}/block-03-skills/">&larr; 3 &middot; Skills — your house style</a>
-    <a href="{{ site.baseurl }}/block-05-small-models/">5 &middot; Small models &amp; the edge &rarr;</a>
+    <a href="{{ site.baseurl }}/block-05-5-claude-md/">5.5 &middot; CLAUDE.md — the kitchen contract &rarr;</a>
   </div>
 </div>
 

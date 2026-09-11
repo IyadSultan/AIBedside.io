@@ -245,7 +245,7 @@ permalink: /block-05-small-models/
   </div>
 
   <div class="block-nav">
-    <a href="{{ site.baseurl }}/block-04-mcp/">&larr; 4 &middot; MCP — connect your own work</a>
+    <a href="{{ site.baseurl }}/block-05-5-claude-md/">&larr; 5.5 &middot; CLAUDE.md — the kitchen contract</a>
     <a href="{{ site.baseurl }}/block-06-small-app/">6 &middot; A small app in five minutes &rarr;</a>
   </div>
 </div>

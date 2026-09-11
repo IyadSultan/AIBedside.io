@@ -75,6 +75,60 @@
     color: #9a3412;
 }
 
+.claude-keyrow {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 1rem 0.6rem;
+    padding: 0.45rem 0.55rem 0.45rem 0.85rem;
+    background: #fffdf8;
+    border: 1px solid var(--claude-line);
+    border-radius: 0.9rem;
+}
+
+.claude-keyrow input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    font: 400 0.85rem/1.4 inherit;
+    color: var(--claude-ink);
+}
+
+.claude-keyrow input:focus {
+    outline: none;
+}
+
+.claude-keyrow button {
+    border: 1px solid var(--claude-line);
+    background: #fff;
+    color: var(--claude-ink);
+    font: 500 0.78rem/1 inherit;
+    padding: 0.45rem 0.7rem;
+    border-radius: 0.6rem;
+    cursor: pointer;
+}
+
+.claude-keyrow button:hover {
+    border-color: var(--claude-send);
+}
+
+.claude-keyrow.is-set input,
+.claude-keyrow.is-set #claude-key-use {
+    display: none;
+}
+
+.claude-keyrow:not(.is-set) #claude-key-clear {
+    display: none;
+}
+
+.claude-keyrow.is-set::before {
+    content: "Key set for this tab";
+    flex: 1;
+    font-size: 0.82rem;
+    color: #3d6b4f;
+}
+
 .claude-split {
     display: grid;
     grid-template-columns: 1fr 1fr;

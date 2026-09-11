@@ -9,8 +9,15 @@
         <span>Haiku 4.5 &middot; medical terms MCP</span>
       </div>
     </div>
-    <p class="claude-health" id="claude-health" role="status">Checking the local chat server&hellip;</p>
+    <p class="claude-health" id="claude-health" role="status">Paste an Anthropic API key to start.</p>
   </div>
+
+  <form class="claude-keyrow" id="claude-key-form">
+    <label class="visually-hidden" for="claude-key">Anthropic API key</label>
+    <input type="password" id="claude-key" placeholder="sk-ant-&hellip; (kept in this tab only)" autocomplete="off" spellcheck="false">
+    <button type="submit" id="claude-key-use">Use key</button>
+    <button type="button" id="claude-key-clear">Forget key</button>
+  </form>
 
   <div class="claude-split">
     <section class="claude-pane" aria-label="Haiku without a plug">
@@ -45,5 +52,5 @@
     <textarea id="claude-input" rows="1" placeholder="Ask a question&hellip;" autocomplete="off"></textarea>
     <button type="submit" class="claude-send" id="claude-send" aria-label="Send both panes"></button>
   </form>
-  <p class="claude-foot">Public terminology only. Never paste a real patient. Local server: <code>mcp-chat/start.sh</code></p>
+  <p class="claude-foot">Public terminology only. Never paste a real patient. The key stays in this tab and is gone when you close it.</p>
 </div>
