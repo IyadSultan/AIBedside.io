@@ -258,8 +258,8 @@ permalink: /
   <a class="cci-card cci-card-active" href="{{ site.baseurl }}/block-00-open/">
     <div class="cci-num" style="background:#607D8B;">0</div>
     <div class="cci-card-body">
-      <p class="title">Open &mdash; the same question, asked twice <span class="cci-active-badge">00:00</span></p>
-      <p class="desc">Click through a lazy prompt, then a briefing. Same synthetic case.</p>
+      <p class="title">Open &mdash; no conflicts, four similar tools <span class="cci-active-badge">00:00</span></p>
+      <p class="desc">Disclosures, then Claude / ChatGPT / Gemini / Perplexity, then Wachter.</p>
     </div>
     <span class="arrow">&#8250;</span>
   </a>

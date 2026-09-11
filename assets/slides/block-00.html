@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open — AI at the Bedside · SIOP 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ===== Themes ===== */
+body[data-theme="default"]{--bg:#f7f4ee;--bg-2:#efeae0;--fg:#1a1a1a;--fg-2:#5c574f;--accent:#d62828;--accent-2:#2b2d42;--rule:#d8d2c4;--font-display:"Fraunces",Georgia,serif;--font-body:"Inter",system-ui,sans-serif;--radius:6px;--display-weight:500}
+body[data-theme="dark"]{--bg:#0b0b0c;--bg-2:#161618;--fg:#f4f4f2;--fg-2:#a3a39e;--accent:#ffd23f;--accent-2:#ff6b35;--rule:#2a2a2d;--font-display:"Space Grotesk",Inter,sans-serif;--font-body:"Inter",system-ui,sans-serif;--radius:12px;--display-weight:700}
+body[data-theme="khcc"]{--bg:#ffffff;--bg-2:#f5f5f5;--fg:#2b2b2b;--fg-2:#4a4a4a;--accent:#e4b325;--accent-2:#b6447d;--brand:#237a9b;--brand-dark:#155f7b;--rule:#e1e1e1;--font-display:"Inter",system-ui,sans-serif;--font-body:"Inter",system-ui,sans-serif;--radius:8px;--display-weight:600}
+body[data-theme="khcc"] h1,body[data-theme="khcc"] h2{color:var(--brand)}
+body[data-theme="khcc"] .format-cover,body[data-theme="khcc"] .format-section,body[data-theme="khcc"] .format-closing{background:var(--brand)}
+body[data-theme="khcc"] .format-cover *,body[data-theme="khcc"] .format-section *,body[data-theme="khcc"] .format-closing *{color:#fff}
+body[data-theme="khcc"] .format-cover mark,body[data-theme="khcc"] .format-section .section-number,body[data-theme="khcc"] .format-closing mark{color:var(--accent)}
+body[data-theme="khcc"] .option.pick{border-color:var(--brand)}
+body[data-theme="khcc"] .stat .num{color:var(--brand)}
+body[data-theme="khcc"] .timeline li::before,body[data-theme="khcc"] .slide ul li::marker,body[data-theme="khcc"] .agenda li::before{color:var(--brand);background:var(--brand)}
+body[data-theme="khcc"] .slide ul li::marker,body[data-theme="khcc"] .agenda li::before{background:none}
+body[data-theme="light"]{--bg:#ffffff;--bg-2:#f5f5f7;--fg:#1d1d1f;--fg-2:#6e6e73;--accent:#0071e3;--accent-2:#34c759;--rule:#e5e5e7;--font-display:-apple-system,"SF Pro Display","Inter",sans-serif;--font-body:-apple-system,"SF Pro Text","Inter",sans-serif;--radius:18px;--display-weight:600}
+
+/* SIOP 2026 — matches the companion site */
+body[data-theme="siop"]{--bg:#ffffff;--bg-2:#e8f1fb;--fg:#1b2a4a;--fg-2:#607d8b;--accent:#ec008c;--accent-2:#ffc20e;--brand:#21409a;--brand-dark:#034ea2;--rule:#d6e4f5;--font-display:"Inter",system-ui,sans-serif;--font-body:"Inter",system-ui,sans-serif;--radius:12px;--display-weight:700}
+body[data-theme="siop"] h1,body[data-theme="siop"] h2{color:var(--brand)}
+body[data-theme="siop"] .format-cover,body[data-theme="siop"] .format-section,body[data-theme="siop"] .format-closing{background:var(--brand)}
+body[data-theme="siop"] .format-cover *,body[data-theme="siop"] .format-section *,body[data-theme="siop"] .format-closing *{color:#fff}
+body[data-theme="siop"] .format-cover mark,body[data-theme="siop"] .format-section .section-number,body[data-theme="siop"] .format-closing mark{color:var(--accent-2)}
+body[data-theme="siop"] .option.pick{border-color:var(--brand)}
+body[data-theme="siop"] .stat .num{color:var(--brand)}
+body[data-theme="siop"] .timeline li::before,body[data-theme="siop"] .slide ul li::marker,body[data-theme="siop"] .agenda li::before{color:var(--brand);background:var(--brand)}
+body[data-theme="siop"] .slide ul li::marker,body[data-theme="siop"] .agenda li::before{background:none}
+
+/* ===== Engine ===== */
+:root{--pad:96px;--gap:32px;--gap-lg:64px;--w:1920;--h:1080}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--fg);font-family:var(--font-body);overflow:hidden}
+#stage{position:fixed;inset:0;display:grid;place-items:center}
+#deck{width:calc(var(--w) * 1px);height:calc(var(--h) * 1px);position:relative;transform-origin:center center}
+.slide{position:absolute;inset:0;padding:var(--pad);display:flex;flex-direction:column;justify-content:center;opacity:0;visibility:hidden;transition:opacity .4s ease}
+.slide.active{opacity:1;visibility:visible}
+.slide>*+*{margin-top:var(--gap)}
+
+/* Type */
+h1{font-family:var(--font-display);font-weight:var(--display-weight);font-size:104px;line-height:1.05;letter-spacing:-.02em}
+h2{font-family:var(--font-display);font-weight:var(--display-weight);font-size:72px;line-height:1.1;letter-spacing:-.015em;max-width:26ch}
+h3{font-family:var(--font-body);font-weight:600;font-size:34px;line-height:1.2}
+p,li{font-size:36px;line-height:1.4;color:var(--fg)}
+.kicker{font-size:24px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);font-weight:600}
+.subtitle{font-size:42px;color:var(--fg-2);max-width:32ch}
+.meta{font-size:26px;color:var(--fg-2)}
+.source{position:absolute;left:var(--pad);bottom:56px;font-size:22px;color:var(--fg-2);margin:0}
+mark{background:none;color:var(--accent)}
+strong{font-weight:600}
+ul,ol{padding-left:1.1em}
+li+li{margin-top:.5em}
+.slide ul li::marker{color:var(--accent)}
+
+/* Cover / closing */
+.format-cover h1::after,.format-closing h1::after{content:"";display:block;width:120px;height:6px;background:var(--accent);margin-top:var(--gap)}
+.format-cover .meta{margin-top:auto}
+
+/* Agenda */
+.agenda{list-style:none;padding:0;counter-reset:a}
+.agenda li{counter-increment:a;font-size:52px;font-family:var(--font-display);padding:24px 0;border-top:1px solid var(--rule);display:flex;gap:40px}
+.agenda li::before{content:counter(a,decimal-leading-zero);color:var(--accent);font-family:var(--font-body);font-size:28px;font-weight:600;padding-top:14px;min-width:60px}
+
+/* Section / statement */
+.format-section .section-number{font-size:160px;color:var(--accent);font-family:var(--font-display);line-height:1}
+.format-statement{align-items:flex-start}
+.format-statement h1{font-size:88px;max-width:22ch}
+
+/* Two column */
+.format-two-col{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap-lg);align-items:center}
+.format-two-col.wide-left{grid-template-columns:3fr 2fr}
+.format-two-col.wide-right{grid-template-columns:2fr 3fr}
+.format-two-col>*+*{margin-top:0}
+.col>*+*{margin-top:var(--gap)}
+.media{width:100%;height:100%;max-height:800px;border-radius:var(--radius);overflow:hidden;background:var(--bg-2)}
+.media img,.media video{width:100%;height:100%;object-fit:cover;display:block}
+.media.contain img{object-fit:contain}
+
+/* Stats */
+.stats{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:var(--gap)}
+.stat{padding:48px;border-top:2px solid var(--rule);display:flex;flex-direction:column;gap:16px}
+.stat .num{font-family:var(--font-display);font-size:128px;line-height:1;color:var(--accent);font-weight:var(--display-weight)}
+.stat .label{font-size:30px;color:var(--fg-2)}
+
+/* Bento */
+.bento{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;gap:var(--gap);flex:1;min-height:0}
+.card{background:var(--bg-2);border:1px solid var(--rule);border-radius:var(--radius);padding:44px;display:flex;flex-direction:column;gap:16px;justify-content:flex-end}
+.card.span-2{grid-column:span 2}
+.card p{font-size:28px;color:var(--fg-2)}
+
+/* Compare */
+.compare{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:var(--gap)}
+.option{background:var(--bg-2);border:1px solid var(--rule);border-radius:var(--radius);padding:44px}
+.option.pick{border:3px solid var(--accent)}
+.option h3{margin-bottom:24px}
+.option ul{list-style:none;padding:0}
+.option li{font-size:30px;padding:14px 0;border-top:1px solid var(--rule)}
+
+/* Timeline */
+.timeline{list-style:none;padding:0;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:var(--gap);position:relative}
+.timeline::before{content:"";position:absolute;left:0;right:0;top:12px;height:2px;background:var(--rule)}
+.timeline li{padding-top:48px;position:relative;display:flex;flex-direction:column;gap:10px}
+.timeline li::before{content:"";position:absolute;top:0;left:0;width:26px;height:26px;border-radius:50%;background:var(--accent)}
+.timeline .when{font-size:24px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-2);font-weight:600}
+.timeline strong{font-size:38px}
+.timeline span:last-child{font-size:28px;color:var(--fg-2)}
+.timeline.vertical{grid-auto-flow:row;grid-auto-columns:auto}
+.timeline.vertical::before{left:12px;top:0;bottom:0;width:2px;height:auto}
+.timeline.vertical li{padding:0 0 0 72px}
+
+/* Chart */
+.chart-wrap{flex:1;min-height:0;height:700px;position:relative}
+.chart-wrap canvas{width:100%!important;height:100%!important}
+
+/* Notes (hidden) */
+.notes{display:none}
+body.show-notes .slide.active .notes{display:block;position:absolute;left:var(--pad);right:var(--pad);bottom:56px;background:var(--bg-2);border:1px solid var(--rule);padding:24px;font-size:26px;color:var(--fg-2);border-radius:var(--radius)}
+
+/* Reveal animations */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease;transition-delay:calc(var(--d,0) * 120ms)}
+.reveal.scale{transform:scale(.96)}
+.slide.active .reveal{opacity:1;transform:none}
+[data-delay="1"]{--d:1}[data-delay="2"]{--d:2}[data-delay="3"]{--d:3}[data-delay="4"]{--d:4}[data-delay="5"]{--d:5}[data-delay="6"]{--d:6}
+@media (prefers-reduced-motion:reduce){.reveal{transition:none;opacity:1;transform:none}}
+
+/* Chrome */
+#progress{position:fixed;left:0;bottom:0;height:4px;background:var(--accent);width:0;transition:width .3s}
+#counter{position:fixed;right:24px;bottom:16px;font-size:14px;color:var(--fg-2);font-family:var(--font-body)}
+
+/* Overview */
+body.overview #stage{display:block;overflow:auto;padding:24px}
+body.overview #deck{transform:none!important;width:auto;height:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+body.overview .slide{position:relative;inset:auto;aspect-ratio:16/9;opacity:1;visibility:visible;transform:scale(1);zoom:.2;border:1px solid var(--rule);cursor:pointer}
+body.overview .slide .reveal{opacity:1;transform:none}
+
+/* Print */
+@media print{
+  @page{size:1920px 1080px;margin:0}
+  html,body{overflow:visible;height:auto}
+  #stage{position:static;display:block}
+  #deck{transform:none!important;width:1920px;height:auto}
+  .slide{position:relative;inset:auto;width:1920px;height:1080px;opacity:1;visibility:visible;page-break-after:always;break-after:page}
+  .reveal{opacity:1;transform:none;transition:none}
+  #progress,#counter{display:none}
+}
+
+/* ===== Block 0 extras ===== */
+.cover-logo{width:min(420px,40vw);height:auto;display:block}
+.format-cover .cover-logo{margin-bottom:8px}
+.coi{font-size:28px;color:var(--fg-2);max-width:46ch;line-height:1.45}
+.models{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin-top:8px}
+.model{background:var(--bg-2);border:1px solid var(--rule);border-radius:var(--radius);padding:28px 28px 32px;min-height:160px;display:flex;flex-direction:column;justify-content:flex-end;gap:10px;border-top:8px solid var(--brand)}
+.model[data-m="claude"]{border-top-color:#d97757}
+.model[data-m="chatgpt"]{border-top-color:#10a37f}
+.model[data-m="gemini"]{border-top-color:#4285f4}
+.model[data-m="perplexity"]{border-top-color:#20808d}
+.model h3{font-size:40px;letter-spacing:-.02em}
+.model .maker{font-size:22px;color:var(--fg-2);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.caps{display:flex;flex-wrap:wrap;gap:12px}
+.cap{font-size:24px;font-weight:600;padding:14px 22px;border-radius:999px;background:var(--bg-2);border:1px solid var(--rule);color:var(--fg)}
+.punch{font-size:40px;font-weight:700;color:var(--brand);letter-spacing:-.02em}
+.slide.tight h2{font-size:56px;max-width:28ch}
+.paper{background:#f7f4ee;border:1px solid #e4ddd0;border-radius:8px;padding:56px 64px;box-shadow:0 18px 40px rgba(27,42,74,.08);max-width:100%}
+.paper .journal{font-size:22px;letter-spacing:.16em;text-transform:uppercase;color:#8a8073;font-weight:600}
+.paper-title{font-family:var(--font-display);font-weight:var(--display-weight);font-size:44px;line-height:1.15;letter-spacing:-.02em;max-width:22ch;color:var(--brand)}
+.paper .byline{font-size:28px;color:#5c574f}
+.paper blockquote{font-family:var(--font-display);font-size:36px;line-height:1.35;color:#1a1a1a;border-left:6px solid var(--accent);padding-left:28px;max-width:28ch}
+.format-media{justify-content:flex-start}
+.format-media .media{flex:1;min-height:0;max-height:none;background:#f3f6fb}
+.format-media .media.contain img{object-fit:contain;background:#f3f6fb}
+.reel-frame{width:420px;height:720px;margin:0 auto;border-radius:28px;overflow:hidden;background:#111;border:1px solid var(--rule);position:relative}
+.reel-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:40px;text-align:center;color:#fff;background:linear-gradient(180deg,#21409a,#0e1c44)}
+.reel-fallback p{color:#d6e4f5;font-size:26px}
+.reel-fallback a{color:#ffc20e;font-size:24px;font-weight:700;text-decoration:none}
+.reel-frame iframe{position:relative;z-index:1;width:100%;height:100%;border:0;background:transparent}
+.play-btn{width:84px;height:84px;border-radius:50%;background:var(--accent);display:grid;place-items:center}
+.play-btn svg{width:32px;height:32px;margin-left:4px}
+a.quiet{color:inherit}
+.home-link{position:fixed;left:24px;bottom:16px;font-size:14px;color:var(--fg-2);text-decoration:none;z-index:5;font-family:var(--font-body)}
+.home-link:hover{color:var(--accent)}
+</style>
+</head>
+<body data-theme="siop">
+<div id="stage"><main id="deck">
+
+<section class="slide format-cover">
+  <img class="cover-logo reveal" src="../img/logo-siop-2026.svg" alt="SIOP 2026 — San Antonio, Texas, 15–18 September">
+  <p class="kicker reveal" data-delay="1">Global Health Session</p>
+  <h1 class="reveal" data-delay="2">AI at the<br><mark>Bedside</mark></h1>
+  <p class="subtitle reveal" data-delay="3">A practical hour for the whole childhood&nbsp;cancer team</p>
+  <p class="meta reveal" data-delay="4">Iyad Sultan, MD · King Hussein Cancer Center</p>
+  <aside class="notes">Click the deck, then F for fullscreen. Arrows or space to advance. N shows these notes.</aside>
+</section>
+
+<section class="slide tight">
+  <p class="kicker reveal">Disclosure</p>
+  <h2 class="reveal" data-delay="1">No conflicts. Only KHCC.</h2>
+  <p class="coi reveal" data-delay="2">I have no conflict of interest. I am not affiliated with Anthropic, OpenAI, Google, Perplexity, or any other AI company. My only institutional affiliation is King Hussein Cancer Center.</p>
+  <div class="models">
+    <div class="model reveal scale" data-m="claude" data-delay="3">
+      <span class="maker">Anthropic</span>
+      <h3>Claude</h3>
+    </div>
+    <div class="model reveal scale" data-m="chatgpt" data-delay="4">
+      <span class="maker">OpenAI</span>
+      <h3>ChatGPT</h3>
+    </div>
+    <div class="model reveal scale" data-m="gemini" data-delay="5">
+      <span class="maker">Google</span>
+      <h3>Gemini</h3>
+    </div>
+    <div class="model reveal scale" data-m="perplexity" data-delay="6">
+      <span class="maker">Perplexity</span>
+      <h3>Perplexity</h3>
+    </div>
+  </div>
+  <p class="reveal" data-delay="3" style="font-size:28px;color:var(--fg-2);margin-top:8px">Today they look different. They do the same work.</p>
+  <div class="caps reveal" data-delay="4">
+    <span class="cap">Skills</span>
+    <span class="cap">Tools (MCP)</span>
+    <span class="cap">Internet</span>
+    <span class="cap">Deep research</span>
+    <span class="cap">Large context window</span>
+  </div>
+  <aside class="notes">The four names are here so nobody wonders which camp you are in. You are in none of them. MCP is a USB-like way for a model to talk to Drive, mail, or a database. One breath, then the next slide.</aside>
+</section>
+
+<section class="slide format-statement">
+  <h1 class="reveal">And they all <mark>hallucinate</mark>.</h1>
+  <p class="meta reveal" data-delay="1">Right often enough to be useful. Wrong often enough not to be trusted.</p>
+  <aside class="notes">Do not rush this line. It is the reason the rest of the hour is about briefing, checking, and not pasting real patients.</aside>
+</section>
+
+<section class="slide format-two-col">
+  <div class="col">
+    <p class="kicker reveal">CU Anschutz · 19 March 2026</p>
+    <div class="paper reveal" data-delay="1">
+      <p class="journal">Department of Medicine</p>
+      <p class="paper-title">‘The Greatest Experiment’: How is AI Changing Health Care?</p>
+      <p class="byline">Robert Wachter, MD · Tayler Shaw</p>
+    </div>
+  </div>
+  <div class="col">
+    <blockquote class="reveal" data-delay="2" style="font-size:44px;line-height:1.3;max-width:18ch;font-family:var(--font-display);border:0;padding:0;color:var(--brand)">“I think we are in the early stages of probably the greatest experiment in the history of medicine.”</blockquote>
+    <p class="meta reveal" data-delay="3">Right often enough to be useful. Wrong often enough not to be trusted.</p>
+  </div>
+  <p class="source">Shaw T. CU Anschutz Department of Medicine, 19 March 2026.</p>
+  <aside class="notes">This is Wachter’s CU Anschutz Grand Rounds write-up, not a trial paper. The quote is the frame for the hour: we are inside an experiment, not a finished product.</aside>
+</section>
+
+<section class="slide format-media">
+  <p class="kicker reveal">The same piece, on the page</p>
+  <figure class="media contain reveal" data-delay="1">
+    <img src="../block-00/wachter-article.jpg" alt="CU Anschutz article: The Greatest Experiment — How is AI Changing Health Care? By Tayler Shaw, 19 March 2026, featuring Robert Wachter, MD.">
+  </figure>
+  <p class="source"><a class="quiet" href="https://news.cuanschutz.edu/department-of-medicine/artificial-intelligence-health-care-impact" target="_blank" rel="noopener">news.cuanschutz.edu</a></p>
+  <aside class="notes">Leave this up for ten seconds. People photograph slides. The URL is in the footer if someone wants the full text later.</aside>
+</section>
+
+<section class="slide format-two-col">
+  <div class="col">
+    <p class="kicker reveal">UCSF · Bob Wachter</p>
+    <h2 class="reveal" data-delay="1">Hear it in his own voice</h2>
+    <p class="reveal" data-delay="2">A short Instagram reel. Click play in the frame. If the congress network blocks it, open the link.</p>
+    <p class="meta reveal" data-delay="3"><a class="quiet" href="https://www.instagram.com/reels/DVrUy7okp2N/" target="_blank" rel="noopener">instagram.com/reels/DVrUy7okp2N</a></p>
+  </div>
+  <div class="col">
+    <div class="reel-frame reveal scale" data-delay="2">
+      <div class="reel-fallback">
+        <div class="play-btn" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <p>Dr. Bob Wachter</p>
+        <a href="https://www.instagram.com/reels/DVrUy7okp2N/" target="_blank" rel="noopener">Play the reel</a>
+      </div>
+      <iframe
+        title="Instagram reel — Dr. Bob Wachter"
+        src="https://www.instagram.com/reel/DVrUy7okp2N/embed"
+        loading="lazy"
+        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+  </div>
+  <aside class="notes">Click inside the reel to play. Space will still advance the deck unless the iframe has focus — click the frame first. If it is blank, use the Instagram link. Do not wait more than 30 seconds.</aside>
+</section>
+
+<section class="slide format-statement">
+  <h1 class="reveal">We are not here to pick a brand. We are here to learn a way of working.</h1>
+  <p class="meta reveal" data-delay="1">Next: the same question, asked twice.</p>
+  <aside class="notes">Walk to Block 1. The old Block 0 demo now lives there — lazy prompt versus a briefing.</aside>
+</section>
+
+</main></div>
+<div id="progress"></div>
+<div id="counter"></div>
+<a class="home-link" href="../../" target="_top">Run of show</a>
+
+<script>
+(function(){
+  const deck=document.getElementById('deck'), slides=[...deck.querySelectorAll('.slide')];
+  const W=1920,H=1080; let i=0, goBuf=null;
+  function fit(){ if(document.body.classList.contains('overview'))return;
+    const s=Math.min(innerWidth/W,innerHeight/H); deck.style.transform=`scale(${s})`; }
+  function show(n,push=true){
+    n=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===n)); i=n;
+    document.getElementById('progress').style.width=((n+1)/slides.length*100)+'%';
+    document.getElementById('counter').textContent=(n+1)+' / '+slides.length;
+    if(push) history.replaceState(null,'','#'+(n+1));
+    animateCounts(slides[n]);
+    document.dispatchEvent(new CustomEvent('slidechange',{detail:{index:n,slide:slides[n]}}));
+  }
+  function animateCounts(slide){
+    slide.querySelectorAll('.num.count').forEach(el=>{
+      if(el.dataset.done)return; el.dataset.done=1;
+      const txt=el.textContent, m=txt.match(/([^0-9.]*)([0-9.]+)(.*)/); if(!m)return;
+      const [,pre,numStr,post]=m, target=parseFloat(numStr), dec=(numStr.split('.')[1]||'').length;
+      const t0=performance.now(), dur=900;
+      (function step(t){const p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,3);
+        el.textContent=pre+(target*e).toFixed(dec)+post; if(p<1)requestAnimationFrame(step);})(t0);
+    });
+  }
+  addEventListener('resize',fit); fit();
+  show((parseInt(location.hash.slice(1))||1)-1,false);
+  addEventListener('keydown',e=>{
+    if(e.target.tagName==='INPUT')return;
+    const k=e.key;
+    if(goBuf!==null){ if(/^[0-9]$/.test(k)){goBuf+=k;return;} if(k==='Enter'){show(parseInt(goBuf)-1);} goBuf=null; if(k==='Enter')return; }
+    if(k==='ArrowRight'||k===' '||k==='PageDown'||k==='Enter'){e.preventDefault();show(i+1);}
+    else if(k==='ArrowLeft'||k==='PageUp'||k==='Backspace'){e.preventDefault();show(i-1);}
+    else if(k==='Home')show(0); else if(k==='End')show(slides.length-1);
+    else if(k==='f'||k==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();}
+    else if(k==='n'||k==='N')document.body.classList.toggle('show-notes');
+    else if(k==='p'||k==='P')print();
+    else if(k==='g'||k==='G')goBuf='';
+    else if(k==='o'||k==='O'||k==='Escape'){document.body.classList.toggle('overview',k!=='Escape'?undefined:false);fit();}
+  });
+  deck.addEventListener('click',e=>{
+    if(document.body.classList.contains('overview')){const s=e.target.closest('.slide'); if(s){document.body.classList.remove('overview');fit();show(slides.indexOf(s));} return;}
+    if(e.target.closest('a,button,canvas,iframe,video,.reel-frame,.media'))return;
+    (e.clientX>innerWidth*0.25)?show(i+1):show(i-1);
+  });
+  let x0=null; addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+  addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>50)show(dx<0?i+1:i-1);x0=null;});
+  window.__deck={show,count:slides.length};
+})();
+</script>
+</body>
+</html>
