@@ -3030,3 +3030,231 @@
     }
 }
 
+
+// ---- Block 7 — Zotero MCP install -----------------------------------------
+
+.b7-path {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    margin: 0.85rem 0 1rem;
+}
+
+.b7-beat {
+    border: 1px solid #DCEDC8;
+    border-radius: 0.55rem;
+    padding: 0.7rem 0.75rem;
+    background: #fff;
+}
+
+.b7-beat .n {
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #558B2F;
+    margin: 0 0 0.25rem;
+}
+
+.b7-beat p {
+    margin: 0;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #1B2A4A;
+    line-height: 1.35;
+}
+
+.mcp-step-n.b7-n {
+    background: #558B2F;
+}
+
+.mcp-step-n.b7-n-warn {
+    background: #C62828;
+}
+
+.b7-os-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+    margin: 0.75rem 0 1rem;
+}
+
+.b7-os {
+    border: 1px solid #E0E0E0;
+    border-radius: 0.65rem;
+    padding: 0.85rem 1rem;
+    background: #fff;
+    min-width: 0;
+}
+
+.b7-os .k {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #558B2F;
+    margin: 0 0 0.35rem;
+}
+
+.b7-os .lab {
+    margin: 0.55rem 0 0.3rem;
+    font-size: 0.8rem;
+    color: #37474F;
+}
+
+.b7-os .mcp-code {
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.b7-os .demo-open-row {
+    margin: 0.65rem 0 0;
+}
+
+.b7-os .demo-open-row .demo-ask + .demo-ask {
+    margin-left: 0.4rem;
+}
+
+.mcp-code.b7-json {
+    margin-top: 0.5rem;
+    font-size: 0.78rem;
+}
+
+.b7-trouble {
+    margin-top: 1.1rem;
+    border: 1px solid #FFCDD2;
+    border-radius: 0.65rem;
+    padding: 0.85rem 1rem 0.2rem;
+    background: #FFF8F8;
+}
+
+.b7-trouble .k {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #C62828;
+    margin: 0 0 0.5rem;
+}
+
+// Two-column house rules: journal-checklist, not icon cards.
+.b7-rules-wrap {
+    margin: 1rem 0 1.25rem;
+    border: 1px solid #C5D6A7;
+    border-radius: 0.65rem;
+    overflow: hidden;
+}
+
+.b7-rules {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    background: #fff;
+}
+
+.b7-rules th,
+.b7-rules td {
+    width: 50%;
+    padding: 0.75rem 0.9rem;
+    vertical-align: top;
+    text-align: left;
+}
+
+.b7-rules thead th {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.b7-rules thead th:first-child {
+    background: #33691E;
+}
+
+.b7-rules thead th:last-child {
+    background: #B71C1C;
+}
+
+.b7-rules tbody td {
+    color: #263238;
+    border-top: 1px solid #E8EDE0;
+}
+
+.b7-rules tbody td:first-child {
+    background: #F4F8EC;
+    border-right: 1px solid #E8EDE0;
+}
+
+.b7-rules tbody td:last-child {
+    background: #FFF7F7;
+}
+
+.b7-rules tfoot td {
+    width: 100%;
+    background: #1B2A4A;
+    color: #ECEFF1;
+    font-weight: 600;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    padding: 0.95rem 1rem;
+}
+
+@media screen and (max-width: 600px) {
+    .b7-rules thead {
+        display: none;
+    }
+
+    .b7-rules,
+    .b7-rules tbody,
+    .b7-rules tfoot,
+    .b7-rules tr,
+    .b7-rules td {
+        display: block;
+        width: 100%;
+    }
+
+    .b7-rules tbody td {
+        border-top: 0;
+        border-right: 0;
+        padding-top: 0.45rem;
+    }
+
+    .b7-rules tbody td:first-child {
+        border-top: 1px solid #E8EDE0;
+        padding-top: 0.75rem;
+    }
+
+    .b7-rules tbody td::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 0.25rem;
+    }
+
+    .b7-rules tbody td:first-child::before {
+        color: #33691E;
+    }
+
+    .b7-rules tbody td:last-child::before {
+        color: #B71C1C;
+    }
+}
+
+@media screen and (max-width: 880px) {
+    .b7-path {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .b7-path,
+    .b7-os-grid {
+        grid-template-columns: 1fr;
+    }
+}

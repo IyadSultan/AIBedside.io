@@ -322,7 +322,7 @@ permalink: /
     <div class="cci-num" style="background:#558B2F;">7</div>
     <div class="cci-card-body">
       <p class="title">AI for research <span class="cci-active-badge">00:48</span></p>
-      <p class="desc">The model writes the code; you remain the author.</p>
+      <p class="desc">Plug the chat into your own Zotero library, step by step — then the model writes the code; you remain the author.</p>
     </div>
     <span class="arrow">&#8250;</span>
   </a>
