@@ -322,7 +322,7 @@ Quote the recommendation from the PDF; do not paraphrase. If a paper has no PDF 
     <p class="demo-open-row">
       <a class="demo-ask" href="{{ site.baseurl }}/assets/block-07/ai_governance.html" target="_blank" rel="noopener">Open the brief</a>
     </p>
-    <iframe class="demo-frame" title="Governance of AI in Healthcare — interactive evidence brief" src="{{ site.baseurl }}/assets/block-07/ai_governance.html"></iframe>
+    <iframe class="demo-frame b7-gov-frame" id="b7-gov-frame" title="Governance of AI in Healthcare — interactive evidence brief" src="{{ site.baseurl }}/assets/block-07/ai_governance.html" scrolling="no"></iframe>
     <p class="demo-stage-copy">Built the same way as the Block 2 guideline explainer: a paper-to-artifact prompt, then a person checking every number. The footnote on the recall figure is the honest part &mdash; keep it.</p>
   </div>
 

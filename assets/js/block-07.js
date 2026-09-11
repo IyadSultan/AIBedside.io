@@ -51,6 +51,13 @@
           nextBtn.textContent = step === last ? opts.resetLabel : "Next";
         }
         showStatus("");
+        if (step === 6) {
+          window.requestAnimationFrame(function () {
+            requestGovHeight();
+            window.setTimeout(requestGovHeight, 80);
+            window.setTimeout(requestGovHeight, 400);
+          });
+        }
       } catch (err) {
         showStatus("The demo failed in the step change: " + err.message);
       }
@@ -120,6 +127,63 @@
     }
   }
 
+  // The governance brief lives in an iframe. It tells us its height
+  // so the box can grow and we never show a scrollbar inside it.
+  function applyGovHeight(h) {
+    var frame = $("b7-gov-frame");
+    if (!frame || !h || h < 200) {
+      return;
+    }
+    frame.style.height = Math.ceil(h) + "px";
+  }
+
+  function requestGovHeight() {
+    var frame = $("b7-gov-frame");
+    if (!frame) {
+      return;
+    }
+    try {
+      var doc = frame.contentDocument;
+      if (doc) {
+        var root = doc.getElementById("gov-root");
+        var h = root
+          ? Math.max(root.scrollHeight, root.getBoundingClientRect().height)
+          : doc.documentElement.scrollHeight;
+        applyGovHeight(h);
+      }
+    } catch (err) {
+      // Cross-origin: wait for the brief to postMessage instead.
+    }
+    try {
+      if (frame.contentWindow) {
+        frame.contentWindow.postMessage({ type: "b7-gov-remeasure" }, "*");
+      }
+    } catch (err) {
+      console.error("Could not ask the brief for its height:", err.message);
+    }
+  }
+
+  function bindGovFrame() {
+    var frame = $("b7-gov-frame");
+    if (!frame) {
+      return;
+    }
+
+    window.addEventListener("message", function (ev) {
+      var data = ev.data;
+      if (!data || data.type !== "b7-gov-height") {
+        return;
+      }
+      applyGovHeight(Number(data.height));
+    });
+
+    frame.addEventListener("load", function () {
+      requestGovHeight();
+      window.setTimeout(requestGovHeight, 400);
+      window.setTimeout(requestGovHeight, 1400);
+    });
+  }
+
   function ready() {
     bindDemo({
       prefix: "stage-",
@@ -130,6 +194,7 @@
       resetLabel: "Back to the path"
     });
     bindCopy();
+    bindGovFrame();
   }
 
   if (document.readyState === "loading") {

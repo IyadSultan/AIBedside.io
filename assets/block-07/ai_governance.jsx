@@ -690,3 +690,54 @@ if (mount && window.ReactDOM) {
   var root = ReactDOM.createRoot(mount);
   root.render(<AiGovernanceBrief />);
 }
+
+/* When this brief is inside the Block 7 iframe, tell the parent page
+   how tall we are so the box can grow and hide its inner scrollbar. */
+function startHeightBridge() {
+  if (window.parent === window) {
+    return;
+  }
+  try {
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+  } catch (err) {
+    console.error("The overflow lock failed:", err.message);
+  }
+
+  function send() {
+    try {
+      var el = document.getElementById("gov-root");
+      var h = 0;
+      if (el) {
+        h = Math.ceil(Math.max(el.scrollHeight, el.getBoundingClientRect().height));
+      }
+      if (!h) {
+        h = Math.ceil(document.documentElement.scrollHeight);
+      }
+      window.parent.postMessage({ type: "b7-gov-height", height: h }, "*");
+    } catch (err) {
+      console.error("The height report failed:", err.message);
+    }
+  }
+
+  send();
+  if (window.ResizeObserver) {
+    var el = document.getElementById("gov-root");
+    if (el) {
+      var ro = new ResizeObserver(function () { send(); });
+      ro.observe(el);
+    }
+  }
+  window.addEventListener("resize", send);
+  window.addEventListener("message", function (ev) {
+    if (ev.data && ev.data.type === "b7-gov-remeasure") {
+      send();
+    }
+  });
+}
+
+try {
+  startHeightBridge();
+} catch (err) {
+  console.error("The height bridge failed:", err.message);
+}

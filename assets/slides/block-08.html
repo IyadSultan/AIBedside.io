@@ -361,9 +361,9 @@ body.overview .slide .reveal{opacity:1;transform:none}
 <script>
 (function(){
   const deck=document.getElementById('deck'), slides=[...deck.querySelectorAll('.slide')];
-  const W=1920,H=1080; let i=0, goBuf=null;
+  const W=1920,H=1080,VIEW=2/3; let i=0, goBuf=null;
   function fit(){ if(document.body.classList.contains('overview'))return;
-    const s=Math.min(innerWidth/W,innerHeight/H); deck.style.transform=`scale(${s})`; }
+    const s=Math.min(innerWidth/W,innerHeight/H)*VIEW; deck.style.transform=`scale(${s})`; }
   function show(n,push=true){
     n=Math.max(0,Math.min(slides.length-1,n));
     slides.forEach((s,k)=>s.classList.toggle('active',k===n)); i=n;

@@ -708,6 +708,18 @@
     background: #faf8f4;
 }
 
+// Block 7 governance brief: grow to the page inside, no inner scrollbar.
+.demo-frame.b7-gov-frame {
+    height: auto;
+    min-height: 720px;
+    overflow: hidden;
+    scrollbar-width: none;
+}
+
+.demo-frame.b7-gov-frame::-webkit-scrollbar {
+    display: none;
+}
+
 .demo-mermaid {
     margin-top: 1rem;
     border: 1px solid #E0E0E0;
