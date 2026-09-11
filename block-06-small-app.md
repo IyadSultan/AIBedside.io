@@ -5,6 +5,7 @@ permalink: /block-06-small-app/
 ---
 
 {% assign replit_url = "https://roster-builder-iyadsultan.replit.app/" %}
+{% assign replit_build_url = "https://replit.com/" %}
 
 <div class="block-page block-page-demo block-page-wide">
   <div class="block-eyebrow">
@@ -154,15 +155,57 @@ Ask me if anything is unclear.</pre>
     <p class="demo-open-row b6-open-row">
       <a class="demo-ask" href="{{ site.baseurl }}/block-06-small-app/prd/">Read the full PRD</a>
       <a class="demo-ask b6-ask-secondary" href="{{ site.baseurl }}/assets/block-06/roster-builder-PRD.md" download="roster-builder-PRD.md">Download .md</a>
+      <a class="demo-ask b6-ask-secondary" href="{{ replit_build_url }}" target="_blank" rel="noopener">Open Replit &mdash; paste the PRD</a>
     </p>
   </div>
 
   <div class="demo-stage" id="stage-4" hidden>
     <p class="demo-stage-kicker">Then hand the PRD to a builder</p>
-    <p class="demo-stage-copy">Replit (or Claude, or Cursor) reads the brief and produces a clickable tool. Five minutes is the demo. The week of checking it against a real month is still yours.</p>
+    <p class="demo-stage-copy">Download the brief. Open <a href="{{ replit_build_url }}" target="_blank" rel="noopener">Replit</a>. Paste it into the prompt box. Replit writes the screens, the hidden work, and a place to store the lists. You do not need to be a programmer. Five minutes is the demo. The week of checking it against a real month is still yours.</p>
 
     <div class="b6-app">
-      <p class="b6-app-pin">Live on Replit</p>
+      <p class="b6-app-pin">Build it yourself</p>
+      <h2>Replit</h2>
+      <p class="b6-app-meta">Easy to start. A monthly bill. Not a hospital system.</p>
+      <div class="b6-facts" role="list">
+        <article class="b6-fact" role="listitem">
+          <p class="k">Easy to use</p>
+          <p>Type what you want in ordinary words. Watch a working page appear.</p>
+        </article>
+        <article class="b6-fact" role="listitem">
+          <p class="k">Prompt an app</p>
+          <p>Paste the PRD. That is the whole brief. Do not start from a blank file.</p>
+        </article>
+        <article class="b6-fact" role="listitem">
+          <p class="k">Any coding skill</p>
+          <p>A head nurse and a resident can both try. You do not need the same background.</p>
+        </article>
+        <article class="b6-fact" role="listitem">
+          <p class="k">Backend + database</p>
+          <p>Not just a pretty page. It can save the staff list and serve it next time.</p>
+        </article>
+        <article class="b6-fact" role="listitem">
+          <p class="k">Affordable, not free</p>
+          <p>A small monthly bill. Ask who pays before you promise the unit a tool.</p>
+        </article>
+        <article class="b6-fact" role="listitem">
+          <p class="k">Secure, not HIPAA</p>
+          <p>Login and HTTPS, but no hospital contract. Do not put real patients here.</p>
+        </article>
+        <article class="b6-fact b6-fact-wide" role="listitem">
+          <p class="k">Right job</p>
+          <p>A proof of concept, a first working version, or a place to develop. Not the ward on Monday.</p>
+        </article>
+      </div>
+      <p class="demo-open-row b6-open-row">
+        <a class="demo-ask" href="{{ replit_build_url }}" target="_blank" rel="noopener">Open Replit &mdash; paste the PRD</a>
+        <button type="button" class="demo-ask b6-ask-secondary" id="b6-copy-prd" data-prd="{{ site.baseurl }}/assets/block-06/roster-builder-PRD.md">Copy the PRD</button>
+        <a class="demo-ask b6-ask-secondary" href="{{ site.baseurl }}/assets/block-06/roster-builder-PRD.md" download="roster-builder-PRD.md">Download .md</a>
+      </p>
+    </div>
+
+    <div class="b6-app">
+      <p class="b6-app-pin">Or open the one we already built</p>
       <h2>Roster Builder</h2>
       <p class="b6-app-meta">Cedar Ward &middot; April 2026 &middot; 10 candidates &middot; no patient names</p>
       <ul class="b6-app-points">
@@ -214,7 +257,7 @@ Ask me if anything is unclear.</pre>
       <article class="b6-stack-card" role="listitem">
         <p class="n">7</p>
         <h2>Hosting &mdash; and the bill</h2>
-        <p>The computer the app lives on is a monthly cost. A Replit demo can be free. A hospital server, backups, and a promise it stays up overnight cost real money. Ask who pays before you promise the unit a tool.</p>
+        <p>The computer the app lives on is a monthly cost. Replit is affordable, not free. A hospital server, backups, and a promise it stays up overnight cost more. Ask who pays before you promise the unit a tool.</p>
       </article>
       <article class="b6-stack-card" role="listitem">
         <p class="n">8</p>
@@ -253,7 +296,7 @@ Ask me if anything is unclear.</pre>
   <div class="block-section">
     <h2>On screen</h2>
     <div class="callout callout-onscreen">
-      Paste the prompt with prd-builder on. Open the PRD. Open <a href="https://roster-builder-iyadsultan.replit.app/" target="_blank" rel="noopener">Roster Builder</a>. Then land on <strong>Still</strong>: eight jobs a hospital app still owes, and the token that replaces a real ID.
+      Paste the prompt with prd-builder on. Open the PRD. Copy it, then paste it into <a href="https://replit.com/" target="_blank" rel="noopener">Replit</a>. Open <a href="https://roster-builder-iyadsultan.replit.app/" target="_blank" rel="noopener">Roster Builder</a> as the worked example. Then land on <strong>Still</strong>: eight jobs a hospital app still owes, and the token that replaces a real ID.
     </div>
   </div>
 

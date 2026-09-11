@@ -19,9 +19,16 @@ permalink: /block-06-small-app/prd/
 {{ prd_src | markdownify }}
   </article>
 
-  <p class="demo-open-row">
-    <a class="demo-ask" href="{{ site.baseurl }}/assets/block-06/roster-builder-PRD.md" download="roster-builder-PRD.md">Download the PRD as Markdown</a>
+  <p class="demo-stage-copy">Ready to try? Copy this brief, open <a href="https://replit.com/" target="_blank" rel="noopener">Replit</a>, and paste it into the prompt. Replit is easy and cheap enough for a first version &mdash; not HIPAA, not free, not the ward on Monday.</p>
+
+  <p class="demo-open-row b6-open-row">
+    <a class="demo-ask" href="https://replit.com/" target="_blank" rel="noopener">Open Replit &mdash; paste the PRD</a>
+    <button type="button" class="demo-ask b6-ask-secondary" id="b6-copy-prd" data-prd="{{ site.baseurl }}/assets/block-06/roster-builder-PRD.md">Copy the PRD</button>
+    <a class="demo-ask b6-ask-secondary" href="{{ site.baseurl }}/assets/block-06/roster-builder-PRD.md" download="roster-builder-PRD.md">Download the PRD as Markdown</a>
   </p>
+  <p class="demo-status" id="b6-prd-status" role="status"></p>
+
+  <script src="{{ site.baseurl }}/assets/js/block-06.js"></script>
 
   <div class="block-nav">
     <a href="{{ site.baseurl }}/block-06-small-app/">&larr; 7 &middot; A small app in five minutes</a>

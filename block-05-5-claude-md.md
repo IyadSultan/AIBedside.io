@@ -94,7 +94,7 @@ This folder is a teaching copy. It is not KHCC policy.
 
   <div class="demo-stage" id="stage-3" hidden>
     <p class="demo-stage-kicker">Second brain &mdash; one note per file</p>
-    <p class="demo-stage-copy">A wiki note is not a rewrite. It is the rules, the links, and the open questions. Click a card for the readable hub, or open the Markdown the way Obsidian would.</p>
+    <p class="demo-stage-copy">A wiki note is not a rewrite. It is the rules, the links, and the open questions. The map is those links &mdash; febrile neutropenia sits in the middle because every other note argues with it. Click a card, or a dot, to open the file.</p>
     <div class="b55-files" role="list">
       <a class="b55-file b55-file-wiki" role="listitem" href="{{ site.baseurl }}/assets/block-05.5/wiki/febrile-neutropenia.md">
         <p class="code">Note</p>
@@ -122,6 +122,18 @@ This folder is a teaching copy. It is not KHCC policy.
         <p class="meta">What parents take home</p>
       </a>
     </div>
+    <figure class="b55-graph" id="b55-graph" data-base="{{ site.baseurl }}">
+      <svg id="b55-graph-svg" role="img" aria-labelledby="b55-graph-title b55-graph-desc"></svg>
+      <p class="visually-hidden" id="b55-graph-title">Cedar Ward wiki as a map</p>
+      <p class="visually-hidden" id="b55-graph-desc">A network of five wiki notes in the middle, each linked to its source policy and to the notes it disagrees with. Febrile neutropenia is the hub.</p>
+      <figcaption>
+        <p class="b55-graph-legend">
+          <span class="b55-graph-key b55-graph-key-note">Wiki note</span>
+          <span class="b55-graph-key b55-graph-key-file">Source file</span>
+        </p>
+        <p class="b55-graph-hint" id="b55-graph-hint">This is the same folder as a map. Dark dots are notes. Pale dots are the files they came from. Hover a dot. Click it to open the file.</p>
+      </figcaption>
+    </figure>
     <p class="demo-open-row">
       <a class="demo-ask" href="{{ site.baseurl }}/assets/block-05.5/wiki.html">Open the wiki hub</a>
     </p>
@@ -144,7 +156,7 @@ This folder is a teaching copy. It is not KHCC policy.
   <div class="block-section">
     <h2>On screen</h2>
     <div class="callout callout-onscreen">
-      Show the kitchen. Read the short <code>CLAUDE.md</code>. Name the five files. Open <a href="{{ site.baseurl }}/assets/block-05.5/summary.html">summary.html</a> on the fever disagreement &mdash; come tonight versus wait until morning.
+      Show the kitchen. Read the short <code>CLAUDE.md</code>. Name the five files. On Wiki, open the map &mdash; febrile neutropenia sits in the middle because every other note argues with it. Then open <a href="{{ site.baseurl }}/assets/block-05.5/summary.html">summary.html</a> on the fever disagreement &mdash; come tonight versus wait until morning.
     </div>
   </div>
 

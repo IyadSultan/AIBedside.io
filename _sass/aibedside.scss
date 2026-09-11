@@ -2880,6 +2880,39 @@ details.mcp-cat-group > summary .count {
     line-height: 1.5;
 }
 
+.b6-facts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.55rem;
+    margin: 0 0 0.95rem;
+}
+
+.b6-fact {
+    margin: 0;
+    padding: 0.65rem 0.75rem 0.7rem;
+    border: 1px solid #B3E5FC;
+    border-radius: 0.5rem;
+    background: #fff;
+}
+
+.b6-fact .k {
+    margin: 0 0 0.2rem;
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: #1B2A4A;
+}
+
+.b6-fact p {
+    margin: 0;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: #37474F;
+}
+
+.b6-fact-wide {
+    grid-column: 1 / -1;
+}
+
 .b6-hero {
     margin: 0 0 1.25rem;
 }
@@ -3162,7 +3195,8 @@ details.mcp-cat-group > summary .count {
     .b6-stack,
     .b6-demand,
     .b6-rules,
-    .b6-deid-row {
+    .b6-deid-row,
+    .b6-facts {
         grid-template-columns: 1fr;
     }
 }
@@ -3470,8 +3504,139 @@ details.mcp-cat-group > summary .count {
     background: #F3F5F8;
 }
 
+// Obsidian-style wiki map: dark notes, pale source files, thin edges.
+.b55-graph {
+    margin: 1.1rem 0 0.35rem;
+    background: #FAFBFD;
+    border: 1px solid #E0E0E0;
+    border-radius: 0.65rem;
+    overflow: hidden;
+}
+
+.b55-graph svg {
+    display: block;
+    width: 100%;
+    height: 420px;
+}
+
+.b55-graph figcaption {
+    padding: 0.65rem 0.9rem 0.85rem;
+    border-top: 1px solid #ECEFF1;
+}
+
+.b55-graph-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin: 0 0 0.35rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #455A64;
+}
+
+.b55-graph-key {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.b55-graph-key::before {
+    content: "";
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.b55-graph-key-note::before {
+    background: #1B2A4A;
+}
+
+.b55-graph-key-file::before {
+    background: #E8EEF3;
+    border: 1.5px solid #90A4AE;
+    box-sizing: border-box;
+}
+
+.b55-graph-hint {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #546E7A;
+    line-height: 1.45;
+}
+
+.b55-graph-edge {
+    stroke: #CFD8DC;
+    stroke-width: 1.15;
+}
+
+.b55-graph-edge.is-on {
+    stroke: #EC008C;
+    stroke-width: 1.8;
+}
+
+.b55-graph-node {
+    cursor: pointer;
+}
+
+.b55-graph-node circle {
+    transition: r 0.15s ease-out, stroke-width 0.15s ease-out;
+}
+
+.b55-graph-note circle {
+    fill: #1B2A4A;
+    stroke: #1B2A4A;
+}
+
+.b55-graph-file circle {
+    fill: #E8EEF3;
+    stroke: #90A4AE;
+    stroke-width: 1.5;
+}
+
+.b55-graph-node.is-on circle,
+.b55-graph-node:focus-visible circle {
+    stroke: #EC008C;
+    stroke-width: 2.5;
+}
+
+.b55-graph-node:focus {
+    outline: none;
+}
+
+.b55-graph-node:focus-visible {
+    outline: 2px solid #EC008C;
+    outline-offset: 3px;
+}
+
+.b55-graph-label {
+    font-size: 11px;
+    fill: #455A64;
+    pointer-events: none;
+}
+
+.b55-graph-note .b55-graph-label {
+    font-weight: 700;
+    fill: #1B2A4A;
+}
+
+.b55-graph-node.is-on .b55-graph-label,
+.b55-graph-node:focus-visible .b55-graph-label {
+    fill: #EC008C;
+}
+
 @media screen and (max-width: 720px) {
     .b55-files {
         grid-template-columns: 1fr;
+    }
+
+    .b55-graph svg {
+        height: 360px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .b55-graph-node circle {
+        transition: none;
     }
 }

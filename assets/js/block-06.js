@@ -76,33 +76,33 @@
     go(0);
   }
 
+  function tellStatus(message) {
+    var statusEl = $("demo-status") || $("b6-prd-status");
+    if (statusEl) {
+      statusEl.textContent = message;
+    }
+  }
+
   function bindCopy() {
     var btn = $("b6-copy");
     var pre = $("b6-prompt");
-    var statusEl = $("demo-status");
     if (!btn || !pre) {
       return;
-    }
-
-    function tell(message) {
-      if (statusEl) {
-        statusEl.textContent = message;
-      }
     }
 
     btn.addEventListener("click", function () {
       var text = (pre.textContent || "").replace(/^\s+|\s+$/g, "");
       if (!text) {
-        tell("The prompt box was empty.");
+        tellStatus("The prompt box was empty.");
         return;
       }
 
       function ok() {
-        tell("Copied. Paste it into Claude with prd-builder on.");
+        tellStatus("Copied. Paste it into Claude with prd-builder on.");
       }
 
       function fail(err) {
-        tell("Copy failed: " + (err && err.message ? err.message : "select the prompt and copy it yourself."));
+        tellStatus("Copy failed: " + (err && err.message ? err.message : "select the prompt and copy it yourself."));
       }
 
       try {
@@ -118,15 +118,64 @@
   }
 
   function ready() {
-    bindDemo({
-      prefix: "stage-",
-      chipsId: "demo-steps",
-      nextId: "demo-next",
-      statusId: "demo-status",
-      last: 5,
-      resetLabel: "Back to the path"
-    });
+    if ($("demo-steps")) {
+      bindDemo({
+        prefix: "stage-",
+        chipsId: "demo-steps",
+        nextId: "demo-next",
+        statusId: "demo-status",
+        last: 5,
+        resetLabel: "Back to the path"
+      });
+    }
     bindCopy();
+    bindCopyPrd();
+  }
+
+  function bindCopyPrd() {
+    var btn = $("b6-copy-prd");
+    if (!btn) {
+      return;
+    }
+
+    btn.addEventListener("click", function () {
+      var url = btn.getAttribute("data-prd");
+      if (!url) {
+        tellStatus("The PRD link was missing.");
+        return;
+      }
+
+      function ok() {
+        tellStatus("Copied. Paste it into Replit.");
+      }
+
+      function fail(err) {
+        tellStatus("Copy failed: " + (err && err.message ? err.message : "download the PRD and paste it yourself."));
+      }
+
+      try {
+        fetch(url)
+          .then(function (res) {
+            if (!res.ok) {
+              throw new Error("could not load the PRD file");
+            }
+            return res.text();
+          })
+          .then(function (text) {
+            var clean = (text || "").replace(/^\s+|\s+$/g, "");
+            if (!clean) {
+              throw new Error("the PRD file was empty");
+            }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              return navigator.clipboard.writeText(clean).then(ok);
+            }
+            throw new Error("this browser has no clipboard API");
+          })
+          .catch(fail);
+      } catch (err) {
+        fail(err);
+      }
+    });
   }
 
   if (document.readyState === "loading") {
