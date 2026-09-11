@@ -313,7 +313,7 @@ permalink: /
     <div class="cci-num" style="background:#0277BD;">6</div>
     <div class="cci-card-body">
       <p class="title">A small app in five minutes <span class="cci-active-badge">00:43</span></p>
-      <p class="desc">A prompt, a PRD, a roster app — then the stack a hospital still owes.</p>
+      <p class="desc">A prompt, a PRD, a roster app — then eight jobs a hospital still owes.</p>
     </div>
     <span class="arrow">&#8250;</span>
   </a>

@@ -2771,7 +2771,7 @@
 
 .b6-stack {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(9.6rem, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 0.55rem;
     margin: 0.85rem 0 0.25rem;
 }
@@ -3014,13 +3014,15 @@
 }
 
 @media screen and (max-width: 880px) {
-    .b6-beats {
+    .b6-beats,
+    .b6-stack {
         grid-template-columns: 1fr 1fr;
     }
 }
 
 @media screen and (max-width: 720px) {
     .b6-beats,
+    .b6-stack,
     .b6-demand,
     .b6-rules,
     .b6-deid-row {

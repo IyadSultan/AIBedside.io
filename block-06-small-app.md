@@ -53,7 +53,7 @@ permalink: /block-06-small-app/
       </article>
       <article class="b6-beat" role="listitem">
         <p class="n">5 &middot; Still</p>
-        <p>Screens, server, locks, store, who may look. And no raw patient IDs.</p>
+        <p>Screens, server, locks, store, who may look, a real address, a hosting bill, and talking to other apps.</p>
       </article>
     </div>
     <p class="demo-stage-copy">The app is the proof. The PRD is the thing you keep. The last beat is what IT will ask you on Monday.</p>
@@ -178,7 +178,7 @@ Ask me if anything is unclear.</pre>
 
   <div class="demo-stage" id="stage-5" hidden>
     <p class="demo-stage-kicker">What five minutes did not buy you</p>
-    <p class="demo-stage-copy">A quick app still has five jobs. Skip one and you have a demo, not a hospital tool. Roster Builder is the conversation with IT. These five are the work after the conversation.</p>
+    <p class="demo-stage-copy">A quick app still has eight jobs. Skip one and you have a demo, not a hospital tool. Roster Builder is the conversation with IT. These eight are the work after the conversation.</p>
 
     <div class="b6-stack" role="list">
       <article class="b6-stack-card" role="listitem">
@@ -205,6 +205,21 @@ Ask me if anything is unclear.</pre>
         <p class="n">5</p>
         <h2>Who may look</h2>
         <p>An admin decides which people see which pages. The head nurse sees Cedar Ward. Not every ward. A staff nurse may see only their own row. This is authorization &mdash; permission, not just a login.</p>
+      </article>
+      <article class="b6-stack-card" role="listitem">
+        <p class="n">6</p>
+        <h2>Domain name</h2>
+        <p>The address staff type. <code>roster.yourhospital.org</code> can live on a badge. A Replit link is a temporary street. Someone must register the name, renew it, and point it at the right computer.</p>
+      </article>
+      <article class="b6-stack-card" role="listitem">
+        <p class="n">7</p>
+        <h2>Hosting &mdash; and the bill</h2>
+        <p>The computer the app lives on is a monthly cost. A Replit demo can be free. A hospital server, backups, and a promise it stays up overnight cost real money. Ask who pays before you promise the unit a tool.</p>
+      </article>
+      <article class="b6-stack-card" role="listitem">
+        <p class="n">8</p>
+        <h2>Talking to other apps</h2>
+        <p>A live roster should speak to HR, email, or the record. That is an agreed handshake between two programs. Roster Builder types everything by hand. The moment you want last month&rsquo;s staff from another system, you are doing integration.</p>
       </article>
     </div>
 
@@ -238,21 +253,21 @@ Ask me if anything is unclear.</pre>
   <div class="block-section">
     <h2>On screen</h2>
     <div class="callout callout-onscreen">
-      Paste the prompt with prd-builder on. Open the PRD. Open <a href="https://roster-builder-iyadsultan.replit.app/" target="_blank" rel="noopener">Roster Builder</a>. Then land on <strong>Still</strong>: five jobs a hospital app still owes, and the token that replaces a real ID.
+      Paste the prompt with prd-builder on. Open the PRD. Open <a href="https://roster-builder-iyadsultan.replit.app/" target="_blank" rel="noopener">Roster Builder</a>. Then land on <strong>Still</strong>: eight jobs a hospital app still owes, and the token that replaces a real ID.
     </div>
   </div>
 
   <div class="block-section">
     <h2>Take-home</h2>
     <div class="callout callout-takehome">
-      Write the brief first. A prototype starts the conversation with IT; it does not replace a front end, a back end, a database, security, or an admin who decides who sees which page. Patient IDs go in as tokens, not as the real number.
+      Write the brief first. A prototype starts the conversation with IT; it does not replace screens, a server, a database, security, who may look, a real address, a hosting bill, or a way to talk to other apps. Patient IDs go in as tokens, not as the real number.
     </div>
   </div>
 
   <div class="block-section">
     <h2>If you run long</h2>
     <div class="callout callout-note">
-      At 00:43, skip the Replit click if you must, but keep <strong>Still</strong> &mdash; the five jobs and the de-identification swap. That is the part most of the room can use on Monday. Protect Block 7.
+      At 00:43, skip the Replit click if you must, but keep <strong>Still</strong> &mdash; the eight jobs and the de-identification swap. That is the part most of the room can use on Monday. Protect Block 7.
     </div>
   </div>
 

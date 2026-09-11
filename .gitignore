@@ -40,3 +40,4 @@ __pycache__
 /venv/bin/activate.csh
 /venv/bin/activate.tcsh
 venv
+.claude/logs.md
