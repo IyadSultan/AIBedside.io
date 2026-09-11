@@ -18,6 +18,9 @@ permalink: /preparation/
   Open Block 5, click <strong>Load Bonsai 1.7B</strong>, and wait until it says ready. The first download is ~290 MB and far too slow to do live. After that it is cached in the browser, so you can switch the wi-fi off on stage.
 </div>
 <div class="callout callout-onscreen" style="margin-bottom:0.75rem;">
+  Before Block 6, open <a href="https://roster-builder-iyadsultan.replit.app/" target="_blank" rel="noopener">Roster Builder</a> in its own tab, plus the <a href="{{ site.baseurl }}/block-06-small-app/prd/">PRD page</a>. Confirm Generate still returns ten candidates. Do not walk on with a cold Replit boot.
+</div>
+<div class="callout callout-onscreen" style="margin-bottom:0.75rem;">
   Stage every tab in demo order, pre-authorize all connectors, clean browser profile with no patient data and no personal email, notifications off.
 </div>
 <div class="callout callout-onscreen" style="margin-bottom:0.75rem;">
@@ -36,7 +39,7 @@ permalink: /preparation/
   At 00:48 — drop the second analysis in Block 7; keep the survival curve.
 </div>
 <div class="callout callout-note" style="margin-bottom:0.75rem;">
-  At 00:54 — skip the spoken walk of Block 8 (What we learned at KHCC). Point at the QR code. The page is the handout.
+  At 00:54 — skip the six habits (slide 2). Point at the QR code. Land on agents — that is the new argument. Never cut the closing three minutes.
 </div>
 <div class="callout callout-note" style="margin-bottom:0.75rem;">
   Never sacrifice the closing three minutes. The Monday tasks are what make the hour actionable.

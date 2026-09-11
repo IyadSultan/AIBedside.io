@@ -313,7 +313,7 @@ permalink: /
     <div class="cci-num" style="background:#0277BD;">6</div>
     <div class="cci-card-body">
       <p class="title">A small app in five minutes <span class="cci-active-badge">00:43</span></p>
-      <p class="desc">Prototypes start the conversation with IT. They do not replace validation.</p>
+      <p class="desc">A prompt, a PRD, a roster app — then the stack a hospital still owes.</p>
     </div>
     <span class="arrow">&#8250;</span>
   </a>
@@ -331,7 +331,7 @@ permalink: /
     <div class="cci-num" style="background:#21409A;">8</div>
     <div class="cci-card-body">
       <p class="title">What we learned at KHCC <span class="cci-active-badge">00:54</span></p>
-      <p class="desc">People first. A written PRD. One data store. Cybersecurity before everything else.</p>
+      <p class="desc">People first. Then agents, with their own rules. Cybersecurity before everything else.</p>
     </div>
     <span class="arrow">&#8250;</span>
   </a>

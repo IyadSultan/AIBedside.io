@@ -16,6 +16,8 @@
   };
 
   var busy = false;
+  var serverUp = false;
+  var healthTimer = null;
 
   function $(id) {
     return document.getElementById(id);
@@ -225,29 +227,59 @@
         history[mode].push({ role: "assistant", content: collected });
       })
       .catch(function (err) {
-        finishBot(
-          bubble,
-          err.message || "The chat failed in the " + mode + " pane.",
-          true
-        );
+        finishBot(bubble, friendlyError(err, mode), true);
+        checkHealth();
       });
+  }
+
+  function mixedContentBlock() {
+    return (
+      window.location.protocol === "https:" &&
+      apiRoot().indexOf("http://") === 0
+    );
+  }
+
+  function friendlyError(err, mode) {
+    var raw = (err && err.message) || "";
+    if (mixedContentBlock()) {
+      return (
+        "This live chat cannot run on the public https site. Open http://127.0.0.1:8765 after ./mcp-chat/start.sh."
+      );
+    }
+    if (!raw || raw === "Failed to fetch" || raw === "Load failed" || raw === "NetworkError when attempting to fetch resource.") {
+      return (
+        "Cannot reach the chat server for the " +
+        mode +
+        " pane. In a project terminal run ./mcp-chat/start.sh, then try again."
+      );
+    }
+    return raw;
   }
 
   function setBusy(on) {
     busy = on;
+    syncComposer();
+  }
+
+  function syncComposer() {
     var send = $("claude-send");
     var input = $("claude-input");
+    var locked = busy || !serverUp;
     if (send) {
-      send.disabled = on;
+      send.disabled = locked;
     }
     if (input) {
-      input.disabled = on;
+      input.disabled = locked;
     }
   }
 
   function sendPrompt(prompt) {
     prompt = (prompt || "").trim();
     if (!prompt || busy) {
+      return;
+    }
+    if (!serverUp) {
+      checkHealth();
       return;
     }
     var input = $("claude-input");
@@ -268,7 +300,14 @@
 
   function checkHealth() {
     var el = $("claude-health");
-    if (!el) {
+    if (mixedContentBlock()) {
+      serverUp = false;
+      if (el) {
+        el.className = "claude-health is-down";
+        el.textContent =
+          "Open http://127.0.0.1:8765 for the live chat (https pages cannot reach the laptop server).";
+      }
+      syncComposer();
       return;
     }
     fetch(apiRoot() + "/health")
@@ -277,18 +316,29 @@
       })
       .then(function (info) {
         if (info && info.ok) {
-          el.className = "claude-health is-up";
-          el.textContent = "Haiku 4.5 ready · terms plug on the right";
+          serverUp = true;
+          if (el) {
+            el.className = "claude-health is-up";
+            el.textContent = "Haiku 4.5 ready · terms plug on the right";
+          }
         } else {
-          el.className = "claude-health is-down";
-          el.textContent =
-            "Chat server is up, but ANTHROPIC_API is missing from .env.";
+          serverUp = false;
+          if (el) {
+            el.className = "claude-health is-down";
+            el.textContent =
+              "Chat server is up, but ANTHROPIC_API is missing from .env.";
+          }
         }
+        syncComposer();
       })
       .catch(function () {
-        el.className = "claude-health is-down";
-        el.textContent =
-          "Start the local chat: mcp-chat/start.sh  (then refresh)";
+        serverUp = false;
+        if (el) {
+          el.className = "claude-health is-down";
+          el.textContent =
+            "Chat server is off. Run ./mcp-chat/start.sh — this line turns green when it is back.";
+        }
+        syncComposer();
       });
   }
 
@@ -333,6 +383,10 @@
     }
 
     checkHealth();
+    if (healthTimer) {
+      window.clearInterval(healthTimer);
+    }
+    healthTimer = window.setInterval(checkHealth, 4000);
   }
 
   if (document.readyState === "loading") {
