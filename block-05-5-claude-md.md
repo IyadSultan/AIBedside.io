@@ -1,13 +1,13 @@
 ---
 layout: default
-title: "Block 5.5 — CLAUDE.md — the kitchen contract"
+title: "Block 5 — CLAUDE.md — the kitchen contract"
 permalink: /block-05-5-claude-md/
 ---
 
 <div class="block-page block-page-demo block-page-wide">
   <div class="block-eyebrow">
     <span class="block-time" style="background:#6D4C41;">00:34</span>
-    <span class="block-kicker">Block 5.5</span>
+    <span class="block-kicker">Block 5</span>
   </div>
   <h1>CLAUDE.md &mdash; the kitchen contract</h1>
 
@@ -161,7 +161,7 @@ This folder is a teaching copy. It is not KHCC policy.
 
   <div class="block-nav">
     <a href="{{ site.baseurl }}/block-04-mcp/">&larr; 4 &middot; MCP — connect your own work</a>
-    <a href="{{ site.baseurl }}/block-05-small-models/">5 &middot; Small models &amp; the edge &rarr;</a>
+    <a href="{{ site.baseurl }}/block-05-small-models/">6 &middot; Small models &amp; the edge &rarr;</a>
   </div>
 </div>
 

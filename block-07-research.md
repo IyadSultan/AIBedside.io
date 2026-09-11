@@ -1,13 +1,13 @@
 ---
 layout: default
-title: "Block 7 — AI for research"
+title: "Block 8 — AI for research"
 permalink: /block-07-research/
 ---
 
 <div class="block-page block-page-demo block-page-wide">
   <div class="block-eyebrow">
     <span class="block-time" style="background:#558B2F;">00:48</span>
-    <span class="block-kicker">Block 7</span>
+    <span class="block-kicker">Block 8</span>
   </div>
   <h1>AI for research</h1>
 
@@ -353,8 +353,8 @@ Quote the recommendation from the PDF; do not paraphrase. If a paper has no PDF 
   </div>
 
   <div class="block-nav">
-    <a href="{{ site.baseurl }}/block-06-small-app/">&larr; 6 &middot; A small app in five minutes</a>
-    <a href="{{ site.baseurl }}/block-08-learned/">8 &middot; What we learned at KHCC &rarr;</a>
+    <a href="{{ site.baseurl }}/block-06-small-app/">&larr; 7 &middot; A small app in five minutes</a>
+    <a href="{{ site.baseurl }}/block-08-learned/">9 &middot; What we learned at KHCC &rarr;</a>
   </div>
 </div>
 

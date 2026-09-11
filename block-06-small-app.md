@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Block 6 — A small app in five minutes"
+title: "Block 7 — A small app in five minutes"
 permalink: /block-06-small-app/
 ---
 
@@ -9,7 +9,7 @@ permalink: /block-06-small-app/
 <div class="block-page block-page-demo block-page-wide">
   <div class="block-eyebrow">
     <span class="block-time" style="background:#0277BD;">00:43</span>
-    <span class="block-kicker">Block 6</span>
+    <span class="block-kicker">Block 7</span>
   </div>
   <h1>A small app in five minutes</h1>
 
@@ -276,8 +276,8 @@ Ask me if anything is unclear.</pre>
   </div>
 
   <div class="block-nav">
-    <a href="{{ site.baseurl }}/block-05-small-models/">&larr; 5 &middot; Small models &amp; the edge</a>
-    <a href="{{ site.baseurl }}/block-07-research/">7 &middot; AI for research &rarr;</a>
+    <a href="{{ site.baseurl }}/block-05-small-models/">&larr; 6 &middot; Small models &amp; the edge</a>
+    <a href="{{ site.baseurl }}/block-07-research/">8 &middot; AI for research &rarr;</a>
   </div>
 </div>
 

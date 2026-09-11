@@ -3,6 +3,17 @@ description: >-
   SIOP 2026 Global Health Session companion site — a practical introduction
   to AI for the whole childhood-cancer team. King Hussein Cancer Center.
 theme: minima
+lang: en
+author: Iyad Sultan
+logo: /assets/img/android-chrome-512x512.png
+twitter:
+  card: summary
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: /assets/img/android-chrome-512x512.png
 header_pages: []
 show_excerpts: false
 

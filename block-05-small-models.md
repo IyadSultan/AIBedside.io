@@ -1,13 +1,13 @@
 ---
 layout: default
-title: "Block 5 — Small models, the edge, and keeping AI in the hospital"
+title: "Block 6 — Small models, the edge, and keeping AI in the hospital"
 permalink: /block-05-small-models/
 ---
 
 <div class="block-page block-page-demo block-page-wide">
   <div class="block-eyebrow">
     <span class="block-time" style="background:#C62828;">00:37</span>
-    <span class="block-kicker">Block 5</span>
+    <span class="block-kicker">Block 6</span>
   </div>
   <h1>Small models, the edge, and keeping AI in the hospital</h1>
 
@@ -245,8 +245,8 @@ permalink: /block-05-small-models/
   </div>
 
   <div class="block-nav">
-    <a href="{{ site.baseurl }}/block-05-5-claude-md/">&larr; 5.5 &middot; CLAUDE.md — the kitchen contract</a>
-    <a href="{{ site.baseurl }}/block-06-small-app/">6 &middot; A small app in five minutes &rarr;</a>
+    <a href="{{ site.baseurl }}/block-05-5-claude-md/">&larr; 5 &middot; CLAUDE.md — the kitchen contract</a>
+    <a href="{{ site.baseurl }}/block-06-small-app/">7 &middot; A small app in five minutes &rarr;</a>
   </div>
 </div>
 

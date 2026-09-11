@@ -181,8 +181,8 @@ body.overview .slide .reveal{opacity:1;transform:none}
 .play-btn{width:56px;height:56px;border-radius:50%;background:var(--accent);display:grid;place-items:center}
 .play-btn svg{width:22px;height:22px;margin-left:3px}
 a.quiet{color:inherit}
-.home-link{position:fixed;left:24px;bottom:16px;font-size:14px;color:var(--fg-2);text-decoration:none;z-index:5;font-family:var(--font-body)}
-.home-link:hover{color:var(--accent)}
+.home-link{position:fixed;left:20px;bottom:22px;z-index:5;display:inline-flex;align-items:center;gap:.4em;padding:.45em .9em;border-radius:999px;background:#21409A;border:1px solid rgba(255,255,255,.45);box-shadow:0 2px 8px rgba(0,0,0,.25);color:#fff;font-size:13px;font-weight:600;text-decoration:none;font-family:var(--font-body)}
+.home-link:hover{background:#EC008C;border-color:#EC008C;color:#fff}
 </style>
 </head>
 <body data-theme="siop">
@@ -298,7 +298,7 @@ a.quiet{color:inherit}
 </main></div>
 <div id="progress"></div>
 <div id="counter"></div>
-<a class="home-link" href="../../" target="_top">Run of show</a>
+<a class="home-link" href="../../" target="_top">&larr; Run of show</a>
 
 <script>
 (function(){

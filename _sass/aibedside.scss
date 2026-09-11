@@ -57,8 +57,133 @@
     padding-top: 0 !important;
 }
 
-.site-footer {
-    display: none !important;
+.aib-footer {
+    margin-top: 1.5rem;
+    padding: 1.5rem 0 1.75rem;
+    border-top: 1px solid #ECEFF1;
+    background: #FAFBFD;
+    font-size: 0.78rem;
+    line-height: 1.6;
+    color: #607D8B;
+    text-align: center;
+}
+
+.aib-footer-line {
+    margin: 0 0 0.25rem;
+}
+
+.aib-footer-line strong {
+    color: #1B2A4A;
+}
+
+.aib-footer a {
+    color: #034EA2;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.aib-footer a:hover {
+    text-decoration: underline;
+}
+
+.aib-footer-phi {
+    margin-top: 0.6rem;
+    color: #78909C;
+    font-style: italic;
+}
+
+// Block 4 catalogue folds shut so the live demo stays on screen.
+details.mcp-cat-group > summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #E65100;
+    margin: 0 0 0.45rem;
+}
+
+details.mcp-cat-group > summary::-webkit-details-marker {
+    display: none;
+}
+
+details.mcp-cat-group > summary::before {
+    content: "";
+    width: 0.45rem;
+    height: 0.45rem;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(-45deg);
+    transition: transform 0.15s ease;
+    flex-shrink: 0;
+}
+
+details.mcp-cat-group[open] > summary::before {
+    transform: rotate(45deg);
+}
+
+details.mcp-cat-group > summary .count {
+    font-weight: 600;
+    color: #90A4AE;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+// Print: the closing page is the handout.
+@media print {
+    .site-header,
+    .aib-footer,
+    .block-nav,
+    .print-button,
+    .cci-qr-box {
+        display: none !important;
+    }
+
+    body {
+        color: #000;
+        background: #fff;
+    }
+
+    .page-content {
+        padding: 0 !important;
+    }
+
+    .role-card,
+    .phi-line,
+    .callout {
+        break-inside: avoid;
+        box-shadow: none;
+    }
+
+    a[href^="http"]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+        color: #555;
+    }
+}
+
+.print-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin: 0.25rem 0 1.5rem;
+    padding: 0.5rem 0.95rem;
+    border: 1px solid #B8D0EC;
+    border-radius: 0.5rem;
+    background: #E8F1FB;
+    color: #034EA2;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.print-button:hover {
+    background: #D6E4F5;
 }
 
 .block-page {
@@ -87,7 +212,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: #78909C;
+    color: #607D8B;
 }
 
 .block-page h1 {

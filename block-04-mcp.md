@@ -364,8 +364,8 @@ Continue → PMID 36626595
     <h2>Medical MCP examples</h2>
     <p class="demo-stage-copy">These are community connectors, not a KHCC install list. Public literature plugs are the ones you can try on a laptop. Anything that touches an EMR, PACS, or real identifiers stays with IT. Source catalogue: <a href="https://github.com/sunanhe/awesome-medical-mcp-servers" target="_blank" rel="noopener">awesome-medical-mcp-servers</a>.</p>
 
-    <div class="mcp-cat-group">
-      <h3>Literature and evidence</h3>
+    <details class="mcp-cat-group" open>
+      <summary>Literature and evidence <span class="count">&middot; 5</span></summary>
       <p class="demo-stage-copy" style="margin-bottom:0.55rem;">Each of these still talks to NCBI. The MCP layer is what makes the same API usable in a sentence, not only in a script. See the PubMed step above.</p>
       <ul class="mcp-cat-list">
         <li>
@@ -389,10 +389,10 @@ Continue → PMID 36626595
           <span class="why">Teaching content from PubMed, NCBI Bookshelf, and documents you add yourself.</span>
         </li>
       </ul>
-    </div>
+    </details>
 
-    <div class="mcp-cat-group">
-      <h3>Guidelines and decision support</h3>
+    <details class="mcp-cat-group">
+      <summary>Guidelines and decision support <span class="count">&middot; 4</span></summary>
       <ul class="mcp-cat-list">
         <li>
           <a href="https://github.com/SidneyBissoli/medical-terminologies-mcp" target="_blank" rel="noopener">SidneyBissoli/medical-terminologies-mcp</a>
@@ -411,10 +411,10 @@ Continue → PMID 36626595
           <span class="why">One plug across FDA, WHO, PubMed, Google Scholar, and RxNorm for drugs, papers, and names.</span>
         </li>
       </ul>
-    </div>
+    </details>
 
-    <div class="mcp-cat-group">
-      <h3>Records (FHIR, EMR) &mdash; IT, not a conference laptop</h3>
+    <details class="mcp-cat-group">
+      <summary>Records (FHIR, EMR) &mdash; IT, not a conference laptop <span class="count">&middot; 4</span></summary>
       <ul class="mcp-cat-list">
         <li>
           <a href="https://github.com/Kartha-AI/agentcare-mcp" target="_blank" rel="noopener">Kartha-AI/agentcare-mcp</a>
@@ -433,10 +433,10 @@ Continue → PMID 36626595
           <span class="why">Care-planning FHIR toolkits collected under medical-data MCP directories.</span>
         </li>
       </ul>
-    </div>
+    </details>
 
-    <div class="mcp-cat-group">
-      <h3>Imaging and radiology</h3>
+    <details class="mcp-cat-group">
+      <summary>Imaging and radiology <span class="count">&middot; 3</span></summary>
       <ul class="mcp-cat-list">
         <li>
           <a href="https://github.com/ChristianHinge/dicom-mcp" target="_blank" rel="noopener">ChristianHinge/dicom-mcp</a>
@@ -451,10 +451,10 @@ Continue → PMID 36626595
           <span class="why">Drive 3D Slicer in plain language &mdash; load a scene, process an image.</span>
         </li>
       </ul>
-    </div>
+    </details>
 
-    <div class="mcp-cat-group">
-      <h3>Biomedical databases, trials, terms</h3>
+    <details class="mcp-cat-group">
+      <summary>Biomedical databases, trials, terms <span class="count">&middot; 6</span></summary>
       <p class="demo-stage-copy" style="margin-bottom:0.55rem;">One connector, seven code systems. You ask in English. The model looks up ICD-11, LOINC, RxNorm, MeSH, ATC, CID-10, and (if you host it) SNOMED CT.</p>
       <a href="https://github.com/SidneyBissoli/medical-terminologies-mcp" target="_blank" rel="noopener">
         <img class="demo-shot" src="{{ site.baseurl }}/assets/block-04/medical-terminologies-mcp.png" alt="GitHub README for Medical Terminologies MCP Server: ICD-11, SNOMED CT, LOINC, RxNorm, MeSH, ATC, and CID-10" />
@@ -485,7 +485,7 @@ Continue → PMID 36626595
           <span class="why">A commercial, HIPAA-minded connector from an AI agent into existing healthcare systems.</span>
         </li>
       </ul>
-    </div>
+    </details>
   </div>
 
   <div class="phi-line">
@@ -494,7 +494,7 @@ Continue → PMID 36626595
 
   <div class="block-nav">
     <a href="{{ site.baseurl }}/block-03-skills/">&larr; 3 &middot; Skills — your house style</a>
-    <a href="{{ site.baseurl }}/block-05-5-claude-md/">5.5 &middot; CLAUDE.md — the kitchen contract &rarr;</a>
+    <a href="{{ site.baseurl }}/block-05-5-claude-md/">5 &middot; CLAUDE.md — the kitchen contract &rarr;</a>
   </div>
 </div>
 

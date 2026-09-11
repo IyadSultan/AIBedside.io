@@ -6,7 +6,7 @@ permalink: /block-06-small-app/prd/
 
 <div class="block-page prd-read">
   <div class="block-eyebrow">
-    <span class="block-time" style="background:#0277BD;">Block 6</span>
+    <span class="block-time" style="background:#0277BD;">Block 7</span>
     <span class="block-kicker">Product requirements</span>
   </div>
 
@@ -24,7 +24,7 @@ permalink: /block-06-small-app/prd/
   </p>
 
   <div class="block-nav">
-    <a href="{{ site.baseurl }}/block-06-small-app/">&larr; 6 &middot; A small app in five minutes</a>
-    <a href="{{ site.baseurl }}/block-07-research/">7 &middot; AI for research &rarr;</a>
+    <a href="{{ site.baseurl }}/block-06-small-app/">&larr; 7 &middot; A small app in five minutes</a>
+    <a href="{{ site.baseurl }}/block-07-research/">8 &middot; AI for research &rarr;</a>
   </div>
 </div>

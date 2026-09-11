@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Close — what to try on Monday"
+title: "Block 10 — Close — what to try on Monday"
 permalink: /closing-tasks/
 ---
 
@@ -8,6 +8,10 @@ permalink: /closing-tasks/
   <h1>What to try on Monday</h1>
   <p class="tagline">Closing three minutes — one task per role. If you scanned the QR code at the end of the session, this page is your handout.</p>
 </div>
+
+<button type="button" class="print-button" onclick="window.print()">
+  <span aria-hidden="true">&#128438;</span> Save as PDF
+</button>
 
 <div class="role-card">
   <span class="role">Physicians</span>
@@ -34,6 +38,6 @@ permalink: /closing-tasks/
 </div>
 
 <div class="block-nav" style="margin-top:2.5rem;">
-  <a href="{{ site.baseurl }}/block-08-learned/">&larr; 8 &middot; What we learned at KHCC</a>
+  <a href="{{ site.baseurl }}/block-08-learned/">&larr; 9 &middot; What we learned at KHCC</a>
   <a href="{{ site.baseurl }}/companion-sessions/">Companion sessions &rarr;</a>
 </div>
