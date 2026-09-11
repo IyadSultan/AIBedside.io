@@ -41,3 +41,4 @@ exclude:
   - package-lock.json
   - .env
   - .env.example
+  - tools/lock-key.mjs

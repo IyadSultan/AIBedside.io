@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lecture key locker</title>
+  <!--
+    Local-only tool. Jekyll does not publish the tools/ folder.
+    The real Anthropic key never belongs in this file — only the locked blob.
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0B1426;
+      --cabinet: #12203A;
+      --brass: #C6A15A;
+      --brass-deep: #8D7033;
+      --pink: #EC008C;
+      --paper: #F6F0E6;
+      --ink: #161E2E;
+      --muted: #5C6578;
+      --ok: #2F7A5B;
+      --bad: #9B2F3A;
+      --line: rgba(198, 161, 90, 0.35);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(236, 0, 140, 0.12), transparent 50%),
+        radial-gradient(900px 500px at 110% 10%, rgba(198, 161, 90, 0.14), transparent 46%),
+        var(--navy);
+      color: var(--paper);
+      font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      padding: 32px 16px 48px;
+    }
+
+    .cupboard {
+      width: min(640px, 100%);
+      background: linear-gradient(180deg, #182742 0%, var(--cabinet) 100%);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+        0 28px 80px rgba(0, 0, 0, 0.45);
+      overflow: hidden;
+    }
+
+    header.plate {
+      position: relative;
+      padding: 28px 32px 22px;
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(198, 161, 90, 0.08), transparent 70%);
+    }
+
+    header.plate::before {
+      content: "";
+      position: absolute;
+      left: 32px;
+      right: 32px;
+      top: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--brass-deep), var(--brass), var(--brass-deep));
+    }
+
+    .kicker {
+      margin: 0 0 8px;
+      color: var(--brass);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: Fraunces, "Iowan Old Style", Georgia, serif;
+      font-size: 34px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .sub {
+      margin: 10px 0 0;
+      color: #C9D0DE;
+      font-size: 15px;
+      line-height: 1.5;
+      max-width: 46ch;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 0;
+      padding: 0 32px;
+      background: #0E1A30;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .tab {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: #9AA3B5;
+      font: inherit;
+      font-weight: 600;
+      padding: 14px 18px 12px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+    }
+
+    .tab.is-on {
+      color: var(--paper);
+      border-bottom-color: var(--brass);
+    }
+
+    .tab:focus-visible,
+    button.act:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid var(--brass);
+      outline-offset: 2px;
+    }
+
+    main {
+      padding: 28px 32px 32px;
+    }
+
+    label {
+      display: block;
+      margin: 0 0 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--brass);
+    }
+
+    .hint {
+      margin: -2px 0 10px;
+      color: #9AA3B5;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    input[type="password"],
+    input[type="text"],
+    textarea {
+      width: 100%;
+      border: 1px solid rgba(198, 161, 90, 0.4);
+      background: #0B1426;
+      color: var(--paper);
+      border-radius: 4px;
+      padding: 14px 14px;
+      font: 15px/1.4 "IBM Plex Sans", sans-serif;
+      margin-bottom: 16px;
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+      font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+      font-size: 13px;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    button.act {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 600;
+      padding: 12px 18px;
+      border-radius: 4px;
+    }
+
+    .act-primary {
+      background: var(--pink);
+      color: #fff;
+    }
+
+    .act-brass {
+      background: var(--brass);
+      color: #1A1408;
+    }
+
+    .act-ghost {
+      background: transparent;
+      color: var(--paper);
+      border: 1px solid rgba(246, 240, 230, 0.28);
+    }
+
+    .status {
+      min-height: 1.4em;
+      margin: 14px 0 0;
+      font-size: 14px;
+      color: #C9D0DE;
+    }
+
+    .status.is-ok { color: #8ED4B3; }
+    .status.is-bad { color: #F0A3AA; }
+
+    .reveal {
+      margin-top: 18px;
+      padding: 16px;
+      background: #0B1426;
+      border: 1px dashed rgba(198, 161, 90, 0.45);
+      border-radius: 4px;
+    }
+
+    .reveal[hidden] { display: none; }
+
+    .reveal-label {
+      margin: 0 0 8px;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--brass);
+    }
+
+    .keybox {
+      margin: 0;
+      word-break: break-all;
+      font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--paper);
+    }
+
+    footer.note {
+      padding: 0 32px 24px;
+      color: #8B93A6;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cupboard">
+    <header class="plate">
+      <p class="kicker">SIOP lecture · controlled cupboard</p>
+      <h1>Lecture key locker</h1>
+      <p class="sub">On stage: type the passphrase you chose, press Unlock, then Copy. Paste the key into the Block 4 box.</p>
+    </header>
+
+    <div class="tabs" role="tablist">
+      <button type="button" class="tab is-on" id="tab-unlock" role="tab" aria-selected="true">Unlock for lecture</button>
+      <button type="button" class="tab" id="tab-lock" role="tab" aria-selected="false">Lock a new key</button>
+    </div>
+
+    <main>
+      <section id="pane-unlock">
+        <p class="hint" id="stored-hint">The locked key is already stored on this page. Type only the short passphrase you chose when you locked it — not the long locked text.</p>
+        <label for="unlock-pass">Passphrase</label>
+        <input id="unlock-pass" type="password" autocomplete="off" autofocus placeholder="Type the passphrase, then press Enter">
+        <textarea id="unlock-blob" hidden spellcheck="false"></textarea>
+
+        <div class="row">
+          <button type="button" class="act act-primary" id="btn-unlock">Unlock key</button>
+          <button type="button" class="act act-ghost" id="btn-copy-key">Copy key</button>
+        </div>
+        <p class="status" id="unlock-status"></p>
+        <div class="reveal" id="unlock-reveal" hidden>
+          <p class="reveal-label">Anthropic key</p>
+          <p class="keybox" id="unlock-key"></p>
+        </div>
+      </section>
+
+      <section id="pane-lock" hidden>
+        <label for="lock-key">Anthropic API key</label>
+        <p class="hint">Paste from the Anthropic console or from your local .env file. This stays in this browser tab only.</p>
+        <textarea id="lock-key" spellcheck="false" placeholder="sk-ant-…"></textarea>
+
+        <label for="lock-pass">Passphrase</label>
+        <p class="hint">Pick a phrase you will remember on stage. Do not put this phrase in the repo or in a slide.</p>
+        <input id="lock-pass" type="password" autocomplete="new-password" placeholder="A phrase only you know">
+
+        <div class="row">
+          <button type="button" class="act act-brass" id="btn-lock">Lock key</button>
+          <button type="button" class="act act-ghost" id="btn-use-blob">Use this locked text</button>
+          <button type="button" class="act act-ghost" id="btn-copy-blob">Copy locked text</button>
+          <button type="button" class="act act-ghost" id="btn-download">Download lecture copy</button>
+        </div>
+        <p class="status" id="lock-status"></p>
+        <div class="reveal" id="lock-reveal" hidden>
+          <p class="reveal-label">Locked text (safe to keep)</p>
+          <p class="keybox" id="lock-blob"></p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="note">
+      This is a lock, not a vault. Anyone who hears the passphrase can open it.
+      After the talk, revoke the lecture key in the Anthropic console.
+      This page is not published with the course site.
+    </footer>
+  </div>
+
+  <script>
+    /* Locked Anthropic key only. Never put the real sk-ant- key or the passphrase here. */
+    var LOCKED_KEY = "gb5jNTqn8GQvZqNt4gRQ8smW8pksj0fCXMAylVKW0Q2ZiMZ+S+ASnLD673A8L6gsjwdcTTXd95YRVSbRIANLg85bQ24KZBaf1NMN4db34MBKdCn3AcGKmQJ0kbBCuqHX1hr2WCBrhwXzKYuZ6Eb53ENTM7lQfhSBfB+j3d3s0QnyUb75bz9sGxziJhPQNTD7g8FL4fqiJek=";
+
+    var ITERATIONS = 210000;
+    var SALT_LEN = 16;
+    var IV_LEN = 12;
+
+    function $(id) {
+      return document.getElementById(id);
+    }
+
+    function setStatus(id, message, kind) {
+      var el = $(id);
+      el.textContent = message;
+      el.className = "status" + (kind ? " is-" + kind : "");
+    }
+
+    function bytesToB64(bytes) {
+      var binary = "";
+      var i;
+      for (i = 0; i < bytes.length; i += 1) {
+        binary += String.fromCharCode(bytes[i]);
+      }
+      return btoa(binary);
+    }
+
+    function b64ToBytes(b64) {
+      var binary = atob(String(b64 || "").replace(/\s+/g, ""));
+      var out = new Uint8Array(binary.length);
+      var i;
+      for (i = 0; i < binary.length; i += 1) {
+        out[i] = binary.charCodeAt(i);
+      }
+      return out;
+    }
+
+    async function deriveKey(passphrase, salt) {
+      var baseKey = await crypto.subtle.importKey(
+        "raw",
+        new TextEncoder().encode(passphrase),
+        "PBKDF2",
+        false,
+        ["deriveKey"]
+      );
+      return crypto.subtle.deriveKey(
+        { name: "PBKDF2", salt: salt, iterations: ITERATIONS, hash: "SHA-256" },
+        baseKey,
+        { name: "AES-GCM", length: 256 },
+        false,
+        ["encrypt", "decrypt"]
+      );
+    }
+
+    async function encryptText(plaintext, passphrase) {
+      var salt = crypto.getRandomValues(new Uint8Array(SALT_LEN));
+      var iv = crypto.getRandomValues(new Uint8Array(IV_LEN));
+      var key = await deriveKey(passphrase, salt);
+      var cipher = new Uint8Array(
+        await crypto.subtle.encrypt(
+          { name: "AES-GCM", iv: iv },
+          key,
+          new TextEncoder().encode(plaintext)
+        )
+      );
+      var packed = new Uint8Array(SALT_LEN + IV_LEN + cipher.length);
+      packed.set(salt, 0);
+      packed.set(iv, SALT_LEN);
+      packed.set(cipher, SALT_LEN + IV_LEN);
+      return bytesToB64(packed);
+    }
+
+    async function decryptText(blob, passphrase) {
+      var packed = b64ToBytes(blob);
+      if (packed.length < SALT_LEN + IV_LEN + 16) {
+        throw new Error("The locked text is too short.");
+      }
+      var salt = packed.slice(0, SALT_LEN);
+      var iv = packed.slice(SALT_LEN, SALT_LEN + IV_LEN);
+      var cipher = packed.slice(SALT_LEN + IV_LEN);
+      var key = await deriveKey(passphrase, salt);
+      var plain = await crypto.subtle.decrypt(
+        { name: "AES-GCM", iv: iv },
+        key,
+        cipher
+      );
+      return new TextDecoder().decode(plain);
+    }
+
+    function showPane(which) {
+      var unlockOn = which === "unlock";
+      $("pane-unlock").hidden = !unlockOn;
+      $("pane-lock").hidden = unlockOn;
+      $("tab-unlock").classList.toggle("is-on", unlockOn);
+      $("tab-lock").classList.toggle("is-on", !unlockOn);
+      $("tab-unlock").setAttribute("aria-selected", unlockOn ? "true" : "false");
+      $("tab-lock").setAttribute("aria-selected", unlockOn ? "false" : "true");
+    }
+
+    async function copyText(value, statusId, okMessage) {
+      if (!value) {
+        setStatus(statusId, "Nothing to copy yet.", "bad");
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(value);
+        setStatus(statusId, okMessage, "ok");
+      } catch (err) {
+        setStatus(statusId, "Copy failed in the copy step: " + err.message, "bad");
+      }
+    }
+
+    function bind() {
+      $("unlock-blob").value = LOCKED_KEY;
+
+      $("tab-unlock").addEventListener("click", function () {
+        showPane("unlock");
+      });
+      $("tab-lock").addEventListener("click", function () {
+        showPane("lock");
+      });
+
+      $("btn-unlock").addEventListener("click", function () {
+        var pass = $("unlock-pass").value;
+        var blob = $("unlock-blob").value.trim();
+        $("unlock-reveal").hidden = true;
+        $("unlock-key").textContent = "";
+
+        if (!blob) {
+          setStatus("unlock-status", "There is no locked text yet. Open “Lock a new key” first.", "bad");
+          return;
+        }
+        if (!pass) {
+          setStatus("unlock-status", "Type the passphrase.", "bad");
+          return;
+        }
+
+        decryptText(blob, pass)
+          .then(function (key) {
+            $("unlock-key").textContent = key;
+            $("unlock-reveal").hidden = false;
+            setStatus("unlock-status", "Unlocked. Copy it into the Block 4 key box.", "ok");
+          })
+          .catch(function () {
+            setStatus("unlock-status", "That passphrase did not open this locked text.", "bad");
+          });
+      });
+
+      $("btn-copy-key").addEventListener("click", function () {
+        copyText($("unlock-key").textContent, "unlock-status", "Key copied. Paste it into Block 4.");
+      });
+
+      $("btn-lock").addEventListener("click", function () {
+        var key = $("lock-key").value.trim();
+        var pass = $("lock-pass").value;
+        $("lock-reveal").hidden = true;
+        $("lock-blob").textContent = "";
+
+        if (!key) {
+          setStatus("lock-status", "Paste the Anthropic key first.", "bad");
+          return;
+        }
+        if (!key.startsWith("sk-ant-")) {
+          setStatus("lock-status", "That does not look like an Anthropic key (it should start with sk-ant-).", "bad");
+          return;
+        }
+        if (!pass || pass.length < 8) {
+          setStatus("lock-status", "Use a passphrase of at least 8 characters.", "bad");
+          return;
+        }
+
+        encryptText(key, pass)
+          .then(function (blob) {
+            $("lock-blob").textContent = blob;
+            $("lock-reveal").hidden = false;
+            $("lock-key").value = "";
+            setStatus("lock-status", "Locked. Copy the locked text, or click “Use this locked text”.", "ok");
+          })
+          .catch(function (err) {
+            setStatus("lock-status", "Lock failed in the encrypt step: " + err.message, "bad");
+          });
+      });
+
+      $("btn-use-blob").addEventListener("click", function () {
+        var blob = $("lock-blob").textContent.trim();
+        if (!blob) {
+          setStatus("lock-status", "Lock a key first.", "bad");
+          return;
+        }
+        $("unlock-blob").value = blob;
+        showPane("unlock");
+        setStatus("unlock-status", "Locked text is ready. Type the passphrase and unlock.", "ok");
+      });
+
+      $("btn-copy-blob").addEventListener("click", function () {
+        copyText($("lock-blob").textContent, "lock-status", "Locked text copied. You can hard-code it as LOCKED_KEY.");
+      });
+
+      $("btn-download").addEventListener("click", function () {
+        var blob = $("lock-blob").textContent.trim();
+        if (!blob) {
+          setStatus("lock-status", "Lock a key first.", "bad");
+          return;
+        }
+        try {
+          var html = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+          var next = html.replace(
+            /var LOCKED_KEY = ("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*');/,
+            "var LOCKED_KEY = " + JSON.stringify(blob) + ";"
+          );
+          var file = new Blob([next], { type: "text/html;charset=utf-8" });
+          var url = URL.createObjectURL(file);
+          var link = document.createElement("a");
+          link.href = url;
+          link.download = "lecture-key.html";
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+          URL.revokeObjectURL(url);
+          setStatus("lock-status", "Saved lecture-key.html with the locked text already inside.", "ok");
+        } catch (err) {
+          setStatus("lock-status", "Download failed in the save step: " + err.message, "bad");
+        }
+      });
+
+      $("unlock-pass").addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+          $("btn-unlock").click();
+        }
+      });
+    }
+
+    bind();
+  </script>
+</body>
+</html>

@@ -12,6 +12,9 @@ permalink: /preparation/
 <h2 class="block-kicker" style="display:block;margin-bottom:0.75rem;">Pre-build</h2>
 
 <div class="callout callout-onscreen" style="margin-bottom:0.75rem;">
+  Anthropic key for Block 4: open the <a href="{{ "/tools/lecture-key.html" | relative_url }}">lecture key locker</a> (also in the footer on every page), type the passphrase, copy the key, paste it into the Block 4 box. The locker is also at <code>tools/lecture-key.html</code> on this laptop.
+</div>
+<div class="callout callout-onscreen" style="margin-bottom:0.75rem;">
   The synthetic febrile-neutropenia case, a NotebookLM folder of 4&ndash;6 public guidelines, a ~200-row synthetic unit dataset, the ward-thread skill (plus the annual-report skill if you have time), and one QR handout slide.
 </div>
 <div class="callout callout-onscreen" style="margin-bottom:0.75rem;">
