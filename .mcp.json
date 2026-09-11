@@ -1,8 +1,5 @@
 {
   "mcpServers": {
-    "medical-terminologies": {
-      "url": "https://medical.sidneybissoli.com/mcp"
-    },
     "graft": {
       "command": "graft",
       "args": [
