@@ -50,3 +50,7 @@ vendor/
 
 # graft's local graph cache — regenerable, not committed (run `graft build`).
 graft/
+
+# Hugging Face download leftovers next to the on-site voice models
+assets/models/kitten-tts/.cache/
+assets/models/kokoro/.cache/

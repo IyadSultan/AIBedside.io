@@ -931,6 +931,68 @@ details.mcp-cat-group > summary .count {
     overflow-x: auto;
 }
 
+// Play / pause strip on every lecture skill box. Voice failures stay in the
+// status text — they must not change the box layout enough to break the page.
+.read-aloud {
+    margin: 0.75rem 0;
+}
+
+.read-aloud .demo-skill-file {
+    margin: 0;
+}
+
+.read-aloud-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0 0 0.4rem;
+}
+
+.read-aloud-btn {
+    border: 1px solid #7B1FA2;
+    background: #fff;
+    color: #6A1B9A;
+    font: 700 0.78rem/1 "IBM Plex Sans", "Segoe UI", sans-serif;
+    border-radius: 999px;
+    padding: 0.35rem 0.85rem;
+    cursor: pointer;
+}
+
+.read-aloud-btn:hover,
+.read-aloud-btn:focus-visible {
+    background: #F3E5F5;
+    outline: 2px solid #7B1FA2;
+    outline-offset: 2px;
+}
+
+.read-aloud.is-playing [data-read="play"],
+.read-aloud-btn[aria-pressed="true"] {
+    background: #7B1FA2;
+    color: #fff;
+}
+
+.read-aloud-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.read-aloud-status {
+    color: #6A1B9A;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.read-aloud-voice {
+    border: 1px solid #7B1FA2;
+    background: #fff;
+    color: #6A1B9A;
+    font: 600 0.75rem/1.2 "IBM Plex Sans", "Segoe UI", sans-serif;
+    border-radius: 999px;
+    padding: 0.32rem 0.65rem;
+    max-width: 12.5rem;
+}
+
 .demo-skill-result {
     margin: 0.85rem 0 0.5rem;
     padding: 0.9rem 1.1rem;
