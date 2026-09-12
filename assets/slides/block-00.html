@@ -183,6 +183,26 @@ body.overview .slide .reveal{opacity:1;transform:none}
 a.quiet{color:inherit}
 .home-link{position:fixed;left:20px;bottom:22px;z-index:5;display:inline-flex;align-items:center;gap:.4em;padding:.45em .9em;border-radius:999px;background:#21409A;border:1px solid rgba(255,255,255,.45);box-shadow:0 2px 8px rgba(0,0,0,.25);color:#fff;font-size:13px;font-weight:600;text-decoration:none;font-family:var(--font-body)}
 .home-link:hover{background:#EC008C;border-color:#EC008C;color:#fff}
+
+/* Chat vs Cowork — Claude.ai switch, drawn so we do not show a personal screenshot */
+.mode-switch{display:inline-flex;align-items:center;gap:6px;padding:6px;border:1px solid var(--rule);border-radius:999px;background:#fff;width:fit-content}
+.mode-switch span{font-size:22px;font-weight:600;padding:8px 22px;border-radius:999px;color:var(--fg-2)}
+.mode-switch .on{background:var(--bg-2);color:var(--brand)}
+.compare.seats .option{min-height:420px;display:flex;flex-direction:column;justify-content:flex-start;gap:4px}
+.compare.seats .option .job{font-size:26px;color:var(--fg-2);font-weight:500;margin:0 0 8px}
+
+/* Side-by-side Chat / Cowork table */
+table.vs{width:100%;border-collapse:collapse;margin-top:8px}
+table.vs th,table.vs td{padding:20px 22px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:middle;font-size:27px;line-height:1.3}
+table.vs thead th{font-size:20px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-2);font-weight:700;padding:8px 22px 14px}
+table.vs th.col,table.vs td.col{width:28%}
+table.vs td.row{color:var(--fg);font-weight:600;width:44%}
+table.vs td.col{font-weight:500;color:var(--fg-2)}
+table.vs tbody tr:last-child th,table.vs tbody tr:last-child td{border-bottom:0}
+table.vs tr.same td.col{color:var(--fg);font-weight:700}
+table.vs tr.warn{background:var(--bg-2)}
+table.vs tr.warn td.col{color:var(--accent);font-weight:700}
+table.vs .win{color:var(--brand);font-weight:700}
 </style>
 </head>
 <body data-theme="siop">
@@ -296,8 +316,92 @@ a.quiet{color:inherit}
 
 <section class="slide format-statement">
   <h1 class="reveal">We are not here to pick a brand. We are here to learn a way of working.</h1>
-  <p class="meta reveal" data-delay="1">Next: the same question, asked twice.</p>
-  <aside class="notes">Walk to Block 1. The old Block 0 demo now lives there — lazy prompt versus a briefing.</aside>
+  <p class="meta reveal" data-delay="1">First: two seats at the same desk.</p>
+  <aside class="notes">Two slides — Chat versus Cowork, then the table. Then walk to Block 1.</aside>
+</section>
+
+<section class="slide">
+  <p class="kicker reveal">claude.ai</p>
+  <h2 class="reveal" data-delay="1">Chat versus Cowork</h2>
+  <div class="mode-switch reveal" data-delay="2" aria-hidden="true">
+    <span class="on">Chat</span>
+    <span>Cowork</span>
+  </div>
+  <div class="compare seats">
+    <div class="option reveal" data-delay="3">
+      <h3>Chat</h3>
+      <p class="job">A conversation in the window.</p>
+      <ul>
+        <li>You type. It answers.</li>
+        <li>Attach a file if you need one.</li>
+        <li>Good for thinking, a draft, a quick check.</li>
+      </ul>
+    </div>
+    <div class="option pick reveal" data-delay="4">
+      <h3>Cowork</h3>
+      <p class="job">You pick a folder on your computer.</p>
+      <ul>
+        <li>It can read and write those files.</li>
+        <li>A report, a protocol, a set of slides.</li>
+        <li>Like a colleague at your desk, not a chat box.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="punch reveal" data-delay="5">Same model. Different job.</p>
+  <aside class="notes">If wifi allows, flip to claude.ai and tap Chat / Cowork. Cowork asks you to pick a folder — use a dummy folder, never a real chart. Next slide is the comparison table. Then walk to Block 1.</aside>
+</section>
+
+<section class="slide">
+  <p class="kicker reveal">Chat versus Cowork</p>
+  <h2 class="reveal" data-delay="1">What actually changes</h2>
+  <!-- Short cells on purpose: seven rows have to fit a 1920×1080 frame -->
+  <table class="vs reveal" data-delay="2">
+    <thead>
+      <tr>
+        <th></th>
+        <th class="col">Chat</th>
+        <th class="col">Cowork</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="row">Files stay on your computer</td>
+        <td class="col">No — you attach them</td>
+        <td class="col win">Yes — they stay in the folder</td>
+      </tr>
+      <tr>
+        <td class="row">File size limit</td>
+        <td class="col">Upload cap</td>
+        <td class="col win">No upload cap</td>
+      </tr>
+      <tr class="same warn">
+        <td class="row">Data still goes to Anthropic</td>
+        <td class="col">Yes</td>
+        <td class="col">Yes</td>
+      </tr>
+      <tr>
+        <td class="row">Rules so PHI does not leave</td>
+        <td class="col">Too late — you already pasted it</td>
+        <td class="col">Possible. Needs work.</td>
+      </tr>
+      <tr>
+        <td class="row">Organizing a project</td>
+        <td class="col">One long chat</td>
+        <td class="col win">A folder. Easier.</td>
+      </tr>
+      <tr>
+        <td class="row">Skills and extra tools</td>
+        <td class="col">In the window</td>
+        <td class="col win">Easier to import and use</td>
+      </tr>
+      <tr class="same">
+        <td class="row">Work from anywhere</td>
+        <td class="col">Everywhere</td>
+        <td class="col">Everywhere</td>
+      </tr>
+    </tbody>
+  </table>
+  <aside class="notes">Land on the pink row: the file may sit on your disk, but the text Claude reads still goes to Anthropic. PHI rules are a later lesson — CLAUDE.md, a dummy folder, never a real chart. Everywhere means phone or laptop, Chat or Cowork. Then walk to Block 1 — lazy prompt versus a briefing.</aside>
 </section>
 
 </main></div>

@@ -266,7 +266,7 @@ permalink: /
     <div class="cci-num" style="background:#607D8B;">0</div>
     <div class="cci-card-body">
       <p class="title">Open &mdash; no conflicts, four similar tools</p>
-      <p class="desc">Disclosures, then Claude / ChatGPT / Gemini / Perplexity, then Wachter.</p>
+      <p class="desc">Disclosures, then Claude / ChatGPT / Gemini / Perplexity, then Wachter, then Chat versus Cowork.</p>
     </div>
     <span class="cci-time">00:00</span>
     <span class="arrow">&#8250;</span>
