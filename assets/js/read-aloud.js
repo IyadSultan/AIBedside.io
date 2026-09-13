@@ -38,12 +38,6 @@
     return String(raw).replace(/\/$/, "");
   }
 
-  function localKokoroId() {
-    // Full same-origin URL. A path like /AIBedside.io/... is treated as a
-    // Hugging Face model id, not a file on this site.
-    return window.location.origin + baseurl() + "/assets/models/kokoro";
-  }
-
   function safe(fn) {
     try {
       return fn();
@@ -139,7 +133,17 @@
     stopAudioSource();
     var source = ctx.createBufferSource();
     source.buffer = buffer;
-    source.connect(ctx.destination);
+    // A little treble lift — q8 Kokoro can sound like it is speaking
+    // through a blanket, which people hear as "another language".
+    var bright = ctx.createBiquadFilter();
+    bright.type = "highshelf";
+    bright.frequency.value = 2200;
+    bright.gain.value = 5;
+    var gain = ctx.createGain();
+    gain.gain.value = 1.12;
+    source.connect(bright);
+    bright.connect(gain);
+    gain.connect(ctx.destination);
     active.source = source;
     active.startedAt = ctx.currentTime - offset;
     active.paused = false;
@@ -162,16 +166,85 @@
     return buffer;
   }
 
-  function audioToBuffer(ctx, audio) {
-    if (audio && typeof audio.toAudioBuffer === "function") {
-      return audio.toAudioBuffer(ctx);
+  // Turn a skill box into spoken English. Hashes and dashes are not words —
+  // if we leave them in, the voice gets muddy and can sound "foreign".
+  function toSpokenEnglish(raw) {
+    var text = String(raw || "").replace(/\r\n/g, "\n");
+    text = text.replace(/^---[\s\S]*?\n---\s*/m, " ");
+    text = text.replace(/^#{1,6}\s+/gm, "");
+    text = text.replace(/^\s*[-*+]\s+/gm, "");
+    text = text.replace(/^\s*\d+\.\s+/gm, "");
+    text = text.replace(/`+/g, "");
+    text = text.replace(/\*\*([^*]+)\*\*/g, "$1");
+    text = text.replace(/[_*]/g, "");
+    text = text.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+    text = text.replace(/https?:\/\/\S+/g, "");
+    text = text.replace(/[|#]/g, " ");
+    text = text.replace(/\s+/g, " ").trim();
+    return text;
+  }
+
+  function pickEnglishVoiceId(voice) {
+    var id = voice || currentVoice || "af_heart";
+    var first = id.charAt(0);
+    if (first === "a" || first === "b") {
+      return id;
     }
-    var data = audio && (audio.audio || audio.data);
-    var rate = (audio && (audio.sampling_rate || audio.sampleRate)) || ctx.sampleRate || 24000;
-    if (!data) {
-      throw new Error("Kokoro returned no audio samples");
+    return "af_heart";
+  }
+
+  function samplesFrom(audio) {
+    if (!audio) {
+      return null;
     }
-    return floatToBuffer(ctx, data, rate);
+    return audio.audio || audio.data || null;
+  }
+
+  // Make quiet / muffled speech louder without blowing the speakers.
+  function normalizeSamples(src) {
+    var data = src instanceof Float32Array ? src : new Float32Array(src);
+    var peak = 0;
+    var i;
+    for (i = 0; i < data.length; i += 1) {
+      var abs = Math.abs(data[i]);
+      if (abs > peak) {
+        peak = abs;
+      }
+    }
+    if (peak < 0.04 || peak > 0.86) {
+      return data;
+    }
+    var gain = 0.88 / peak;
+    if (gain > 3.5) {
+      gain = 3.5;
+    }
+    var out = new Float32Array(data.length);
+    for (i = 0; i < data.length; i += 1) {
+      out[i] = data[i] * gain;
+    }
+    return out;
+  }
+
+  function pickEnglishBrowserVoice() {
+    try {
+      var list = window.speechSynthesis.getVoices() || [];
+      var i;
+      var fallback = null;
+      for (i = 0; i < list.length; i += 1) {
+        if (!/^en(-|$)/i.test(list[i].lang)) {
+          continue;
+        }
+        if (/en-US/i.test(list[i].lang)) {
+          return list[i];
+        }
+        if (!fallback) {
+          fallback = list[i];
+        }
+      }
+      return fallback;
+    } catch (err) {
+      return null;
+    }
   }
 
   async function loadKokoro(KokoroTTS, modelId, device) {
@@ -199,25 +272,68 @@
     }
 
     var device = navigator.gpu ? "webgpu" : "wasm";
-    var tts;
-    try {
-      tts = await loadKokoro(KokoroTTS, localKokoroId(), device);
-    } catch (localErr) {
-      console.warn("[read-aloud] local Kokoro failed, trying the public copy", localErr);
-      tts = await loadKokoro(KokoroTTS, KOKORO_HUB, device);
-    }
+    // Skip the local folder — kokoro-js treats that path as a model id and
+    // fails. The public copy caches in the browser after the first play.
+    var tts = await loadKokoro(KokoroTTS, KOKORO_HUB, device);
 
     return {
       kind: "model",
       label: "Kokoro",
       async speak(text, voice) {
-        var audio = await tts.generate(text, { voice: voice || currentVoice, speed: 1.0 });
-        var ctx = active.audioCtx || new AudioContext({ sampleRate: audio.sampling_rate || 24000 });
+        var spoken = toSpokenEnglish(text);
+        var chosen = pickEnglishVoiceId(voice);
+        var parts = [];
+        var rate = 24000;
+        var i;
+
+        // One sentence at a time. Feeding the whole box in one go is what
+        // made the voice muffled and hard to follow.
+        if (typeof tts.stream === "function") {
+          for await (var part of tts.stream(spoken, { voice: chosen, speed: 0.92 })) {
+            if (active.cancelled) {
+              return;
+            }
+            var chunk = samplesFrom(part.audio || part);
+            if (chunk && chunk.length) {
+              parts.push(chunk);
+              if (part.audio && part.audio.sampling_rate) {
+                rate = part.audio.sampling_rate;
+              }
+            }
+            if (active.wrap) {
+              setStatus(active.wrap, "Reading with Kokoro…");
+            }
+          }
+        } else {
+          var one = await tts.generate(spoken, { voice: chosen, speed: 0.92 });
+          var only = samplesFrom(one);
+          if (only) {
+            parts.push(only);
+          }
+          rate = one.sampling_rate || rate;
+        }
+
+        if (!parts.length) {
+          throw new Error("Kokoro returned no audio samples");
+        }
+
+        var total = 0;
+        for (i = 0; i < parts.length; i += 1) {
+          total += parts[i].length;
+        }
+        var merged = new Float32Array(total);
+        var offset = 0;
+        for (i = 0; i < parts.length; i += 1) {
+          merged.set(parts[i], offset);
+          offset += parts[i].length;
+        }
+
+        var ctx = active.audioCtx || new AudioContext();
         active.audioCtx = ctx;
         if (ctx.state === "suspended") {
           await ctx.resume();
         }
-        active.buffer = audioToBuffer(ctx, audio);
+        active.buffer = floatToBuffer(ctx, normalizeSamples(merged), rate);
         active.pausedAt = 0;
         playBufferFrom(0);
       },
@@ -247,9 +363,14 @@
       label: "browser voice",
       speak: function (text) {
         stopSpeech();
-        var utter = new SpeechSynthesisUtterance(text);
-        utter.rate = 1;
+        var utter = new SpeechSynthesisUtterance(toSpokenEnglish(text));
+        utter.lang = "en-US";
+        utter.rate = 0.95;
         utter.pitch = 1;
+        var enVoice = pickEnglishBrowserVoice();
+        if (enVoice) {
+          utter.voice = enVoice;
+        }
         utter.onend = function () {
           if (active.paused || active.cancelled) {
             return;
