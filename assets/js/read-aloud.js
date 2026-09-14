@@ -30,7 +30,9 @@
     startedAt: 0,
     pausedAt: 0,
     utterance: null,
-    engine: null
+    engine: null,
+    htmlAudio: null,
+    htmlUrl: null
   };
 
   function baseurl() {
@@ -84,7 +86,50 @@
     }
   }
 
+  function unlockAudio() {
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) {
+        return null;
+      }
+      if (!active.audioCtx) {
+        active.audioCtx = new AC();
+      }
+      if (active.audioCtx.state === "suspended") {
+        active.audioCtx.resume();
+      }
+      return active.audioCtx;
+    } catch (err) {
+      console.warn("[read-aloud] could not unlock audio", err);
+      return null;
+    }
+  }
+
+  function stopHtmlAudio() {
+    if (active.htmlAudio) {
+      try {
+        active.htmlAudio.onended = null;
+        active.htmlAudio.onerror = null;
+        active.htmlAudio.pause();
+        active.htmlAudio.removeAttribute("src");
+        active.htmlAudio.load();
+      } catch (err) {
+        // ignore
+      }
+      active.htmlAudio = null;
+    }
+    if (active.htmlUrl) {
+      try {
+        URL.revokeObjectURL(active.htmlUrl);
+      } catch (err) {
+        // ignore
+      }
+      active.htmlUrl = null;
+    }
+  }
+
   function stopAudioSource() {
+    stopHtmlAudio();
     if (active.source) {
       try {
         active.source.onended = null;
@@ -197,7 +242,101 @@
     if (!audio) {
       return null;
     }
-    return audio.audio || audio.data || null;
+    if (audio.audio && audio.audio.length) {
+      return audio.audio;
+    }
+    if (audio.data && audio.data.length) {
+      return audio.data;
+    }
+    if (audio.length) {
+      return audio;
+    }
+    return null;
+  }
+
+  function writeAscii(view, offset, text) {
+    var i;
+    for (i = 0; i < text.length; i += 1) {
+      view.setUint8(offset + i, text.charCodeAt(i));
+    }
+  }
+
+  // WAV is more reliable than Web Audio after a long model load —
+  // browsers often ignore Web Audio that starts minutes after the click.
+  function samplesToWavBlob(samples, sampleRate) {
+    var n = samples.length;
+    var bytes = new ArrayBuffer(44 + n * 2);
+    var view = new DataView(bytes);
+    writeAscii(view, 0, "RIFF");
+    view.setUint32(4, 36 + n * 2, true);
+    writeAscii(view, 8, "WAVE");
+    writeAscii(view, 12, "fmt ");
+    view.setUint32(16, 16, true);
+    view.setUint16(20, 1, true);
+    view.setUint16(22, 1, true);
+    view.setUint32(24, sampleRate, true);
+    view.setUint32(28, sampleRate * 2, true);
+    view.setUint16(32, 2, true);
+    view.setUint16(34, 16, true);
+    writeAscii(view, 36, "data");
+    view.setUint32(40, n * 2, true);
+    var pos = 44;
+    var i;
+    for (i = 0; i < n; i += 1) {
+      var s = Math.max(-1, Math.min(1, samples[i]));
+      view.setInt16(pos, s < 0 ? s * 0x8000 : s * 0x7fff, true);
+      pos += 2;
+    }
+    return new Blob([bytes], { type: "audio/wav" });
+  }
+
+  function playSamples(samples, sampleRate) {
+    return new Promise(function (resolve, reject) {
+      var done = false;
+      var clean = normalizeSamples(samples);
+      var blob = samplesToWavBlob(clean, sampleRate || 24000);
+      var url = URL.createObjectURL(blob);
+      var el = new Audio();
+      el.preload = "auto";
+      el.volume = 1;
+      el.src = url;
+      active.htmlAudio = el;
+      active.htmlUrl = url;
+
+      function finish(err) {
+        if (done) {
+          return;
+        }
+        done = true;
+        window.clearInterval(watch);
+        stopHtmlAudio();
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      }
+
+      var watch = window.setInterval(function () {
+        if (active.cancelled) {
+          finish();
+        }
+      }, 200);
+
+      el.onended = function () {
+        finish();
+      };
+      el.onerror = function () {
+        finish(new Error("The browser could not play the voice clip"));
+      };
+
+      var started = el.play();
+      if (started && typeof started.then === "function") {
+        started.catch(function (err) {
+          finish(err);
+        });
+      }
+    });
   }
 
   // Make quiet / muffled speech louder without blowing the speakers.
@@ -282,70 +421,86 @@
       async speak(text, voice) {
         var spoken = toSpokenEnglish(text);
         var chosen = pickEnglishVoiceId(voice);
-        var parts = [];
+        var heard = 0;
         var rate = 24000;
-        var i;
 
-        // One sentence at a time. Feeding the whole box in one go is what
-        // made the voice muffled and hard to follow.
+        async function playChunk(chunk, chunkRate) {
+          while (active.paused && !active.cancelled) {
+            await new Promise(function (resolve) {
+              window.setTimeout(resolve, 150);
+            });
+          }
+          if (active.cancelled) {
+            return;
+          }
+          heard += 1;
+          if (active.wrap) {
+            setStatus(active.wrap, heard === 1 ? "Reading…" : "Reading… (" + heard + ")");
+          }
+          await playSamples(chunk, chunkRate || rate);
+        }
+
+        if (active.wrap) {
+          setStatus(active.wrap, "Preparing the first sentence…");
+        }
+
+        // Play each sentence as soon as it is ready. Waiting for the whole
+        // box first is why the label said "Reading" while the room stayed quiet.
         if (typeof tts.stream === "function") {
           for await (var part of tts.stream(spoken, { voice: chosen, speed: 0.92 })) {
             if (active.cancelled) {
               return;
             }
             var chunk = samplesFrom(part.audio || part);
-            if (chunk && chunk.length) {
-              parts.push(chunk);
-              if (part.audio && part.audio.sampling_rate) {
-                rate = part.audio.sampling_rate;
-              }
+            if (!chunk || !chunk.length) {
+              continue;
             }
-            if (active.wrap) {
-              setStatus(active.wrap, "Reading with Kokoro…");
+            if (part.audio && part.audio.sampling_rate) {
+              rate = part.audio.sampling_rate;
             }
+            await playChunk(chunk, rate);
           }
         } else {
           var one = await tts.generate(spoken, { voice: chosen, speed: 0.92 });
           var only = samplesFrom(one);
           if (only) {
-            parts.push(only);
+            await playChunk(only, one.sampling_rate || rate);
           }
-          rate = one.sampling_rate || rate;
         }
 
-        if (!parts.length) {
+        if (!heard) {
           throw new Error("Kokoro returned no audio samples");
         }
-
-        var total = 0;
-        for (i = 0; i < parts.length; i += 1) {
-          total += parts[i].length;
+        if (!active.cancelled && active.wrap) {
+          var wrap = active.wrap;
+          resetActive();
+          setStatus(wrap, "");
         }
-        var merged = new Float32Array(total);
-        var offset = 0;
-        for (i = 0; i < parts.length; i += 1) {
-          merged.set(parts[i], offset);
-          offset += parts[i].length;
-        }
-
-        var ctx = active.audioCtx || new AudioContext();
-        active.audioCtx = ctx;
-        if (ctx.state === "suspended") {
-          await ctx.resume();
-        }
-        active.buffer = floatToBuffer(ctx, normalizeSamples(merged), rate);
-        active.pausedAt = 0;
-        playBufferFrom(0);
       },
       pause: function () {
+        active.paused = true;
+        if (active.htmlAudio) {
+          try {
+            active.htmlAudio.pause();
+          } catch (err) {
+            // ignore
+          }
+          return;
+        }
         if (!active.audioCtx || !active.source) {
           return;
         }
         active.pausedAt = Math.max(0, active.audioCtx.currentTime - active.startedAt);
-        active.paused = true;
         stopAudioSource();
       },
       resume: function () {
+        if (active.htmlAudio) {
+          active.paused = false;
+          active.htmlAudio.play().catch(function (err) {
+            console.warn("[read-aloud] resume failed", err);
+          });
+          return;
+        }
         if (!active.buffer) {
           return;
         }
@@ -431,6 +586,7 @@
 
   async function onPlay(wrap, pre) {
     try {
+      unlockAudio();
       var text = (pre.textContent || "").replace(/^\s+|\s+$/g, "");
       if (!text) {
         setStatus(wrap, "This box is empty.");
@@ -469,11 +625,23 @@
 
       active.engine = engine;
       active.kind = engine.kind;
-      setStatus(wrap, engine.kind === "model" ? "Reading with Kokoro…" : "Reading…");
-      await engine.speak(text, selectedVoice(wrap));
+      setStatus(wrap, engine.kind === "model" ? "Preparing the first sentence…" : "Reading…");
+      try {
+        await engine.speak(text, selectedVoice(wrap));
+      } catch (speakErr) {
+        if (engine.kind !== "model") {
+          throw speakErr;
+        }
+        console.warn("[read-aloud] Kokoro play failed, using the browser voice", speakErr);
+        var backup = createSpeechEngine();
+        active.engine = backup;
+        active.kind = backup.kind;
+        setStatus(wrap, "Using the browser voice…");
+        backup.speak(text);
+      }
     } catch (err) {
       console.warn("[read-aloud] play failed", err);
-      setStatus(wrap, "Could not read this box. The rest of the page still works.");
+      setStatus(wrap, "Could not read this box. Click Play again if the browser blocked sound.");
       wrap.classList.remove("is-playing", "is-armed");
       setPlaying(wrap, false);
     }
@@ -559,6 +727,7 @@
     wrap.appendChild(pre);
 
     play.addEventListener("click", function () {
+      unlockAudio();
       onPlay(wrap, pre);
     });
     pause.addEventListener("click", function () {
