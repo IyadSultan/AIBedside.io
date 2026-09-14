@@ -25,7 +25,7 @@
     { value: "1.2", label: "Fast" },
     { value: "1.4", label: "Faster" }
   ];
-  var currentSpeed = 0.92;
+  var currentSpeed = 1.2;
   var enginePromise = null;
   var active = {
     wrap: null,
@@ -95,7 +95,7 @@
   }
 
   function syncSpeedSelects(value) {
-    currentSpeed = parseFloat(value) || 0.92;
+    currentSpeed = parseFloat(value) || 1.2;
     var list = document.querySelectorAll(".read-aloud-speed");
     var i;
     for (i = 0; i < list.length; i += 1) {
