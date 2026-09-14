@@ -32,7 +32,7 @@ permalink: /block-03-skills/
     <p class="demo-stage-kicker">Create with Claude</p>
     <p class="demo-stage-copy">Plus &rarr; Create skill &rarr; Create with Claude. Paste this. The last sentence stops it guessing.</p>
     <pre class="demo-skill-file" tabindex="0">Given a long email or WhatsApp thread among our childhood-cancer team — consultant, registrar, CNC, pharmacist — summarize the main points, list action items by role, and draft a reply in our unit voice. Do not invent patients, labs, or decisions. What else should I clarify?</pre>
-    <p class="demo-stage-copy">When it asks about triggers: pick the slash name. Auto-detect is getting better. Slash is what you can trust on stage.</p>
+    <p class="demo-stage-copy">When it asks about triggers: pick the slash name. Auto-detect is getting better. Slash is what you can trust.</p>
   </div>
 
   <div class="demo-stage" id="stage-2" hidden>

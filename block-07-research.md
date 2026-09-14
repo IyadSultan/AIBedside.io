@@ -332,23 +332,9 @@ Quote the recommendation from the PDF; do not paraphrase. If a paper has no PDF 
   </div>
 
   <div class="block-section">
-    <h2>On screen</h2>
-    <div class="callout callout-onscreen">
-      Zotero open, tick-box on. Terminal: two lines, then <code>zotero-mcp setup</code>. Restart Claude. Ask for the five most recent items. Then the fever-and-neutropenia prompt, quoting from the PDF. Land on <strong>Govern</strong> &mdash; the do / don&rsquo;t table, then the AI-governance brief, Action plan tab. If time: a synthetic cohort &rarr; plain-language brief &rarr; code written, corrected, and a Kaplan&ndash;Meier curve on screen.
-    </div>
-  </div>
-
-  <div class="block-section">
     <h2>Take-home</h2>
     <div class="callout callout-takehome">
       The model writes the code; you remain the author. Plug it into the library you already trust before you plug it into anything else.
-    </div>
-  </div>
-
-  <div class="block-section">
-    <h2>If you run long</h2>
-    <div class="callout callout-note">
-      At 00:48, show the install as five chips and skip the live terminal &mdash; the page walks them through it at home. Keep the Zotero question, the do / don&rsquo;t table, and the Action plan tab of the brief. Drop the second analysis and keep the survival curve. Never sacrifice the closing three minutes &mdash; the Monday tasks are what make the hour actionable.
     </div>
   </div>
 

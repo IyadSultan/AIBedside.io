@@ -18,6 +18,14 @@
   ];
 
   var currentVoice = "af_heart";
+  var SPEEDS = [
+    { value: "0.8", label: "Slow" },
+    { value: "0.92", label: "Normal" },
+    { value: "1.05", label: "Brisk" },
+    { value: "1.2", label: "Fast" },
+    { value: "1.4", label: "Faster" }
+  ];
+  var currentSpeed = 0.92;
   var enginePromise = null;
   var active = {
     wrap: null,
@@ -80,6 +88,15 @@
   function syncVoiceSelects(value) {
     currentVoice = value;
     var list = document.querySelectorAll(".read-aloud-voice");
+    var i;
+    for (i = 0; i < list.length; i += 1) {
+      list[i].value = value;
+    }
+  }
+
+  function syncSpeedSelects(value) {
+    currentSpeed = parseFloat(value) || 0.92;
+    var list = document.querySelectorAll(".read-aloud-speed");
     var i;
     for (i = 0; i < list.length; i += 1) {
       list[i].value = value;
@@ -449,7 +466,7 @@
         // Play each sentence as soon as it is ready. Waiting for the whole
         // box first is why the label said "Reading" while the room stayed quiet.
         if (typeof tts.stream === "function") {
-          for await (var part of tts.stream(spoken, { voice: chosen, speed: 0.92 })) {
+          for await (var part of tts.stream(spoken, { voice: chosen, speed: currentSpeed })) {
             if (active.cancelled) {
               return;
             }
@@ -463,7 +480,7 @@
             await playChunk(chunk, rate);
           }
         } else {
-          var one = await tts.generate(spoken, { voice: chosen, speed: 0.92 });
+          var one = await tts.generate(spoken, { voice: chosen, speed: currentSpeed });
           var only = samplesFrom(one);
           if (only) {
             await playChunk(only, one.sampling_rate || rate);
@@ -522,7 +539,7 @@
         stopSpeech();
         var utter = new SpeechSynthesisUtterance(toSpokenEnglish(text));
         utter.lang = "en-US";
-        utter.rate = 0.95;
+        utter.rate = currentSpeed;
         utter.pitch = 1;
         var enVoice = pickEnglishBrowserVoice();
         if (enVoice) {
@@ -686,6 +703,26 @@
     return sel;
   }
 
+  function makeSpeedSelect() {
+    var sel = document.createElement("select");
+    sel.className = "read-aloud-speed";
+    sel.setAttribute("aria-label", "Reading speed");
+    var i;
+    for (i = 0; i < SPEEDS.length; i += 1) {
+      var opt = document.createElement("option");
+      opt.value = SPEEDS[i].value;
+      opt.textContent = SPEEDS[i].label;
+      if (parseFloat(SPEEDS[i].value) === currentSpeed) {
+        opt.selected = true;
+      }
+      sel.appendChild(opt);
+    }
+    sel.addEventListener("change", function () {
+      syncSpeedSelects(sel.value);
+    });
+    return sel;
+  }
+
   function decorate(pre) {
     if (pre.closest(".read-aloud")) {
       return;
@@ -722,6 +759,7 @@
     bar.appendChild(play);
     bar.appendChild(pause);
     bar.appendChild(makeVoiceSelect());
+    bar.appendChild(makeSpeedSelect());
     bar.appendChild(status);
 
     parent.insertBefore(wrap, pre);

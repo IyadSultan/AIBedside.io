@@ -154,13 +154,6 @@ This folder is a teaching copy. It is not KHCC policy.
   </div>
 
   <div class="block-section">
-    <h2>On screen</h2>
-    <div class="callout callout-onscreen">
-      Show the kitchen. Read the short <code>CLAUDE.md</code>. Name the five files. On Wiki, open the map &mdash; febrile neutropenia sits in the middle because every other note argues with it. Then open <a href="{{ site.baseurl }}/assets/block-05.5/summary.html">summary.html</a> on the fever disagreement &mdash; come tonight versus wait until morning.
-    </div>
-  </div>
-
-  <div class="block-section">
     <h2>Take-home</h2>
     <div class="callout callout-takehome">
       A skill is a recipe. MCP is a plug. <code>CLAUDE.md</code> is the standing orders for the folder. That is how a drop of policies becomes a wiki and a quality review, instead of another chat you cannot find next week.

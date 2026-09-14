@@ -185,6 +185,94 @@ permalink: /block-05-small-models/
 
   <p class="where-footnote">A <strong>BAA</strong> (Business Associate Agreement) is a contract that says the vendor must protect patient information the way the hospital must. HIPAA is the US name. If you are not in the US, you still want the same kind of contract under your own law.</p>
 
+  <section class="fl-desk" aria-label="Fine-tuning and federated learning">
+    <p class="where-kicker" style="color:#6A1B9A;">The next move</p>
+    <h2>Teach it on our data. Do not ship the notes.</h2>
+    <p class="fl-lead">A general model is a new intern from a good school. It can write. It has not rotated on <em>your</em> ward. <strong>Fine-tuning</strong> is that extra month of practice on your examples &mdash; your reports, your language, your habit. You are not building a new intern from scratch. You are sending this one to your unit.</p>
+    <p class="fl-lead">That still needs the examples in one place. Pediatric data is the hard case: rare enough that no single centre has enough, sensitive enough that you cannot post the archive to a shared drive. Data-use agreements and de-identification eat years. So turn the arrow around. <strong>Federated learning</strong> brings the model to the data, and the training happens there. The scans stay home. Only the lesson travels.</p>
+
+    <div class="fl-pair" role="list">
+      <article class="fl-card fl-card-tune" role="listitem">
+        <p class="k">Fine-tune &middot; one hospital</p>
+        <h3>Extra practice on local examples</h3>
+        <p>Show the model a few hundred of <em>your</em> reports. It copies the local habit. Notes never leave the building. This is square 3 or 4 with homework.</p>
+      </article>
+      <article class="fl-card fl-card-fed" role="listitem">
+        <p class="k">Federate &middot; many hospitals</p>
+        <h3>The intern goes on rotation</h3>
+        <p>The same extra practice, at every site. Each hospital trains on its own scans. Only the updated lesson &mdash; not the images, not the names &mdash; comes back.</p>
+      </article>
+    </div>
+
+    <div class="fl-swap" aria-label="Data to the model versus model to the data">
+      <article class="fl-swap-pane fl-swap-old">
+        <p class="k">Usual study</p>
+        <h3>Bring the data to the model</h3>
+        <div class="fl-diagram" aria-hidden="true">
+          <svg viewBox="0 0 320 132" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="38" width="54" height="42" rx="7" fill="#fff" stroke="#C62828" stroke-width="1.8"/>
+            <text x="35" y="63" text-anchor="middle" font-size="9" font-weight="700" fill="#C62828" font-family="ui-sans-serif, system-ui, sans-serif">Site A</text>
+            <rect x="70" y="38" width="54" height="42" rx="7" fill="#fff" stroke="#C62828" stroke-width="1.8"/>
+            <text x="97" y="63" text-anchor="middle" font-size="9" font-weight="700" fill="#C62828" font-family="ui-sans-serif, system-ui, sans-serif">Site B</text>
+            <rect x="132" y="38" width="54" height="42" rx="7" fill="#fff" stroke="#C62828" stroke-width="1.8"/>
+            <text x="159" y="63" text-anchor="middle" font-size="9" font-weight="700" fill="#C62828" font-family="ui-sans-serif, system-ui, sans-serif">Site C</text>
+            <path d="M62 48 C 200 20, 230 28, 248 52" fill="none" stroke="#C62828" stroke-width="1.7" stroke-dasharray="4 3"/>
+            <path d="M124 48 C 200 28, 230 34, 248 54" fill="none" stroke="#C62828" stroke-width="1.7" stroke-dasharray="4 3"/>
+            <path d="M186 52 C 210 48, 230 50, 248 56" fill="none" stroke="#C62828" stroke-width="1.7" stroke-dasharray="4 3"/>
+            <ellipse cx="278" cy="58" rx="34" ry="22" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
+            <text x="278" y="54" text-anchor="middle" font-size="10" font-weight="800" fill="#C62828" font-family="ui-sans-serif, system-ui, sans-serif">ONE BOX</text>
+            <text x="278" y="68" text-anchor="middle" font-size="8" font-weight="700" fill="#C62828" font-family="ui-sans-serif, system-ui, sans-serif">all the scans</text>
+            <text x="160" y="118" text-anchor="middle" font-size="11" font-weight="700" fill="#C62828" font-family="ui-sans-serif, system-ui, sans-serif">Contracts, de-id, years</text>
+          </svg>
+        </div>
+        <p>Copy every MRI into one computer. Lawyers first. Imaging later. A 19-hospital pediatric archive almost never leaves the building this way.</p>
+      </article>
+      <article class="fl-swap-pane fl-swap-new">
+        <p class="k">Federated learning</p>
+        <h3>Bring the model to the data</h3>
+        <div class="fl-diagram" aria-hidden="true">
+          <svg viewBox="0 0 320 132" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="38" width="70" height="48" rx="8" fill="#fff" stroke="#6A1B9A" stroke-width="1.8"/>
+            <text x="43" y="58" text-anchor="middle" font-size="9" font-weight="700" fill="#6A1B9A" font-family="ui-sans-serif, system-ui, sans-serif">Site A</text>
+            <text x="43" y="72" text-anchor="middle" font-size="8" fill="#7E57C2" font-family="ui-sans-serif, system-ui, sans-serif">scans stay</text>
+            <rect x="92" y="38" width="70" height="48" rx="8" fill="#fff" stroke="#6A1B9A" stroke-width="1.8"/>
+            <text x="127" y="58" text-anchor="middle" font-size="9" font-weight="700" fill="#6A1B9A" font-family="ui-sans-serif, system-ui, sans-serif">Site B</text>
+            <text x="127" y="72" text-anchor="middle" font-size="8" fill="#7E57C2" font-family="ui-sans-serif, system-ui, sans-serif">scans stay</text>
+            <rect x="176" y="38" width="70" height="48" rx="8" fill="#fff" stroke="#6A1B9A" stroke-width="1.8"/>
+            <text x="211" y="58" text-anchor="middle" font-size="9" font-weight="700" fill="#6A1B9A" font-family="ui-sans-serif, system-ui, sans-serif">Site C</text>
+            <text x="211" y="72" text-anchor="middle" font-size="8" fill="#7E57C2" font-family="ui-sans-serif, system-ui, sans-serif">scans stay</text>
+            <rect x="258" y="42" width="54" height="40" rx="8" fill="#6A1B9A"/>
+            <text x="285" y="58" text-anchor="middle" font-size="8" font-weight="800" fill="#fff" font-family="ui-sans-serif, system-ui, sans-serif">MODEL</text>
+            <text x="285" y="70" text-anchor="middle" font-size="7" font-weight="700" fill="#E1BEE7" font-family="ui-sans-serif, system-ui, sans-serif">visits</text>
+            <path d="M248 58 H258" stroke="#6A1B9A" stroke-width="2"/>
+            <polygon points="248,54 240,58 248,62" fill="#6A1B9A"/>
+            <text x="160" y="118" text-anchor="middle" font-size="11" font-weight="700" fill="#6A1B9A" font-family="ui-sans-serif, system-ui, sans-serif">Only the lesson travels</text>
+          </svg>
+        </div>
+        <p>Each hospital trains on what it already holds. You still need an ethics board. You do not assemble one giant copy of everyone&rsquo;s MRI archive.</p>
+      </article>
+    </div>
+
+    <p class="fl-lead">That is the SIOP problem, and the SIOP opening. This room sits on extensive archives that almost never travel. Federated learning lets a network <em>use</em> that archive &mdash; rare tumours, many centres, much less logistics than shipping the files.</p>
+
+    <a class="fl-paper" href="https://doi.org/10.1038/s41467-024-51172-5" target="_blank" rel="noopener">
+      <span class="demo-pill">Nature Communications 2024</span>
+      <figure class="fl-paper-shot">
+        <img src="{{ site.baseurl }}/assets/block-05/fl-pedbrain.png" alt="Title page: An international study presenting a federated learning AI platform for pediatric brain tumors, Nature Communications, Lee, Prolo, Yeom and colleagues" />
+      </figure>
+      <p class="title">An international study presenting a federated learning AI platform for pediatric brain tumors</p>
+      <p class="desc">Lee, Han, Wright, Prolo, Yeom et al. &middot; Nat Commun 15, 7615 (2024) &middot; 10.1038/s41467-024-51172-5</p>
+      <p class="fl-paper-one">FL-PedBrain. Nineteen hospitals on five continents. 1,468 children with posterior fossa tumours &mdash; medulloblastoma, ependymoma, pilocytic astrocytoma, DIPG. The model learned to classify the tumour and draw its outline on MRI. The scans never sat in one shared folder.</p>
+      <div class="fl-stats" role="list">
+        <div role="listitem"><p class="n">19</p><p class="l">sites</p></div>
+        <div role="listitem"><p class="n">1,468</p><p class="l">children</p></div>
+        <div role="listitem"><p class="n">&lt;1.5%</p><p class="l">off pooling everything</p></div>
+        <div role="listitem"><p class="n">20&ndash;30%</p><p class="l">better than one hospital alone</p></div>
+      </div>
+      <p class="fl-paper-foot">Classification almost matched the old method of copying every scan into one box. Segmentation was about 3% behind that pooled model &mdash; and 20 to 30% better, on three hospitals that had never seen the training, than a model taught at a single centre. Open the paper.</p>
+    </a>
+  </section>
+
   <!-- Live edge demo: Prism ML Bonsai 1.7B (1-bit) runs in this tab via Transformers.js. -->
   <section class="bonsai-desk" id="bonsai-desk" aria-label="Bonsai 1.7B local chatbot">
     <div class="bonsai-top">
@@ -227,16 +315,9 @@ permalink: /block-05-small-models/
   </section>
 
   <div class="block-section">
-    <h2>On screen</h2>
-    <div class="callout callout-onscreen">
-      Walk the four squares far to near. Load Bonsai 1.7B in this tab, ask it to fix a broken sentence, then switch the wi-fi off and keep talking.
-    </div>
-  </div>
-
-  <div class="block-section">
     <h2>Take-home</h2>
     <div class="callout callout-takehome">
-      Small and local for the routine and the sensitive; large and remote for the difficult. Public cloud for public knowledge. A contracted cloud or the hospital&rsquo;s own servers for patient notes.
+      Small and local for the routine and the sensitive; large and remote for the difficult. When the notes cannot travel, send the model. Fine-tune on one hospital. Federate across the network.
     </div>
   </div>
 

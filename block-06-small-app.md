@@ -294,23 +294,9 @@ Ask me if anything is unclear.</pre>
   </div>
 
   <div class="block-section">
-    <h2>On screen</h2>
-    <div class="callout callout-onscreen">
-      Paste the prompt with prd-builder on. Open the PRD. Copy it, then paste it into <a href="https://replit.com/" target="_blank" rel="noopener">Replit</a>. Open <a href="https://roster-builder-iyadsultan.replit.app/" target="_blank" rel="noopener">Roster Builder</a> as the worked example. Then land on <strong>Still</strong>: eight jobs a hospital app still owes, and the token that replaces a real ID.
-    </div>
-  </div>
-
-  <div class="block-section">
     <h2>Take-home</h2>
     <div class="callout callout-takehome">
       Write the brief first. A prototype starts the conversation with IT; it does not replace screens, a server, a database, security, who may look, a real address, a hosting bill, or a way to talk to other apps. Patient IDs go in as tokens, not as the real number.
-    </div>
-  </div>
-
-  <div class="block-section">
-    <h2>If you run long</h2>
-    <div class="callout callout-note">
-      At 00:43, skip the Replit click if you must, but keep <strong>Still</strong> &mdash; the eight jobs and the de-identification swap. That is the part most of the room can use on Monday. Protect Block 7.
     </div>
   </div>
 

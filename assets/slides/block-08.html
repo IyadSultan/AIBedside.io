@@ -113,10 +113,6 @@ li+li{margin-top:.5em}
 .timeline.vertical::before{left:7px;top:0;bottom:0;width:2px;height:auto}
 .timeline.vertical li{padding:0 0 0 40px}
 
-/* Notes (hidden) */
-.notes{display:none}
-body.show-notes .slide.active .notes{display:block;position:absolute;left:var(--pad);right:var(--pad);bottom:36px;background:var(--bg-2);border:1px solid var(--rule);padding:14px 16px;font-size:16px;color:var(--fg-2);border-radius:var(--radius)}
-
 /* Reveal animations */
 .reveal{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease;transition-delay:calc(var(--d,0) * 120ms)}
 .reveal.scale{transform:scale(.96)}
@@ -178,7 +174,6 @@ body.overview .slide .reveal{opacity:1;transform:none}
   <p class="kicker reveal">Block 9 · 00:54</p>
   <p class="section-number reveal" data-delay="1">09</p>
   <h1 class="reveal" data-delay="2">What we learned<br>at KHCC</h1>
-  <aside class="notes">If you are already late, skip slide 2. Point at the QR. Land on agents — that is the new argument.</aside>
 </section>
 
 <section class="slide tight">
@@ -216,21 +211,18 @@ body.overview .slide .reveal{opacity:1;transform:none}
       <p>Policy and permission, then the work.</p>
     </div>
   </div>
-  <aside class="notes">One breath per card. Do not expand. The QR has the longer text. The next slide is the floor everything sits on.</aside>
 </section>
 
 <section class="slide format-statement floor">
   <p class="kicker reveal">The floor</p>
   <h1 class="reveal" data-delay="1">Cybersecurity comes first. <mark>Everything else</mark> comes after.</h1>
   <p class="meta reveal" data-delay="2">A clever tool that leaks a name is not a clever tool.</p>
-  <aside class="notes">Do not rush this. Then pivot: the six habits are for tools. Agents need a second set of rules.</aside>
 </section>
 
 <section class="slide format-section">
   <p class="kicker reveal">The new staff</p>
   <p class="section-number reveal" data-delay="1">Then</p>
   <h1 class="reveal" data-delay="2">Agents need<br>their own rules</h1>
-  <aside class="notes">A chatbot is a tab. An agent is closer to a colleague — and hospitals already know how to govern colleagues. That is the bridge for administration.</aside>
 </section>
 
 <section class="slide format-compare">
@@ -256,7 +248,6 @@ body.overview .slide .reveal{opacity:1;transform:none}
       </ul>
     </div>
   </div>
-  <aside class="notes">Stress the last line on the right. Patient-facing is possible precisely because it is governed, not because the model got smarter.</aside>
 </section>
 
 <section class="slide format-two-col">
@@ -276,7 +267,6 @@ body.overview .slide .reveal{opacity:1;transform:none}
       <p>Read notes, keep tables, help build the AI the centre runs on.</p>
     </div>
   </div>
-  <aside class="notes">Give one KHCC example if there is time: a family explainer on one side, a nightly extractor on the other. Same species. Different wards.</aside>
 </section>
 
 <section class="slide format-bento">
@@ -304,7 +294,6 @@ body.overview .slide .reveal{opacity:1;transform:none}
       <p>Hand-offs in writing, the way teams already do.</p>
     </div>
   </div>
-  <aside class="notes">Five verbs. Do not add a sixth. “Talk to each other” is not a chat room — it is an audit trail between named agents.</aside>
 </section>
 
 <section class="slide format-two-col">
@@ -321,7 +310,6 @@ body.overview .slide .reveal{opacity:1;transform:none}
       <li><span class="when">Investigate</span><strong>Full incident review</strong><span>Document. Learn. Change the rule.</span></li>
     </ol>
   </div>
-  <aside class="notes">This is the board slide. Quality already knows incident review. You are asking them to put agents on that list, not invent a new committee from nothing.</aside>
 </section>
 
 <section class="slide format-two-col">
@@ -342,15 +330,13 @@ body.overview .slide .reveal{opacity:1;transform:none}
       <dd>The same room, with the agent’s log on the table.</dd>
     </dl>
   </div>
-  <aside class="notes">Do not mock administration. They are not behind. The language is new. Your job is to make “agent” as ordinary as “consultant” without making it sound like science fiction.</aside>
 </section>
 
 <section class="slide format-closing">
   <p class="kicker reveal">If you remember one line</p>
   <h1 class="reveal" data-delay="1">Treat agents as a new breed of <mark>staff</mark>.</h1>
   <p class="subtitle reveal" data-delay="2">Watch the life cycle. Make the output visible. Keep a human in the loop.</p>
-  <p class="meta reveal" data-delay="3">Next — three minutes. What to try on Monday.</p>
-  <aside class="notes">Walk to the closing-tasks page. Do not take questions here. The Monday tasks are the hour’s payoff.</aside>
+  <p class="meta reveal" data-delay="3">Next — three minutes. Three pictures, then what to try on Monday.</p>
 </section>
 
 </main></div>
@@ -382,7 +368,6 @@ body.overview .slide .reveal{opacity:1;transform:none}
     else if(k==='ArrowLeft'||k==='PageUp'||k==='Backspace'){e.preventDefault();show(i-1);}
     else if(k==='Home')show(0); else if(k==='End')show(slides.length-1);
     else if(k==='f'||k==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();}
-    else if(k==='n'||k==='N')document.body.classList.toggle('show-notes');
     else if(k==='p'||k==='P')print();
     else if(k==='g'||k==='G')goBuf='';
     else if(k==='o'||k==='O'||k==='Escape'){document.body.classList.toggle('overview',k!=='Escape'?undefined:false);fit();}

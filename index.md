@@ -266,7 +266,7 @@ permalink: /
     <div class="cci-num" style="background:#607D8B;">0</div>
     <div class="cci-card-body">
       <p class="title">Open &mdash; no conflicts, four similar tools</p>
-      <p class="desc">Disclosures, then Claude / ChatGPT / Gemini / Perplexity, then Wachter, then Chat versus Cowork.</p>
+      <p class="desc">Disclosures, then Claude / ChatGPT / Gemini / Perplexity, then Wachter, then Chat versus Cowork, then the real screen.</p>
     </div>
     <span class="cci-time">00:00</span>
     <span class="arrow">&#8250;</span>
@@ -326,7 +326,7 @@ permalink: /
     <div class="cci-num" style="background:#C62828;">6</div>
     <div class="cci-card-body">
       <p class="title">Small models &amp; the edge</p>
-      <p class="desc">Four places a model can live. Then switch the wi-fi off and keep talking.</p>
+      <p class="desc">Four places a model can live. Fine-tune here. Federate across hospitals &mdash; scans never leave.</p>
     </div>
     <span class="cci-time">00:37</span>
     <span class="arrow">&#8250;</span>
@@ -366,7 +366,7 @@ permalink: /
     <div class="cci-num" style="background:#00695C;">10</div>
     <div class="cci-card-body">
       <p class="title">Close &mdash; what to try on Monday</p>
-      <p class="desc">One task per role. This is the actual handout.</p>
+      <p class="desc">Crash cart, patient guide, six point-of-care tools. Then one task per role.</p>
     </div>
     <span class="cci-time">00:57</span>
     <span class="arrow">&#8250;</span>

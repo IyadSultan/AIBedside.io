@@ -280,7 +280,7 @@ Continue → PMID 36626595
 
   <!-- Step 6: the live Drive → Gmail → Calendar chain from the run of show -->
   <div class="demo-stage" id="stage-6" hidden>
-    <p class="demo-stage-kicker">On screen in this room</p>
+    <p class="demo-stage-kicker">One sentence, three connectors</p>
     <p class="demo-stage-copy">The video ends by creating software on a cluster from a sentence. We end by running one sentence across three connectors you already have.</p>
 
     <div class="mcp-bubble mcp-ask">
