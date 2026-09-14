@@ -387,8 +387,10 @@
   }
 
   async function loadKokoro(KokoroTTS, modelId, device) {
+    // q8 only works on wasm; on WebGPU the quantized model produces garbled
+    // audio that sounds like a foreign language. kokoro-js recommends fp32.
     return KokoroTTS.from_pretrained(modelId, {
-      dtype: "q8",
+      dtype: device === "webgpu" ? "fp32" : "q8",
       device: device,
       progress_callback: function (info) {
         if (!active.wrap || !info) {
