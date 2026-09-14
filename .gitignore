@@ -54,3 +54,6 @@ graft/
 # Hugging Face download leftovers next to the on-site voice models
 assets/models/kitten-tts/.cache/
 assets/models/kokoro/.cache/
+
+# deck build scratch (regenerable via tools/make-deck.sh)
+.deck-build/
