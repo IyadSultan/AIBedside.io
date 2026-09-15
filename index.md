@@ -104,32 +104,97 @@ permalink: /
   }
 
   .cci-people {
-    width: fit-content;
-    max-width: 560px;
-    margin: 1rem auto 0;
-    font-size: 0.78rem;
-    color: #546E7A;
-    line-height: 1.5;
+    width: min(620px, 100%);
+    margin: 1.5rem auto 0;
+    border: 1px solid #D6E4F5;
+    border-radius: 0.85rem;
+    overflow: hidden;
+    background: #fff;
     text-align: left;
   }
 
-  .cci-people p { margin: 0; }
+  .cci-people-link {
+    margin: 0;
+    padding: 0.55rem 0.9rem;
+    background: #E8F1FB;
+    border-bottom: 1px solid #D6E4F5;
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
 
-  .cci-people .role {
-    font-weight: 700;
+  .cci-people-link a {
     color: #034EA2;
+    text-decoration: none;
+    word-break: break-all;
+  }
+
+  .cci-people-link a:hover { text-decoration: underline; }
+
+  .cci-people table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    font-size: 0.82rem;
+  }
+
+  .cci-people th,
+  .cci-people td {
+    padding: 0.55rem 0.9rem;
+    border: 0;
+    border-bottom: 1px solid #ECEFF1;
+    vertical-align: middle;
+    background: #fff;
+  }
+
+  .cci-people tr:last-child td { border-bottom: 0; }
+
+  .cci-people th {
+    background: #21409A;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: left;
+  }
+
+  .cci-people td.role {
+    width: 7.5rem;
+    font-size: 0.7rem;
+    font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    font-size: 0.68rem;
-    margin-right: 0.35rem;
+    color: #034EA2;
+    background: #F4F8FD;
   }
 
-  .cci-people a {
+  .cci-people td.name {
+    font-weight: 600;
+    color: #263238;
+    white-space: nowrap;
+  }
+
+  .cci-people td.mail a {
     color: #607D8B;
     text-decoration: none;
+    word-break: break-all;
   }
 
-  .cci-people a:hover { text-decoration: underline; }
+  .cci-people td.mail a:hover { text-decoration: underline; }
+
+  @media screen and (max-width: 600px) {
+    .cci-people th:first-child,
+    .cci-people td.role { display: none; }
+    .cci-people td.name::before {
+      content: attr(data-role);
+      display: block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #034EA2;
+    }
+  }
 
   .cci-phone-hint {
     display: none;
@@ -285,8 +350,18 @@ permalink: /
   </div>
 
   <div class="cci-people">
-    <p><span class="role">Moderators</span> Jorge Campos &lt;<a href="mailto:camposmd94@gmail.com">camposmd94@gmail.com</a>&gt; &middot; Milena Villarroel &lt;<a href="mailto:villarroelmilena@gmail.com">villarroelmilena@gmail.com</a>&gt;</p>
-    <p><span class="role">Presenters</span> Uri Ilan &lt;<a href="mailto:u.ilan-2@prinsesmaximacentrum.nl">u.ilan-2@prinsesmaximacentrum.nl</a>&gt; &middot; Iyad Sultan &lt;<a href="mailto:isultan@khcc.jo">isultan@khcc.jo</a>&gt;</p>
+    <p class="cci-people-link"><a href="https://iyadsultan.github.io/AIBedside.io/">https://iyadsultan.github.io/AIBedside.io/</a></p>
+    <table>
+      <thead>
+        <tr><th>Role</th><th>Name</th><th>Email</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="role">Moderator</td><td class="name" data-role="Moderator">Jorge Campos</td><td class="mail"><a href="mailto:camposmd94@gmail.com">camposmd94@gmail.com</a></td></tr>
+        <tr><td class="role">Moderator</td><td class="name" data-role="Moderator">Milena Villarroel</td><td class="mail"><a href="mailto:villarroelmilena@gmail.com">villarroelmilena@gmail.com</a></td></tr>
+        <tr><td class="role">Presenter</td><td class="name" data-role="Presenter">Uri Ilan</td><td class="mail"><a href="mailto:u.ilan-2@prinsesmaximacentrum.nl">u.ilan-2@prinsesmaximacentrum.nl</a></td></tr>
+        <tr><td class="role">Presenter</td><td class="name" data-role="Presenter">Iyad Sultan</td><td class="mail"><a href="mailto:isultan@khcc.jo">isultan@khcc.jo</a></td></tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
