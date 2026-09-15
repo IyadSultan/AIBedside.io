@@ -103,6 +103,34 @@ permalink: /
     line-height: 1.4;
   }
 
+  .cci-people {
+    width: fit-content;
+    max-width: 560px;
+    margin: 1rem auto 0;
+    font-size: 0.78rem;
+    color: #546E7A;
+    line-height: 1.5;
+    text-align: left;
+  }
+
+  .cci-people p { margin: 0; }
+
+  .cci-people .role {
+    font-weight: 700;
+    color: #034EA2;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.68rem;
+    margin-right: 0.35rem;
+  }
+
+  .cci-people a {
+    color: #607D8B;
+    text-decoration: none;
+  }
+
+  .cci-people a:hover { text-decoration: underline; }
+
   .cci-phone-hint {
     display: none;
     margin: 1.5rem auto 0;
@@ -254,6 +282,11 @@ permalink: /
 
   <div class="cci-phone-hint">
     Keep this page: tap Share, then <strong>Add to Home Screen</strong>.
+  </div>
+
+  <div class="cci-people">
+    <p><span class="role">Moderators</span> Jorge Campos &lt;<a href="mailto:camposmd94@gmail.com">camposmd94@gmail.com</a>&gt; &middot; Milena Villarroel &lt;<a href="mailto:villarroelmilena@gmail.com">villarroelmilena@gmail.com</a>&gt;</p>
+    <p><span class="role">Presenters</span> Uri Ilan &lt;<a href="mailto:u.ilan-2@prinsesmaximacentrum.nl">u.ilan-2@prinsesmaximacentrum.nl</a>&gt; &middot; Iyad Sultan &lt;<a href="mailto:isultan@khcc.jo">isultan@khcc.jo</a>&gt;</p>
   </div>
 </div>
 

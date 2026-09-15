@@ -544,16 +544,23 @@ def cover():
     text(s, M + Inches(0.2), Inches(6.55), Inches(6), Inches(0.3), "SAN ANTONIO  ·  15–18 SEPTEMBER 2026",
          size=10, color=FG2, bold=True, inset=0)
     # QR box (the site's quick-access component)
-    bx, by, bw, bh = SW - M - Inches(4.3), Inches(4.75), Inches(4.3), Inches(2.0)
+    bx, by, bw, bh = SW - M - Inches(4.3), Inches(4.45), Inches(4.3), Inches(2.0)
     rrect(s, bx, by, bw, bh, PINK_BG, rgb("#B8D0EC"), 0.1)
     rrect(s, bx + Inches(0.2), by + Inches(0.2), Inches(1.6), Inches(1.6), WHITE, None, 0.06)
     picture(s, BUILD / "qr-home.png", bx + Inches(0.25), by + Inches(0.25), Inches(1.5), Inches(1.5))
-    text(s, bx + Inches(2.0), by + Inches(0.35), Inches(2.2), Inches(0.35), "Quick Access", size=15,
+    text(s, bx + Inches(2.0), by + Inches(0.3), Inches(2.2), Inches(0.35), "Quick Access", size=15,
          color=BRAND_DARK, bold=True, inset=0)
-    text(s, bx + Inches(2.0), by + Inches(0.75), Inches(2.2), Inches(1.1),
+    text(s, bx + Inches(2.0), by + Inches(0.68), Inches(2.2), Inches(0.9),
          "Open your phone camera and scan to bookmark the companion site. Every demo in this deck is there, runnable at home.",
          size=11, color=FG2, inset=0)
-    clock_field(s, bx, by + bh + Inches(0.04), bw, Inches(0.30), size=16, color=BRAND)
+    clock_field(s, bx + Inches(2.0), by + bh - Inches(0.42), Inches(2.2), Inches(0.3), size=14, color=BRAND)
+    # moderators and presenters, under the QR box
+    text(s, bx, by + bh + Inches(0.08), bw, Inches(0.75), [
+        ("**MODERATORS**  Jorge Campos <camposmd94@gmail.com>", {"size": 9, "color": FG2}),
+        ("Milena Villarroel <villarroelmilena@gmail.com>", {"size": 9, "color": FG2}),
+        ("**PRESENTERS**  Uri Ilan <u.ilan-2@prinsesmaximacentrum.nl>", {"size": 9, "color": FG2}),
+        ("Iyad Sultan <isultan@khcc.jo>", {"size": 9, "color": FG2}),
+    ], inset=0, spacing=1.05, space_after=0, mark=BRAND_DARK)
     # hero picture on the right
     picture(s, ROOT / "assets/img/android-chrome-512x512.png", SW - M - Inches(3.2), Inches(0.9), Inches(2.8), Inches(2.8))
 
