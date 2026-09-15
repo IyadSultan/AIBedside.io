@@ -57,3 +57,6 @@ assets/models/kokoro/.cache/
 
 # deck build scratch (regenerable via tools/make-deck.sh)
 .deck-build/
+
+# Office lock files
+~$*

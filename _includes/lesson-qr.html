@@ -1,14 +1,28 @@
 {%- comment -%}
-  Desktop-only QR for latecomers. Encodes this lesson's public URL.
-  Hidden on phones (they are already on the page) and when printing.
+  Desktop-only QR for latecomers, plus a live local-time clock.
+  Encodes this page's public URL. Hidden on phones (they are already
+  on the page) and when printing.
 {%- endcomment -%}
 {%- assign qr_slug = page.url | replace: "/", " " | strip | replace: " ", "-" -%}
-<aside class="lesson-qr{% if include.float %} lesson-qr--float{% endif %}" aria-label="QR code for this lesson">
+{%- if qr_slug == "" -%}
+  {%- assign qr_src = site.baseurl | append: "/qr-code.png" -%}
+{%- else -%}
+  {%- assign qr_src = site.baseurl | append: "/assets/img/qr/" | append: qr_slug | append: ".svg" -%}
+{%- endif -%}
+<aside class="lesson-qr{% if include.float %} lesson-qr--float{% endif %}" aria-label="QR code and local time for this page">
   <img
-    src="{{ site.baseurl }}/assets/img/qr/{{ qr_slug }}.svg"
-    alt="QR code — scan to open {{ page.title | default: 'this lesson' }}"
+    src="{{ qr_src }}"
+    alt="QR code — scan to open {{ page.title | default: 'this page' }}"
     width="108"
     height="108"
+    onerror="this.onerror=null;this.src='{{ site.baseurl }}/qr-code.png';"
   />
+  {%- if page.url contains '/block-' or page.url contains '/closing-tasks' -%}
   <p class="lesson-qr-caption">This lesson</p>
+  {%- else -%}
+  <p class="lesson-qr-caption">This page</p>
+  {%- endif -%}
+  {%- comment -%} Live clock: filled in by assets/js/lesson-clock.js from this computer's clock. {%- endcomment -%}
+  <p class="lesson-qr-clock" id="lesson-qr-clock" aria-live="off"></p>
 </aside>
+<script src="{{ "/assets/js/lesson-clock.js" | relative_url }}" defer></script>

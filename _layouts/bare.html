@@ -10,9 +10,7 @@
 <link rel="stylesheet" href="{{ "/assets/css/lesson-qr.css" | relative_url }}">
 </head>
 <body>
-{%- if page.url contains '/block-' -%}
-  {% include lesson-qr.html float=true %}
-{%- endif -%}
+{% include lesson-qr.html float=true %}
 {{ content }}
 </body>
 </html>

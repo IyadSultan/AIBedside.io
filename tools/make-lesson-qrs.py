@@ -42,6 +42,9 @@ LESSONS = [
     "/block-06-small-app/prd/",
     "/block-07-research/",
     "/block-08-learned/",
+    "/closing-tasks/",
+    "/companion-sessions/",
+    "/preparation/",
 ]
 
 

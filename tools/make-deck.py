@@ -17,6 +17,8 @@ content=user-supplied only · animation=none.
 from __future__ import annotations
 
 import re
+import uuid
+from datetime import datetime
 from pathlib import Path
 
 from PIL import Image
@@ -24,6 +26,7 @@ from pptx import Presentation
 from pptx.dml.color import RGBColor
 from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
+from pptx.oxml import parse_xml
 from pptx.oxml.ns import qn
 from pptx.util import Emu, Inches, Pt
 
@@ -353,11 +356,19 @@ def takehome(slide, txt, y=None, h=Inches(0.7)):
     return box
 
 
+# Per-block QR, matching the site’s top-right “This lesson” chip.
+QR_SIZE = Inches(0.78)
+QR_GUTTER = Inches(1.15)
+CURRENT_BLOCK = None
+
+
 # ---------------------------------------------------------------- chrome
 def new_slide(block=None, kicker=None, chrome=True):
-    global slide_no
+    global slide_no, CURRENT_BLOCK
     s = prs.slides.add_slide(BLANK)
     slide_no += 1
+    if block is not None:
+        CURRENT_BLOCK = block
     if not chrome:
         return s
     # header bar, like the site header
@@ -373,9 +384,11 @@ def new_slide(block=None, kicker=None, chrome=True):
         label = f"BLOCK {block} · {t}" if block else f"OPEN · {t}"
         text(s, SW - M - Inches(4), Inches(0.14), Inches(4), Inches(0.34), label, size=11, color=WHITE,
              bold=True, align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE, inset=0, spacing=1.0, space_after=0)
+        chrome_qr(s, block)
     elif kicker:
         text(s, SW - M - Inches(4), Inches(0.14), Inches(4), Inches(0.34), kicker.upper(), size=11,
              color=WHITE, bold=True, align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE, inset=0, spacing=1.0, space_after=0)
+        chrome_clock(s)
     # footer
     text(s, M, SH - Inches(0.4), Inches(6), Inches(0.28), "aibedside.io  ·  " + SITE, size=9, color=FG3,
          inset=0, spacing=1.0, space_after=0)
@@ -386,11 +399,13 @@ def new_slide(block=None, kicker=None, chrome=True):
 
 def heading(s, title, kicker=None, block=None, size=30, y=TOP, w=None):
     col = rgb(BLOCK[block][0]) if block is not None else FG2
+    gutter = QR_GUTTER if block is not None else 0
+    tw = w if w is not None else (SW - 2 * M - gutter)
     if kicker:
-        text(s, M, y - Inches(0.02), w or SW - 2 * M, Inches(0.28), kicker.upper(), size=11, color=col,
+        text(s, M, y - Inches(0.02), tw, Inches(0.28), kicker.upper(), size=11, color=col,
              bold=True, inset=0, spacing=1.0, space_after=0)
         y += Inches(0.3)
-    text(s, M, y, w or SW - 2 * M, Inches(0.6), title, size=size, color=BRAND, bold=True, inset=0,
+    text(s, M, y, tw, Inches(0.6), title, size=size, color=BRAND, bold=True, inset=0,
          spacing=1.0, space_after=0)
     return y + Inches(0.15 + size * 0.02)
 
@@ -399,19 +414,83 @@ def qr_png(slug):
     return BUILD / f"qr-{slug}.png"
 
 
+def _hex(color: RGBColor) -> str:
+    return f"{int(color[0]):02X}{int(color[1]):02X}{int(color[2]):02X}"
+
+
+def clock_field(slide, x, y, w, h, size=12, color=BRAND, bold=True, font=FONT):
+    """Laptop local time as a PowerPoint date/time field (h:mm AM/PM).
+
+    PowerPoint fills this from the computer’s clock. It refreshes when you
+    change slides — it does not tick every second during a show.
+    """
+    now = datetime.now().strftime("%I:%M %p").lstrip("0")
+    box = slide.shapes.add_textbox(x, y, w, h)
+    tf = box.text_frame
+    tf.word_wrap = False
+    tf.auto_size = None
+    tf.vertical_anchor = MSO_ANCHOR.MIDDLE
+    tf.margin_left = tf.margin_right = Inches(0)
+    tf.margin_top = tf.margin_bottom = Inches(0)
+    p = tf.paragraphs[0]
+    p.alignment = PP_ALIGN.CENTER
+    for el in list(p._p):
+        if el.tag != qn("a:pPr"):
+            p._p.remove(el)
+    try:
+        fld = parse_xml(
+            f'<a:fld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" '
+            f'id="{{{uuid.uuid4()}}}" type="datetime9">'
+            f'<a:rPr lang="en-US" sz="{int(size * 100)}" b="{"1" if bold else "0"}" dirty="0" smtClean="0">'
+            f'<a:solidFill><a:srgbClr val="{_hex(color)}"/></a:solidFill>'
+            f'<a:latin typeface="{font}"/>'
+            f'</a:rPr>'
+            f'<a:t>{now}</a:t>'
+            f'</a:fld>'
+        )
+        p._p.append(fld)
+    except Exception as err:
+        print(f"Failed while writing the clock field: {err}")
+        add_runs(p, now, size, color, bold, font)
+    return box
+
+
+def chrome_clock(s, size=QR_SIZE):
+    """Time-only chip in the QR corner, for slides that have no lesson QR."""
+    x = SW - Inches(0.22) - size
+    y = Inches(0.78)
+    rrect(s, x - Inches(0.06), y - Inches(0.06), size + Inches(0.12), Inches(0.38), WHITE, RULE2, 0.08)
+    clock_field(s, x - Inches(0.08), y, size + Inches(0.16), Inches(0.26), size=14, color=BRAND)
+
+
+def chrome_qr(s, block, size=QR_SIZE):
+    """Small ‘This lesson’ chip — same corner as the live site, under the header."""
+    x = SW - Inches(0.22) - size
+    y = Inches(0.78)
+    rrect(s, x - Inches(0.06), y - Inches(0.06), size + Inches(0.12), size + Inches(0.50), WHITE, RULE2, 0.08)
+    picture(s, qr_png(QR_FOR_BLOCK[block]), x, y, size, size)
+    text(s, x - Inches(0.08), y + size + Inches(0.01), size + Inches(0.16), Inches(0.16),
+         "This lesson", size=8, color=BRAND, bold=True, align=PP_ALIGN.CENTER, inset=0,
+         spacing=1.0, space_after=0)
+    clock_field(s, x - Inches(0.08), y + size + Inches(0.16), size + Inches(0.16), Inches(0.24),
+                size=12, color=BRAND)
+
+
 def lesson_qr(s, block, x=None, y=None, size=Inches(1.25), caption="This lesson", dark=True):
     x = x if x is not None else SW - M - size
-    y = y if y is not None else SH - Inches(0.5) - size - Inches(0.3)
+    y = y if y is not None else SH - Inches(0.42) - size - Inches(0.50)
     slug = QR_FOR_BLOCK[block]
     rrect(s, x - Inches(0.06), y - Inches(0.06), size + Inches(0.12), size + Inches(0.12), WHITE, None, 0.06)
     picture(s, qr_png(slug), x, y, size, size)
-    text(s, x - Inches(0.3), y + size + Inches(0.06), size + Inches(0.6), Inches(0.25), caption, size=10,
+    text(s, x - Inches(0.3), y + size + Inches(0.06), size + Inches(0.6), Inches(0.22), caption, size=10,
          color=WHITE if dark else FG2, bold=True, align=PP_ALIGN.CENTER, inset=0, spacing=1.0, space_after=0)
+    clock_field(s, x - Inches(0.3), y + size + Inches(0.26), size + Inches(0.6), Inches(0.24),
+                size=14, color=WHITE if dark else BRAND)
 
 
 def section(block, title=None, sub=None):
     col, name, t = BLOCK[block]
-    s = new_slide(chrome=False)
+    s = new_slide(block=block, chrome=False)
     rect(s, 0, 0, SW, SH, BRAND)
     rect(s, 0, SH - Inches(0.12), SW, Inches(0.12), MAGENTA)
     rect(s, M, Inches(1.2), Inches(0.9), Inches(0.9), rgb(col), shape=MSO_SHAPE.ROUNDED_RECTANGLE, radius=0.2)
@@ -429,7 +508,8 @@ def section(block, title=None, sub=None):
 
 
 def statement(title, meta=None, kicker=None, block=None, small=False):
-    s = new_slide(chrome=False)
+    b = CURRENT_BLOCK if block is None else block
+    s = new_slide(block=b, chrome=False)
     rect(s, 0, 0, SW, SH, BRAND)
     rect(s, 0, SH - Inches(0.12), SW, Inches(0.12), MAGENTA)
     if kicker:
@@ -438,6 +518,8 @@ def statement(title, meta=None, kicker=None, block=None, small=False):
          bold=True, inset=0, spacing=1.05, mark=YELLOW, anchor=MSO_ANCHOR.MIDDLE)
     if meta:
         text(s, M, Inches(5.4), SW - 2 * M - Inches(1), Inches(1.2), meta, size=20, color=rgb("#C5D3EE"), inset=0)
+    if b is not None:
+        chrome_qr(s, b)
     return s
 
 
@@ -471,6 +553,7 @@ def cover():
     text(s, bx + Inches(2.0), by + Inches(0.75), Inches(2.2), Inches(1.1),
          "Open your phone camera and scan to bookmark the companion site. Every demo in this deck is there, runnable at home.",
          size=11, color=FG2, inset=0)
+    clock_field(s, bx, by + bh + Inches(0.04), bw, Inches(0.30), size=16, color=BRAND)
     # hero picture on the right
     picture(s, ROOT / "assets/img/android-chrome-512x512.png", SW - M - Inches(3.2), Inches(0.9), Inches(2.8), Inches(2.8))
 
@@ -1551,7 +1634,7 @@ def block9():
     s = new_slide(block=9)
     y = heading(s, "This becomes a new language on the ward.", "Words the hospital does not have yet", block=9)
     text(s, M, y, Inches(5), Inches(1.0), "Administration may not know these words. The work will, soon.", size=16, color=FG2, inset=0)
-    rows = [["", ""], ["Old question", "Which consultant owns this child?"], ["New question", "Which agent owns this task — and who supervises it?"],
+    rows = [["", ""], ["Old question", "Which consultant is the primary for this patient?"], ["New question", "Which agent owns this task — and who supervises it?"],
             ["Old meeting", "Morbidity and mortality."], ["New meeting", "The same room, with the agent’s log on the table."]]
     fills = {(2, 0): BG2, (2, 1): BG2, (4, 0): BG2, (4, 1): BG2}
     table(s, M + Inches(5.4), y, SW - M - M - Inches(5.4), [1, 2.4], rows[1:], header=False, size=14, row_h=Inches(0.75), first_col_bold=True, cell_fills=fills, zebra=False)
@@ -1630,7 +1713,8 @@ def closing():
     bx = SW - M - Inches(3.4)
     rrect(s, bx - Inches(0.15), Inches(1.4), Inches(3.7), Inches(4.4), WHITE, None, 0.06)
     picture(s, BUILD / "qr-home.png", bx, Inches(1.55), Inches(3.4), Inches(3.4))
-    text(s, bx, Inches(5.0), Inches(3.4), Inches(0.7), "Scan to open the site.\nSave to your home screen.", size=13, color=FG, bold=True, align=PP_ALIGN.CENTER, inset=0)
+    text(s, bx, Inches(5.0), Inches(3.4), Inches(0.48), "Scan to open the site.\nSave to your home screen.", size=13, color=FG, bold=True, align=PP_ALIGN.CENTER, inset=0)
+    clock_field(s, bx, Inches(5.48), Inches(3.4), Inches(0.28), size=16, color=BRAND)
     text(s, M, SH - Inches(0.6), Inches(9), Inches(0.35), "Iyad Sultan, MD · King Hussein Cancer Center · SIOP 2026, San Antonio", size=11, color=rgb("#C5D3EE"), inset=0)
 
 
